@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -26,6 +27,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(":data")
+    implementation project(":remote")
 
     implementation "androidx.appcompat:appcompat:$libraries.androidX"
     implementation "androidx.core:core-ktx:$libraries.androidX"
@@ -35,9 +37,17 @@ dependencies {
 
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$libraries.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$libraries.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$libraries.retrofit"
+    implementation "com.squareup.okhttp3:okhttp:$libraries.okHttp"
 
     //rxjava
     implementation "io.reactivex.rxjava2:rxjava:$libraries.rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$libraries.rxAndroid"
+
+    //dagger
+    implementation "com.google.dagger:dagger:$libraries.dagger"
+    kapt "com.google.dagger:dagger-compiler:$libraries.dagger"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

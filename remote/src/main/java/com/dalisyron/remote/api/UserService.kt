@@ -14,4 +14,8 @@ interface UserService {
 
     @POST
     fun register(@Body userRegisterItemDto: UserRegisterItemDto) : Single<UserRegisterResponseDto>
+
+    companion object {
+        const val BASE_URL : String = "api.com"
+    }
 }
