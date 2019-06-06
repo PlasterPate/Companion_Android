@@ -18,7 +18,7 @@ class UserRepository(private val userRemoteDataSource: UserRemoteDataSource,
         return userRemoteDataSource.register(userRegisterInfoEntity)
     }
 
-    fun getUser() : Single<String?> {
+    fun getUser() : Single<String> {
         return userLocalDataSource.getUser()
     }
 }

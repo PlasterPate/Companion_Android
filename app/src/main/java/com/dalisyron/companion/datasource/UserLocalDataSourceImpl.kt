@@ -6,9 +6,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class UserLocalDataSourceImpl(private val sharedPreferences: SharedPreferences) : UserLocalDataSource {
-    override fun getUser() : Single<String?> {
-        val userEmail : String? = sharedPreferences.getString(USER_EMAIL_KEY, null)
-        return Single.just(userEmail)
+    override fun getUser() : Single<String> {
+        return Single.just(sharedPreferences.getString(USER_EMAIL_KEY, ""))
     }
 
     companion object {
