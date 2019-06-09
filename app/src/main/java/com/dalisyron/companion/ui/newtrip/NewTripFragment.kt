@@ -34,10 +34,10 @@ class NewTripFragment : Fragment() {
         mapView.onCreate(savedInstanceState)
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 123)
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 123)
         } else {
             initMap()
         }
