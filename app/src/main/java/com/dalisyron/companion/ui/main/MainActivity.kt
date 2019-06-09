@@ -7,9 +7,10 @@ import com.dalisyron.companion.R
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.login.LoginFragment
 import com.dalisyron.data.repository.UserRepository
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     @Inject
     lateinit var userRepository : UserRepository
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        CompanionApp.component.inject(this)
         setContentView(R.layout.activity_main)
         presenter.onCreate()
     }

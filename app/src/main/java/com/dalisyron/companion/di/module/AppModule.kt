@@ -7,11 +7,11 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AppModule(val companionApp: CompanionApp) {
+class AppModule {
 
     @Provides
-    fun providesContext() : Context {
-        return companionApp.applicationContext
+    fun providesContext(app : CompanionApp) : Context {
+        return app.applicationContext
     }
 
     @Provides

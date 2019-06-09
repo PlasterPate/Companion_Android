@@ -1,21 +1,13 @@
 package com.dalisyron.companion
 
-import android.app.Application
-import com.dalisyron.companion.di.component.AppComponent
 import com.dalisyron.companion.di.component.DaggerAppComponent
-import com.dalisyron.companion.di.module.AppModule
-import dagger.Component
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
-class CompanionApp : Application() {
+class CompanionApp : DaggerApplication() {
 
-    override fun onCreate() {
-        super.onCreate()
-        component = DaggerAppComponent.builder().appModule(AppModule(this)).build()
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.factory().create(this)
     }
 
-    companion object {
-        lateinit var component : AppComponent
-
-        var userEmail : String? = null
-    }
 }
