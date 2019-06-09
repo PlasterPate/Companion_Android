@@ -72,7 +72,7 @@ class NewTripFragment : Fragment() {
         // position on right bottom
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
-        layoutParams.setMargins(0, 0, 30, 30)
+        layoutParams.setMargins(0, 0, 30, 200)
 
         mapView.getMapAsync { googleMap ->
             googleMap.isMyLocationEnabled = true
