@@ -35,6 +35,11 @@ dependencies {
     //UI
     implementation "androidx.constraintlayout:constraintlayout:$libraries.constraintLayout"
 
+    //lifecycle
+    def lifecycle_version = "2.0.0"
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$libraries.retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$libraries.retrofit"
@@ -56,4 +61,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.google.android.material:material:1.0.0'
 }
