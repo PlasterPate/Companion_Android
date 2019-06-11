@@ -9,7 +9,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.dalisyron.companion"
-        minSdkVersion 19
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
