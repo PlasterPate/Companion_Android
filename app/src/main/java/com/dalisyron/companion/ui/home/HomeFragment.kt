@@ -1,9 +1,12 @@
 package com.dalisyron.companion.ui.home
 
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.VideoView
 import androidx.fragment.app.Fragment
 import com.dalisyron.companion.R
 import dagger.android.support.DaggerFragment
@@ -14,4 +17,18 @@ class HomeFragment : DaggerFragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+
+    @Override
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val mVideoView = view.findViewById(R.id.home_video_view) as VideoView
+
+        val uri = Uri.parse("android.resource://" + requireContext().getPackageName() + "/" + R.raw.out)
+
+        mVideoView.setVideoURI(uri)
+        mVideoView.start()
+
+        mVideoView.setOnPreparedListener(MediaPlayer.OnPreparedListener { mediaPlayer -> mediaPlayer.isLooping = true })
+    }
 }
