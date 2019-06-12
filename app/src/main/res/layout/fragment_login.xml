@@ -18,14 +18,14 @@
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+            app:layout_constraintBottom_toTopOf="@+id/card_view_login"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,7 @@
             android:layout_marginEnd="8dp"
             android:background="@color/White"
             app:cardCornerRadius="16dp"
-            android:id="@+id/materialCardView"
+            android:id="@+id/card_view_login"
             app:cardElevation="8dp"
             app:cardMaxElevation="12dp"
             android:outlineSpotShadowColor="@color/Black"
@@ -45,14 +45,14 @@
 
 
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/email_text_input"
-                    android:layout_width="379dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/phone_number"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
@@ -75,7 +75,7 @@
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/password_text_input"
                     style="@style/TextInputLayout"
-                    android:layout_width="379dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
@@ -137,7 +137,7 @@
             android:text="@string/register"
             android:textSize="16dp"
             android:textColor="@color/White"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+            app:layout_constraintTop_toBottomOf="@+id/card_view_login"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
