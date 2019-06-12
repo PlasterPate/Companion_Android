@@ -6,6 +6,7 @@ import com.dalisyron.companion.CompanionApp
 import com.dalisyron.companion.R
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.login.LoginFragment
+import com.dalisyron.companion.ui.register.RegisterFragment
 import com.dalisyron.data.repository.UserRepository
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -35,7 +36,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     override fun navigateToLogin() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, LoginFragment())
+            .replace(R.id.content_frame, RegisterFragment())
             .commit()
     }
 }
