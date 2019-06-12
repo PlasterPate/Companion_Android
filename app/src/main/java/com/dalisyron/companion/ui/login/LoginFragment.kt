@@ -25,7 +25,7 @@ class LoginFragment : DaggerFragment() {
 
         val mVideoView = view.findViewById(R.id.login_video_view) as VideoView
 
-        val uri = Uri.parse("android.resource://" + requireContext().getPackageName() + "/" + R.raw.giphy)
+        val uri = Uri.parse("android.resource://" + requireContext().getPackageName() + "/" + R.raw.out)
 
         mVideoView.setVideoURI(uri)
         mVideoView.start()
