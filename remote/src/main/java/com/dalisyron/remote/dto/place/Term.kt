@@ -1,0 +1,11 @@
+package com.dalisyron.remote.dto.place
+
+
+import com.google.gson.annotations.SerializedName
+
+data class Term(
+    @SerializedName("offset")
+    val offset: Int,
+    @SerializedName("value")
+    val value: String
+)

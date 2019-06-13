@@ -1,12 +1,12 @@
 package com.dalisyron.data.repository
 
 import com.dalisyron.data.datasource.PlaceRemoteDataSource
-import com.dalisyron.data.model.PlaceEntity
+import javax.inject.Inject
 
-class PlaceRepository(private val placeRemoteDataSource : PlaceRemoteDataSource) {
 
-    fun getAutoCompletePlaces(searchText : String) : List<PlaceEntity> {
-        return placeRemoteDataSource.getAutoCompletePlaces(searchText)
+class PlaceRepository @Inject constructor(private val placeRemoteDataSource: PlaceRemoteDataSource) {
+
+    fun getAutoCompletePlaces(input : String, key : String) : Single<>{
+        return
     }
-
 }
