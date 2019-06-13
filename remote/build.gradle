@@ -10,4 +10,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$libraries.retrofit"
     implementation "com.squareup.okhttp3:okhttp:$libraries.okHttp"
     implementation project(':data')
+
+    //places api
+    implementation 'com.google.android.gms:play-services-places:16.1.0'
+
 }
