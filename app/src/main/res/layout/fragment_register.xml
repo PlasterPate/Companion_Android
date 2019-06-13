@@ -6,7 +6,8 @@
                                                    android:layout_height="match_parent"
                                                    android:background="@color/twitterBlue"
                                                    android:orientation="vertical"
-                                                   android:layout_gravity="center|center_vertical">
+                                                   android:layout_gravity="center|center_vertical"
+                                                   android:id="@+id/register_fragment">
 
     <VideoView
             android:layout_width="match_parent"

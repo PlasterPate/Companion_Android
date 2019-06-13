@@ -6,7 +6,10 @@
                                                    android:layout_height="match_parent"
                                                    android:background="@color/twitterBlue"
                                                    android:orientation="vertical"
-                                                   android:layout_gravity="center|center_vertical">
+                                                   android:layout_gravity="center|center_vertical"
+                                                   android:id="@+id/login_fragment"
+                                                   tools:context=".ui.main.MainActivity"
+                                                   android:theme="@style/AppTheme">
 
 
     <VideoView
@@ -120,7 +123,6 @@
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="8dp"
                     android:textColor="@color/Blue"/>
-
 
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/login"

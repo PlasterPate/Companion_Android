@@ -29,14 +29,16 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     }
 
     override fun navigateToHome() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, HomeFragment())
-            .commit()
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.test,R.anim.test)
+        fragmentTransaction.replace(R.id.content_frame, HomeFragment())
+        .commit()
     }
 
     override fun navigateToLogin() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, LoginFragment())
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.test,R.anim.test)
+        fragmentTransaction.replace(R.id.content_frame, LoginFragment())
             .commit()
     }
 }

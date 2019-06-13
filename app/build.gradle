@@ -31,10 +31,15 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:$libraries.androidX"
     implementation "androidx.core:core-ktx:$libraries.androidX"
+    annotationProcessor 'com.google.auto.value:auto-value:1.4'
+    compileOnly 'com.jakewharton.auto.value:auto-value-annotations:1.4'
+    annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
 
     //UI
     implementation "androidx.constraintlayout:constraintlayout:$libraries.constraintLayout"
     implementation "com.android.support:cardview-v7:28.0.0"
+    implementation "com.github.traex.rippleeffect:library:1.3"
+    implementation 'com.vincan:circularrevealcompat:1.0.0'
 
     //lifecycle
     def lifecycle_version = "2.0.0"
