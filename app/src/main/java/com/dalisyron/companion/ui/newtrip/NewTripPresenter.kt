@@ -9,7 +9,7 @@ class NewTripPresenter : NewTripContract.Presenter {
     lateinit var view : NewTripContract.View
 
     override fun onPinLocked(source : LatLng, destination : LatLng) {
-        val average = LatLng((source.latitude + destination.latitude) / 2, (source.longitude + destination.longitude))
+        val average = LatLng((source.latitude + destination.latitude) / 2, (source.longitude + destination.longitude) / 2)
         view.moveCamera(average)
         view.zoomOutMap()
     }

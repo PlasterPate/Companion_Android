@@ -58,6 +58,7 @@ class NewTripFragment : Fragment(), NewTripContract.View {
             mapView.getMapAsync { googleMap ->
                 val destinationLocation = googleMap.cameraPosition.target
                 val locationManager = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
+
                 val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
 
                 val sourceLocation = LatLng(location.latitude, location.longitude)
