@@ -22,12 +22,14 @@ import android.app.Activity
 import android.animation.AnimatorListenerAdapter
 import android.opengl.ETC1.getHeight
 import android.opengl.ETC1.getWidth
+import android.annotation.TargetApi
+import android.view.View.OnLayoutChangeListener
+
+
 
 
 class HomeFragment : DaggerFragment() {
 
-    val EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X"
-    val EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y"
 
     lateinit var rootLayout: View
 
@@ -35,6 +37,9 @@ class HomeFragment : DaggerFragment() {
     private var revealY: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+
+
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
