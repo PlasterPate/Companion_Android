@@ -1,6 +1,7 @@
 package com.dalisyron.companion.ui.register
 
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.AsyncTask
@@ -53,7 +54,7 @@ class RegisterFragment : DaggerFragment() {
                     override fun onPostExecute(result: String?) {
                         if(result.equals("Done")){
                             Toast.makeText(this@RegisterFragment.context,"This is it", Toast.LENGTH_SHORT).show()
-                            register_button.doneLoadingAnimation(R.color.White, BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
+                            register_button.doneLoadingAnimation(Color.parseColor("#008000"), BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
                         }
                     }
                 }

@@ -9,6 +9,7 @@ import android.media.MediaPlayer
 import android.view.*
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.AsyncTask
 import android.widget.Toast
 
@@ -52,7 +53,7 @@ class LoginFragment : DaggerFragment() {
                     override fun onPostExecute(result: String?) {
                         if(result.equals("Done")){
                             Toast.makeText(this@LoginFragment.context,"This is it",Toast.LENGTH_SHORT).show()
-                            btn.doneLoadingAnimation(R.color.White,BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
+                            btn.doneLoadingAnimation(Color.parseColor("#008000"),BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
                         }
                     }
                 }
