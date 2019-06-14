@@ -9,29 +9,9 @@ import android.widget.VideoView
 import com.dalisyron.companion.R
 import dagger.android.support.DaggerFragment
 import android.media.MediaPlayer
-import android.view.ViewAnimationUtils
-import android.animation.Animator
-import android.os.Build
-import android.annotation.TargetApi
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Button
-import androidx.fragment.app.Fragment
-import com.dalisyron.companion.ui.home.HomeFragment
-import com.dalisyron.companion.ui.main.MainActivity
-import com.google.android.material.button.MaterialButton
-import kotlinx.android.synthetic.main.fragment_home.*
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import com.vincan.circularrevealcompat.ViewAnimationCompatUtils
-
-
 
 
 class LoginFragment : DaggerFragment() {
-
-    lateinit var enterbtn: MaterialButton
-    lateinit var revealView: View
-    lateinit var touchView: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
@@ -50,6 +30,6 @@ class LoginFragment : DaggerFragment() {
         mVideoView.start()
 
         mVideoView.setOnPreparedListener(MediaPlayer.OnPreparedListener { mediaPlayer -> mediaPlayer.isLooping = true })
-        
+
     }
 }
