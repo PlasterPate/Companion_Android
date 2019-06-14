@@ -8,8 +8,9 @@ import com.dalisyron.data.model.UserRegisterResponseEntity
 import com.dalisyron.remote.api.UserService
 import com.dalisyron.remote.mappers.*
 import io.reactivex.Single
+import javax.inject.Inject
 
-class UserRemoteDataSourceImpl(private val userService: UserService) : UserRemoteDataSource {
+class UserRemoteDataSourceImpl @Inject constructor(private val userService: UserService) : UserRemoteDataSource {
     override fun login(userLoginInfoEntity: UserLoginInfoEntity): Single<UserLoginResponseEntity> {
         return userService.login(userLoginInfoEntity.toUserLoginInfoDto()).map {
             it.toUserLoginResponseEntity()
