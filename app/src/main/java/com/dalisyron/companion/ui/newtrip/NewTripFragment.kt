@@ -63,7 +63,7 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     }
 
     override fun disableStartTripBtn() {
-        startTripBtn.isEnabled = true
+        start_trip_button.isEnabled = true
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
