@@ -50,13 +50,13 @@
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="#668C8C8C"
+            android:backgroundTint="@color/card_view"
             app:cardCornerRadius="32dp"
             android:id="@+id/card_view_login"
             app:cardElevation="8dp"
             app:cardMaxElevation="12dp"
-            android:outlineSpotShadowColor="@color/Black"
-            android:outlineAmbientShadowColor="@color/Black">
+            android:outlineSpotShadowColor="@android:color/transparent"
+            android:outlineAmbientShadowColor="@android:color/transparent">
 
 
         <LinearLayout
