@@ -35,7 +35,6 @@ class LoginFragment : DaggerFragment() {
     lateinit var btn: CircularProgressButton
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -62,7 +61,7 @@ class LoginFragment : DaggerFragment() {
             override fun onClick(v: View?) {
                 class doAsync(val handler: () -> Unit) : AsyncTask<String, String, String>() {
                     override fun doInBackground(vararg params: String?): String? {
-                        Thread.sleep(3000)
+                        Thread.sleep(500)
                         return "Done"
                     }
 
