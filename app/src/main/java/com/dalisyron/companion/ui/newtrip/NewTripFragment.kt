@@ -29,7 +29,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
+import com.google.maps.android.SphericalUtil
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -66,12 +68,46 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         startTripBtn.isEnabled = true
     }
 
+    override fun showCurvedPolyline(src: LatLng, dest: LatLng, curve: Double, googleMap: GoogleMap) {
+        val distance = SphericalUtil.computeDistanceBetween(src, dest)
+        val heading = SphericalUtil.computeHeading(src, dest)
+
+    //Midpoint position
+        val midPoint = SphericalUtil.computeOffset(src, distance*0.5, heading)
+
+        //Apply some mathematics to calculate position of the circle center
+        val x : Double = (1-curve*curve)*distance*0.5/(2*curve)
+        val r : Double = (1+curve*curve)*distance*0.5/(2*curve)
+
+        val c = SphericalUtil.computeOffset(midPoint, x, heading + 90.0)
+
+        //Polyline options
+        val options = PolylineOptions()
+
+        //Calculate heading between circle center and two points
+        val h1 : Double = SphericalUtil.computeHeading(c, src)
+        val h2 : Double = SphericalUtil.computeHeading(c, dest)
+
+        //Calculate positions of points on circle border and add them to polyline options
+        val numpoints = 1000
+        val step = (h2 -h1) / numpoints
+
+        for (i in 0..numpoints)
+            options.add(SphericalUtil.computeOffset(c, r, h1 + i * step))
+
+        //googleMap.addPolyline(PolylineOptions().width())
+        googleMap.addPolyline(options
+            .width(5f)
+            .color(Color.BLACK)
+            .geodesic(false))
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_new_trip, container, false)
     }
 
 
-    val presenter: NewTripPresenter by lazy {
+    private val presenter: NewTripPresenter by lazy {
         NewTripPresenter().apply {
             view = this@NewTripFragment
         }
@@ -105,7 +141,7 @@ class NewTripFragment : Fragment(), NewTripContract.View {
                     destinationLocation
                 val markerIcon = vectorToBitmap(R.drawable.ic_map_pin)
 
-                presenter.onPinLocked(sourceLocation, destinationLocation)
+                presenter.onPinLocked(sourceLocation, destinationLocation, googleMap)
                 googleMap.addMarker(MarkerOptions()
                     .position(destinationLocation)
                     .title("مقصد")

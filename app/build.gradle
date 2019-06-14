@@ -63,6 +63,8 @@ dependencies {
     //google-play-services-maps
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
 
+    compile 'com.google.maps.android:android-maps-utils:0.5'
+
     //permissions
 
     testImplementation 'junit:junit:4.12'
