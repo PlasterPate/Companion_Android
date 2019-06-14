@@ -77,6 +77,7 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         }
     }
 
+    @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -88,13 +89,21 @@ class NewTripFragment : Fragment(), NewTripContract.View {
 
                 val locationManager = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
 
-                val location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
-                //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000, 1, LocationListener())
+                val location = when {
+                    locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ->
+                        locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+
+                    locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ->
+                        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+                    else -> locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
+                }
+
                 val sourceLocation : LatLng = if(location != null)
                     LatLng(location.latitude, location.longitude)
                 else
                     destinationLocation
-                val markerIcon = vectorToBitmap(R.drawable.ic_destination_mark)
+                val markerIcon = vectorToBitmap(R.drawable.ic_map_pin)
 
                 presenter.onPinLocked(sourceLocation, destinationLocation)
                 googleMap.addMarker(MarkerOptions()
