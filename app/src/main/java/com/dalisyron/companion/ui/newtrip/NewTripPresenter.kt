@@ -9,13 +9,17 @@ class NewTripPresenter : NewTripContract.Presenter {
 
     lateinit var view : NewTripContract.View
 
-    override fun onPinLocked(source : LatLng, destination : LatLng, googleMap: GoogleMap) {
-        val average = LatLng((source.latitude + destination.latitude) / 2, (source.longitude + destination.longitude) / 2)
-        view.moveCamera(average)
-        view.zoomOutMap()
-        view.makePinInvisible()
-        view.disableStartTripBtn()
-        view.showCurvedPolyline(source, destination, .25, googleMap)
+    override fun onPinLocked(source : LatLng, destination : LatLng) {
+        view.showCurvedPolyline(source, destination, .5)
+        view.zoomOutMap(source, destination)
+        view.pinVisibility(false)
+        view.setStartTripBtnState(false)
     }
 
+    override fun onDestinationCancled(destination: LatLng) {
+        view.removeCurvedPolyline()
+        view.zoomInDestination(destination)
+        view.pinVisibility(true)
+        view.setStartTripBtnState(true)
+    }
 }

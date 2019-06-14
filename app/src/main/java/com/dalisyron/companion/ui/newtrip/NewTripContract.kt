@@ -10,15 +10,17 @@ import com.google.android.gms.maps.model.PolylineOptions
 interface NewTripContract {
 
     interface View {
-        fun zoomOutMap()
-        fun moveCamera(position : LatLng)
-        fun makePinInvisible()
+        fun zoomOutMap(source : LatLng, destination : LatLng)
+        fun zoomInDestination(destination: LatLng)
+        fun pinVisibility(visibility : Boolean)
         fun vectorToBitmap(drawableId : Int) : BitmapDescriptor
-        fun disableStartTripBtn()
-        fun showCurvedPolyline(src : LatLng, dest : LatLng, curve : Double, googleMap: GoogleMap)
+        fun setStartTripBtnState(state : Boolean)
+        fun showCurvedPolyline(src : LatLng, dest : LatLng, curve : Double)
+        fun removeCurvedPolyline()
     }
 
     interface Presenter {
-        fun onPinLocked(source : LatLng, destination : LatLng, googleMap: GoogleMap)
+        fun onPinLocked(source : LatLng, destination : LatLng)
+        fun onDestinationCancled(destination: LatLng)
     }
 }
