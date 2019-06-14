@@ -16,13 +16,21 @@ import androidx.fragment.app.Fragment
 import com.dalisyron.companion.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapsInitializer
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.fragment_new_trip.*
 import android.content.Context.LOCATION_SERVICE
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.location.LocationListener
+import android.location.LocationProvider
+import android.opengl.Visibility
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
-
-
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import com.google.android.gms.maps.model.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class NewTripFragment : Fragment(), NewTripContract.View {
@@ -36,6 +44,26 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         mapView.getMapAsync { googleMap ->
             googleMap.animateCamera(CameraUpdateFactory.zoomTo(12.0f));
         }
+    }
+
+    override fun makePinInvisible() {
+        pin.visibility = View.INVISIBLE
+    }
+
+    override fun vectorToBitmap(drawableId: Int) : BitmapDescriptor{
+        val drawable : Drawable? = ResourcesCompat.getDrawable(resources, drawableId, null)
+        val bitmap : Bitmap = Bitmap.createBitmap(drawable!!.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        DrawableCompat.setTint(drawable, Color.BLACK)
+        drawable.draw(canvas)
+
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+    override fun disableStartTripBtn() {
+        startTripBtn.isEnabled = true
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,16 +84,23 @@ class NewTripFragment : Fragment(), NewTripContract.View {
 
         pin.setOnClickListener {
             mapView.getMapAsync { googleMap ->
-                val destinationLocation = googleMap.cameraPosition.target
+                val destinationLocation = googleMap.projection.visibleRegion.latLngBounds.center
+
                 val locationManager = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
 
-                val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                val location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
+                //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000, 1, LocationListener())
+                val sourceLocation : LatLng = if(location != null)
+                    LatLng(location.latitude, location.longitude)
+                else
+                    destinationLocation
+                val markerIcon = vectorToBitmap(R.drawable.ic_destination_mark)
 
-                val sourceLocation = LatLng(location.latitude, location.longitude)
-
-                //val sourceLocation = LatLng(googleMap.myLocation.latitude, googleMap.myLocation.longitude)
-
-                presenter.onPinLocked(sourceLocation, sourceLocation)
+                presenter.onPinLocked(sourceLocation, destinationLocation)
+                googleMap.addMarker(MarkerOptions()
+                    .position(destinationLocation)
+                    .title("مقصد")
+                    .icon(markerIcon))
             }
         }
 

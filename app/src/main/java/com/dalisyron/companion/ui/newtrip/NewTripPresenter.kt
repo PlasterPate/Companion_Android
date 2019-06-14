@@ -12,5 +12,8 @@ class NewTripPresenter : NewTripContract.Presenter {
         val average = LatLng((source.latitude + destination.latitude) / 2, (source.longitude + destination.longitude) / 2)
         view.moveCamera(average)
         view.zoomOutMap()
+        view.makePinInvisible()
+        view.disableStartTripBtn()
     }
+
 }
