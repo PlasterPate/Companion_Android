@@ -23,9 +23,9 @@
             />
 
     <ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:background="@drawable/no_picture"
+            android:layout_width="319dp"
+            android:layout_height="81dp"
+            android:background="@drawable/logo"
             android:id="@+id/imageView"
             android:layout_gravity="center"
             android:layout_margin="8dp"
@@ -49,7 +49,7 @@
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
-            android:background="@color/White"
+            android:backgroundTint="@color/black_theme2"
             app:cardCornerRadius="16dp"
             android:id="@+id/card_view_login"
             app:cardElevation="8dp"
@@ -77,18 +77,20 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp">
+                    android:layout_marginEnd="8dp"
+                    android:textColorHint="@color/White">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/email_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"/>
+                        android:inputType="number"
+                        android:textColorHint="@color/White"
+                        android:backgroundTint="@color/White"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/password_text_input"
-                    style="@style/TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
@@ -100,13 +102,17 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp">
+                    android:layout_marginBottom="8dp"
+                    android:textColorHint="@color/White">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/password_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"/>
+                        android:inputType="textPassword"
+                        android:textColorHint="@color/White"
+                        android:backgroundTint="@color/White"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -118,9 +124,9 @@
                     android:layout_margin="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="32dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="32dp"
                     android:layout_marginBottom="8dp"
                     android:textColor="@color/Blue"/>
 

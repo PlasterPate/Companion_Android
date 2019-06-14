@@ -30,7 +30,7 @@
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
-            android:background="@color/White"
+            android:backgroundTint="@color/black_theme2"
             app:cardCornerRadius="16dp"
             android:id="@+id/card_view_signup"
             app:cardElevation="8dp"
@@ -67,91 +67,92 @@
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/name_text_input"
-                    style="@style/TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/name"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
                     android:layout_gravity="center|center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintHorizontal_bias="0.5"
-                    android:layout_marginBottom="8dp">
+                    android:textColorHint="@color/White"
+                    >
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/name_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"/>
+                        android:inputType="textPassword"
+                        android:textColorHint="@color/White"
+                        android:backgroundTint="@color/White"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/family_text_input"
-                    style="@style/TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/family"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
                     android:layout_gravity="center|center_vertical"
-                    android:layout_marginTop="8dp">
+                    android:textColorHint="@color/White">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/family_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"/>
+                        android:inputType="textPassword"
+                        android:backgroundTint="@color/White"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/phone_number_text_input"
-                    style="@style/TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/phone_number"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
                     android:layout_gravity="center|center_vertical"
-                    android:layout_marginTop="8dp">
+                    android:textColorHint="@color/White">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phone_number_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"/>
+                        android:inputType="textPassword"
+                        android:backgroundTint="@color/White"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/signup_password_text_input"
-                    style="@style/TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
                     android:layout_gravity="center|center_vertical"
-                    android:layout_marginTop="8dp">
+                    android:textColorHint="@color/White">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/signup_password_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"/>
+                        android:inputType="textPassword"
+                        android:backgroundTint="@color/White"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/repeat_password_text_input"
-                    style="@style/TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/repeatPassword"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
-                    android:layout_marginTop="8dp"
                     android:layout_gravity="center|center_vertical"
-                    app:layout_constraintHorizontal_bias="0.5">
+                    app:layout_constraintHorizontal_bias="0.5"
+                    android:textColorHint="@color/White">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/repeat_password_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"/>
+                        android:inputType="textPassword"
+                        android:textColorHint="@color/White"
+                        android:backgroundTint="@color/White"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -159,13 +160,12 @@
                     android:id="@+id/login"
                     style="@style/Button"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="64dp"
                     android:text="@string/sign_up"
                     app:cornerRadius="16dp"
                     android:textColor="@color/Black"
                     android:textSize="16sp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_gravity="center|center_vertical"
                     app:layout_constraintHorizontal_bias="0.5"/>
         </LinearLayout>

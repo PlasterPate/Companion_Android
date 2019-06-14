@@ -22,7 +22,7 @@
     </style>
 
     <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
-    <item name="android:textColor">@color/twitterBlue</item>
+    <item name="android:textColor">@color/yellow_theme2</item>
     </style>
 
     <style name="AppTheme.FloatingAccentButtonOverlay" >
