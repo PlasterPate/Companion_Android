@@ -6,7 +6,7 @@ import com.dalisyron.companion.CompanionApp
 import com.dalisyron.companion.R
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.login.LoginFragment
-import com.dalisyron.companion.ui.search.SearchFragment
+import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import com.dalisyron.data.repository.UserRepository
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -25,7 +25,11 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter.onCreate()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.content_frame, NewTripFragment())
+            .commit()
+
+        //presenter.onCreate()
     }
 
     override fun navigateToHome() {
@@ -36,7 +40,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     override fun navigateToLogin() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, SearchFragment())
+            .replace(R.id.content_frame, NewTripFragment())
             .commit()
     }
 }

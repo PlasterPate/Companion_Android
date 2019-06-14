@@ -1,28 +1,15 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/twitterBlue</item>
-        <item name="colorPrimaryDark">#0087FF</item>
-        <item name="colorAccent">@color/twitterBlue</item>
-    </style>
-
-    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="boxBackgroundColor">@color/White</item>
-        <item name="android:colorFocusedHighlight">@color/twitterBlue</item>
-        <item name="android:colorControlActivated">@color/twitterBlue</item>
-        <item name="android:colorActivatedHighlight">@color/twitterBlue</item>
-        <item name="android:colorControlNormal">@color/twitterBlue</item>
-        <!--<item name="android:paddingBottom">-8dp</item>-->
+        <item name="colorPrimary">@color/black_theme_dark2</item>
+        <item name="colorPrimaryDark">@color/black_theme_darker2</item>
+        <item name="colorAccent">@color/yellow_theme2</item>
     </style>
 
     <style name="Button" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@color/twitterBlue</item>
-    </style>
-
-    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
-    <item name="android:textColor">@color/twitterBlue</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
 </resources>
