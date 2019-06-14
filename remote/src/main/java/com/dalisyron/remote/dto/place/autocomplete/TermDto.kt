@@ -1,9 +1,9 @@
-package com.dalisyron.remote.dto.place
+package com.dalisyron.remote.dto.place.autocomplete
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Term(
+data class TermDto(
     @SerializedName("offset")
     val offset: Int,
     @SerializedName("value")

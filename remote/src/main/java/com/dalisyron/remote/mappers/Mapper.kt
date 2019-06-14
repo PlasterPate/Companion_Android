@@ -1,9 +1,7 @@
 package com.dalisyron.remote.mappers
 
-import com.dalisyron.data.model.UserLoginInfoEntity
-import com.dalisyron.data.model.UserLoginResponseEntity
-import com.dalisyron.data.model.UserRegisterInfoEntity
-import com.dalisyron.data.model.UserRegisterResponseEntity
+import com.dalisyron.data.model.*
+import com.dalisyron.remote.dto.place.detail.PlaceDetailDto
 import com.dalisyron.remote.dto.user.UserLoginItemDto
 import com.dalisyron.remote.dto.user.UserLoginResponseDto
 import com.dalisyron.remote.dto.user.UserRegisterItemDto
@@ -43,3 +41,12 @@ fun UserRegisterResponseDto.toUserRegisterResponseEntity(): UserRegisterResponse
         error = error?.message
     )
 }
+
+fun PlaceDetailDto.toPlaceEntity() : PlaceEntity {
+    return PlaceEntity(
+        description = name,
+        lat = geometry.location.lat,
+        lng = geometry.location.lng
+    )
+}
+

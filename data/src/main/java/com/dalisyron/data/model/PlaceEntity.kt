@@ -1,3 +1,7 @@
 package com.dalisyron.data.model
 
-data class PlaceEntity (val lat: Float, val lng: Float)
+data class PlaceEntity (
+    val description: String,
+    val lat: Double,
+    val lng: Double
+)

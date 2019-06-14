@@ -16,7 +16,8 @@ import dagger.android.AndroidInjector
     HomeModule::class,
     NetworkModule::class,
     ActivityModule::class,
-    FragmentsModule::class
+    FragmentsModule::class,
+    DataModule::class
 ])
 interface AppComponent : AndroidInjector<CompanionApp> {
 

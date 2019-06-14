@@ -1,9 +1,9 @@
-package com.dalisyron.remote.dto.place
+package com.dalisyron.remote.dto.place.autocomplete
 
 
 import com.google.gson.annotations.SerializedName
 
-data class MatchedSubstring(
+data class MainTextMatchedSubstringDto(
     @SerializedName("length")
     val length: Int,
     @SerializedName("offset")

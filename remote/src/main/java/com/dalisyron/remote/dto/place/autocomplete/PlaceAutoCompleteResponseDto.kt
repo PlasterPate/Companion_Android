@@ -1,11 +1,11 @@
-package com.dalisyron.remote.dto.place
+package com.dalisyron.remote.dto.place.autocomplete
 
 
 import com.google.gson.annotations.SerializedName
 
-data class PlaceAutoCompeleteResponseDto(
+data class PlaceAutoCompleteResponseDto(
     @SerializedName("predictions")
-    val predictions: List<Prediction>,
+    val items: List<PlaceAutoCompleteDto>,
     @SerializedName("status")
     val status: String
 )
