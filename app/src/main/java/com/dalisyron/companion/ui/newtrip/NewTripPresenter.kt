@@ -7,6 +7,14 @@ import com.google.android.gms.maps.model.LatLng
 
 class NewTripPresenter : NewTripContract.Presenter {
 
+    override fun onReturnFromSearch(searchItemLocation: LatLng?) {
+        println("In presenter with $searchItemLocation")
+        searchItemLocation?.let {
+            view.moveCamera(it)
+            view.zoomPlace()
+        }
+    }
+
     lateinit var view : NewTripContract.View
 
     override fun onPinLocked(source : LatLng, destination : LatLng, googleMap: GoogleMap) {

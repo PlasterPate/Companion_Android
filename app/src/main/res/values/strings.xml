@@ -2,4 +2,16 @@
     <string name="app_name">Companion</string>
     <string name="title_activity_maps">Map</string>
     <string name="start_new_trip">شروع سفر جدید</string>
+    <string name="password">رمز عبور</string>
+    <string name="phone_number">شماره موبایل</string>
+    <string name="enter">ورود</string>
+    <string name="name">نام</string>
+    <string name="family">نام خانوادگی</string>
+    <string name="email">ایمیل</string>
+    <string name="repeatPassword">تکرار رمز عبور</string>
+    <string name="sign_up">ثبت نام</string>
+    <string name="new_to_companion">کاربر جدید هستید؟  </string>
+    <string name="register">ثبت نام کنید</string>
+    <string name="forgot_password">فراموشی رمز؟</string>
+    <string name="watching_trips">سفرهای تحت مراقبت</string>
 </resources>

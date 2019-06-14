@@ -21,7 +21,7 @@ interface PlaceService {
     fun getPlaceDetails(@Query("placeid") placeId : String, @Query("key") key : String, @Query("fields") fields : String = "name,geometry") : Single<PlaceDetailsResponseDto>
 
     companion object {
-        const val API_KEY = "AIzaSyDbqgzzskz921q3YJUPUUy0WIPgxLR4fIM"
+        const val API_KEY = "AIzaSyA3pYTnvZ9rcA3QvukMtDCesEscdwckqQg"
         const val BASE_URL = "https://maps.googleapis.com/maps/api/place/"
 
         fun create() : PlaceService {

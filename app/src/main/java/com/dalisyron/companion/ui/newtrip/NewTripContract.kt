@@ -16,9 +16,11 @@ interface NewTripContract {
         fun vectorToBitmap(drawableId : Int) : BitmapDescriptor
         fun disableStartTripBtn()
         fun showCurvedPolyline(src : LatLng, dest : LatLng, curve : Double, googleMap: GoogleMap)
+        fun zoomPlace()
     }
 
     interface Presenter {
         fun onPinLocked(source : LatLng, destination : LatLng, googleMap: GoogleMap)
+        fun onReturnFromSearch(searchItemLocation : LatLng?)
     }
 }

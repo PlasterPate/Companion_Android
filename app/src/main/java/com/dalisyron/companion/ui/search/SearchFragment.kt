@@ -1,34 +1,33 @@
 package com.dalisyron.companion.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.dalisyron.companion.R
 import com.dalisyron.companion.ui.home.HomeFragment
+import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import com.dalisyron.data.model.PlaceEntity
 import com.dalisyron.data.repository.PlaceRepository
-import com.dalisyron.data.repository.UserRepository
 import com.dalisyron.remote.api.PlaceService
-import com.dalisyron.remote.api.UserService
 import com.dalisyron.remote.datasource.PlaceRemoteDataSourceImpl
+import com.google.android.gms.maps.model.LatLng
 import dagger.android.support.DaggerFragment
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_search.*
 import javax.inject.Inject
 
 class SearchFragment : DaggerFragment(), SearchContract.View, OnSearchPlaceItemClickListener {
 
     override fun onItemClicked(placeEntity: PlaceEntity) {
-        Toast.makeText(requireContext(), placeEntity.toString(), Toast.LENGTH_LONG).show()
+        val location = LatLng(placeEntity.lat, placeEntity.lng)
+        fragmentManager?.beginTransaction()
+            ?.replace(
+                R.id.content_frame,
+                NewTripFragment.newInstance(location)
+            )?.commit()
     }
 
     override fun clearPlaces() {
@@ -41,11 +40,12 @@ class SearchFragment : DaggerFragment(), SearchContract.View, OnSearchPlaceItemC
     }
 
     @Inject
-    lateinit var presenter : SearchPresenter
+    lateinit var presenter: SearchPresenter
 
     private val adapter by lazy {
         SearchAdapter(this)
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
@@ -71,12 +71,12 @@ class SearchFragment : DaggerFragment(), SearchContract.View, OnSearchPlaceItemC
         println("Hello world")
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
-                presenter.onSearchQueryChanged(newText?:"")
+                presenter.onSearchQueryChanged(newText ?: "")
                 return true
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                presenter.onSearchSubmit(query?:"")
+                presenter.onSearchSubmit(query ?: "")
                 return true
             }
 
