@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -8,8 +8,31 @@
         <item name="colorAccent">@color/yellow_theme2</item>
     </style>
 
-    <style name="Button" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@android:color/black</item>
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/White</item>
+        <item name="android:colorFocusedHighlight">@color/twitterBlue</item>
+        <item name="android:colorControlActivated">@color/twitterBlue</item>
+        <item name="android:colorActivatedHighlight">@color/twitterBlue</item>
+        <item name="android:colorControlNormal">@color/twitterBlue</item>
+        <!--<item name="android:paddingBottom">-8dp</item>-->
     </style>
 
+    <style name="Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/twitterBlue</item>
+    </style>
+
+    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/twitterBlue</item>
+    </style>
+
+    <style name="AppTheme.FloatingAccentButtonOverlay" >
+        <item name="colorAccent">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.Transparent" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+    </style>
 </resources>

@@ -29,13 +29,28 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import com.dalisyron.companion.ui.search.SearchFragment
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_search.*
 
 
 class NewTripFragment : Fragment(), NewTripContract.View {
+
+    override fun zoomPlace() {
+        mapView.getMapAsync { googleMap ->
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
+        }
+    }
+
+    var searchItemLocation : LatLng? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        searchItemLocation = arguments?.getParcelable("latlng")
+    }
     override fun moveCamera(position : LatLng) {
         mapView.getMapAsync { googleMap ->
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
@@ -119,6 +134,18 @@ class NewTripFragment : Fragment(), NewTripContract.View {
 
         mapView.onCreate(savedInstanceState)
 
+
+        searchViewNewTrip.setOnClickListener {
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.content_frame, SearchFragment())
+                ?.commit()
+        }
+
+        searchEditText.setOnClickListener {
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.content_frame, SearchFragment())
+                ?.commit()
+        }
         pin.setOnClickListener {
             mapView.getMapAsync { googleMap ->
                 val destinationLocation = googleMap.projection.visibleRegion.latLngBounds.center
@@ -158,6 +185,9 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         } else {
             initMap()
         }
+
+        presenter.onReturnFromSearch(searchItemLocation)
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -223,5 +253,16 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
+    }
+
+    companion object {
+
+        fun newInstance(latLng: LatLng) : NewTripFragment {
+            return NewTripFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("latlng", latLng)
+                }
+            }
+        }
     }
 }
