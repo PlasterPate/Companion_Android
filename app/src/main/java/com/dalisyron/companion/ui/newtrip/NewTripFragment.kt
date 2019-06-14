@@ -65,7 +65,7 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     }
 
     override fun disableStartTripBtn() {
-        startTripBtn.isEnabled = true
+        start_trip_button.isEnabled = true
     }
 
     override fun showCurvedPolyline(src: LatLng, dest: LatLng, curve: Double, googleMap: GoogleMap) {
