@@ -61,7 +61,7 @@ class LoginFragment : DaggerFragment() {
             override fun onClick(v: View?) {
                 class doAsync(val handler: () -> Unit) : AsyncTask<String, String, String>() {
                     override fun doInBackground(vararg params: String?): String? {
-                        Thread.sleep(500)
+                        Thread.sleep(3000)
                         return "Done"
                     }
 
