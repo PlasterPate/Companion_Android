@@ -17,10 +17,13 @@ interface NewTripContract {
         fun setStartTripBtnState(state : Boolean)
         fun showCurvedPolyline(src : LatLng, dest : LatLng, curve : Double)
         fun removeCurvedPolyline()
+        fun zoomPlace()
+        fun moveCamera(position : LatLng)
     }
 
     interface Presenter {
         fun onPinLocked(source : LatLng, destination : LatLng)
         fun onDestinationCancled(destination: LatLng)
+        fun onReturnFromSearch(searchItemLocation : LatLng?)
     }
 }

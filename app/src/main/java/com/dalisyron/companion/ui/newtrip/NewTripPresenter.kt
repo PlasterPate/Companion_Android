@@ -9,6 +9,14 @@ class NewTripPresenter : NewTripContract.Presenter {
 
     lateinit var view : NewTripContract.View
 
+    override fun onReturnFromSearch(searchItemLocation: LatLng?) {
+        println("In presenter with $searchItemLocation")
+        searchItemLocation?.let {
+            view.moveCamera(it)
+            view.zoomPlace()
+        }
+    }
+
     override fun onPinLocked(source : LatLng, destination : LatLng) {
         view.showCurvedPolyline(source, destination, .5)
         view.zoomOutMap(source, destination)
@@ -22,4 +30,6 @@ class NewTripPresenter : NewTripContract.Presenter {
         view.pinVisibility(true)
         view.setStartTripBtnState(false)
     }
+
+
 }
