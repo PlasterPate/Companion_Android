@@ -1,5 +1,6 @@
 package com.dalisyron.companion.di.module
 
+import com.dalisyron.remote.api.PlaceService
 import com.dalisyron.remote.api.UserService
 import dagger.Module
 import dagger.Provides
@@ -27,6 +28,16 @@ class NetworkModule {
     @Provides
     fun providesUserService(retrofit: Retrofit) : UserService {
         return retrofit.create(UserService::class.java)
+    }
+
+    @Provides
+    fun providesPlaceService() : PlaceService {
+        return Retrofit.Builder()
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(PlaceService.BASE_URL)
+            .build()
+            .create(PlaceService::class.java)
     }
 
 }
