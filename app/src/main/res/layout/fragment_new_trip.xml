@@ -49,6 +49,7 @@
                     android:layout_marginStart="8dp"/>
 
             <EditText
+                    android:focusable="false"
                     android:id="@+id/searchEditText"
                     android:hint="Search..."
                     android:layout_width="0dp"

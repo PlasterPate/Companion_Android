@@ -19,11 +19,13 @@ interface NewTripContract {
         fun removeCurvedPolyline()
         fun zoomPlace()
         fun moveCamera(position : LatLng)
+        fun navigateToSearchFragment()
     }
 
     interface Presenter {
         fun onPinLocked(source : LatLng, destination : LatLng)
         fun onDestinationCancled(destination: LatLng)
         fun onReturnFromSearch(searchItemLocation : LatLng?)
+        fun onSearchBarClicked()
     }
 }
