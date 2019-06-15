@@ -1,5 +1,7 @@
 package com.dalisyron.companion.ui.login
 
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.VideoView
@@ -12,6 +14,8 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.AsyncTask
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.tfighiera.revealactivity.RevealActivity
 
 
 class LoginFragment : DaggerFragment() {
@@ -50,10 +54,12 @@ class LoginFragment : DaggerFragment() {
                         return "Done"
                     }
 
+
                     override fun onPostExecute(result: String?) {
                         if(result.equals("Done")){
                             Toast.makeText(this@LoginFragment.context,"This is it",Toast.LENGTH_SHORT).show()
                             btn.doneLoadingAnimation(Color.parseColor("#008000"),BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
+                            //startActivity(RevealActivity.newIntent(this@LoginFragment.context as Context,view))
                         }
                     }
                 }
