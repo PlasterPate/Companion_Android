@@ -3,7 +3,6 @@ package com.dalisyron.companion.ui.newtrip
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
@@ -22,49 +21,48 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.location.LocationListener
-import android.location.LocationProvider
-import android.opengl.Visibility
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import com.dalisyron.companion.ui.search.SearchFragment
+import com.google.android.gms.common.util.WorkSourceUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_search.*
+import java.lang.Math.abs
 
 
 class NewTripFragment : Fragment(), NewTripContract.View {
 
-    override fun zoomPlace() {
+    override fun zoomOutMap(source : LatLng, destination : LatLng) {
         mapView.getMapAsync { googleMap ->
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
+            val latDist = abs(source.latitude - destination.latitude)
+            val longDist = abs(source.longitude - destination.longitude)
+            val latMid = (source.latitude + destination.latitude)*0.5
+            val longMid = (source.longitude + destination.longitude)*0.5
+            val builder = LatLngBounds.builder()
+            val temp1 = LatLng(latMid + longDist*0.5, longMid - latDist*0.5)
+            val temp2 = LatLng(latMid - longDist*0.5, longMid + latDist*0.5)
+            builder.include(source)
+            builder.include(destination)
+            builder.include(temp1)
+            builder.include(temp2)
+            val bounds = builder.build()
+            val padding = 100
+            val cu = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+            googleMap.animateCamera(cu)
         }
     }
 
-    var searchItemLocation : LatLng? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        searchItemLocation = arguments?.getParcelable("latlng")
-    }
-    override fun moveCamera(position : LatLng) {
+    override fun zoomInDestination(destination: LatLng) {
         mapView.getMapAsync { googleMap ->
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(destination, 15.0f))
         }
     }
 
-    override fun zoomOutMap() {
-        mapView.getMapAsync { googleMap ->
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(12.0f));
+    override fun pinVisibility(visibility: Boolean) {
+        when(visibility){
+            true -> pin.visibility = View.VISIBLE
+            false -> pin.visibility = View.INVISIBLE
         }
-    }
-
-    override fun makePinInvisible() {
-        pin.visibility = View.INVISIBLE
     }
 
     override fun vectorToBitmap(drawableId: Int) : BitmapDescriptor{
@@ -79,22 +77,33 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
-    override fun disableStartTripBtn() {
-        start_trip_button.isEnabled = true
+    override fun setStartTripBtnState(state : Boolean) {
+        start_trip_button.isEnabled = state
     }
 
-    override fun showCurvedPolyline(src: LatLng, dest: LatLng, curve: Double, googleMap: GoogleMap) {
+    override fun showCurvedPolyline(src: LatLng, dest: LatLng, curve: Double) {
+//        //zoom first to draw a smoother line
+//        mapView.getMapAsync{googleMap ->
+//            googleMap.moveCamera(CameraUpdateFactory.zoomTo(21f))
+//        }
+
+        //Calculate distance and heading between two points
         val distance = SphericalUtil.computeDistanceBetween(src, dest)
         val heading = SphericalUtil.computeHeading(src, dest)
 
-    //Midpoint position
+        //Midpoint position
         val midPoint = SphericalUtil.computeOffset(src, distance*0.5, heading)
 
         //Apply some mathematics to calculate position of the circle center
         val x : Double = (1-curve*curve)*distance*0.5/(2*curve)
         val r : Double = (1+curve*curve)*distance*0.5/(2*curve)
 
-        val c = SphericalUtil.computeOffset(midPoint, x, heading + 90.0)
+        val ninety = if (src.longitude > dest.longitude)
+            -90
+        else
+            90
+
+        val c = SphericalUtil.computeOffset(midPoint, x, heading + ninety)
 
         //Polyline options
         val options = PolylineOptions()
@@ -104,17 +113,25 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         val h2 : Double = SphericalUtil.computeHeading(c, dest)
 
         //Calculate positions of points on circle border and add them to polyline options
-        val numpoints = 1000
-        val step = (h2 -h1) / numpoints
+        val numPoints = 10000
+        val step : Double = (h2 -h1) / numPoints
 
-        for (i in 0..numpoints)
+
+        for (i in 0..numPoints)
             options.add(SphericalUtil.computeOffset(c, r, h1 + i * step))
 
-        //googleMap.addPolyline(PolylineOptions().width())
-        googleMap.addPolyline(options
-            .width(5f)
-            .color(Color.BLACK)
-            .geodesic(false))
+        mapView.getMapAsync { googleMap ->
+            googleMap.addPolyline(options
+                .width(5f)
+                .color(Color.BLACK)
+                .geodesic(false))
+        }
+    }
+
+    override fun removeCurvedPolyline() {
+        mapView.getMapAsync { googleMap ->
+            googleMap.clear()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -134,18 +151,6 @@ class NewTripFragment : Fragment(), NewTripContract.View {
 
         mapView.onCreate(savedInstanceState)
 
-
-        searchViewNewTrip.setOnClickListener {
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.content_frame, SearchFragment())
-                ?.commit()
-        }
-
-        searchEditText.setOnClickListener {
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.content_frame, SearchFragment())
-                ?.commit()
-        }
         pin.setOnClickListener {
             mapView.getMapAsync { googleMap ->
                 val destinationLocation = googleMap.projection.visibleRegion.latLngBounds.center
@@ -168,11 +173,16 @@ class NewTripFragment : Fragment(), NewTripContract.View {
                     destinationLocation
                 val markerIcon = vectorToBitmap(R.drawable.ic_map_pin)
 
-                presenter.onPinLocked(sourceLocation, destinationLocation, googleMap)
+                presenter.onPinLocked(sourceLocation, destinationLocation)
                 googleMap.addMarker(MarkerOptions()
                     .position(destinationLocation)
                     .title("مقصد")
                     .icon(markerIcon))
+
+                googleMap.setOnMarkerClickListener {
+                    presenter.onDestinationCancled(destinationLocation)
+                    false
+                }
             }
         }
 
@@ -185,9 +195,6 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         } else {
             initMap()
         }
-
-        presenter.onReturnFromSearch(searchItemLocation)
-
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -253,16 +260,5 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
-    }
-
-    companion object {
-
-        fun newInstance(latLng: LatLng) : NewTripFragment {
-            return NewTripFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable("latlng", latLng)
-                }
-            }
-        }
     }
 }
