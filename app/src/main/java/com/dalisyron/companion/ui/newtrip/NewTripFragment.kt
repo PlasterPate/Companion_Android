@@ -257,10 +257,11 @@ class NewTripFragment : Fragment(), NewTripContract.View {
 
     companion object {
 
+        const val LATLNG_KEY = "latlng"
         fun newInstance(latLng: LatLng) : NewTripFragment {
             return NewTripFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable("latlng", latLng)
+                    putParcelable(LATLNG_KEY, latLng)
                 }
             }
         }
