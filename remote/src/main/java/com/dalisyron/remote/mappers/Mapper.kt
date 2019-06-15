@@ -1,56 +1,37 @@
 package com.dalisyron.remote.mappers
 
-import com.dalisyron.data.model.UserLoginInfoEntity
-import com.dalisyron.data.model.UserLoginResponseEntity
-import com.dalisyron.data.model.UserRegisterInfoEntity
-import com.dalisyron.data.model.UserRegisterResponseEntity
-import com.dalisyron.remote.dto.user.UserLoginItemDto
-import com.dalisyron.remote.dto.user.UserLoginResponseDto
-import com.dalisyron.remote.dto.user.UserRegisterItemDto
-import com.dalisyron.remote.dto.user.UserRegisterResponseDto
+import com.dalisyron.remote.dto.user.*
 
-
-<<<<<<< Updated upstream
-fun UserLoginInfoEntity.toUserLoginInfoDto(): UserLoginItemDto {
+fun UserLoginItemEntity.toUserLoginItemDto() : UserLoginItemDto {
     return UserLoginItemDto(
-        email = email,
+        username = username,
         password = password
     )
 }
 
-fun UserRegisterInfoEntity.toUserRegisterInfoDto(): UserRegisterItemDto {
+fun UserRegisterItemEntity.toUserRegisterItemDto() : UserRegisterItemDto {
     return UserRegisterItemDto(
-        fullName = fullName,
+        avatar = avatar,
+        password = password,
         email = email,
-        password = password
+        firstName = firstName,
+        lastName = lastName,
+        username = username
     )
 }
 
-
-fun UserLoginResponseDto.toUserLoginResponseEntity(): UserLoginResponseEntity? {
+fun UserLoginResponseDto.toUserLoginResponseEntity() : UserLoginResponseEntity {
     return UserLoginResponseEntity(
+        access = access,
+        detail = detail,
         id = id,
-        fullName = fullName,
-        email = email,
-        error = error?.message
+        refresh = refresh
     )
 }
 
-fun UserRegisterResponseDto.toUserRegisterResponseEntity(): UserRegisterResponseEntity? {
+fun UserRegisterResponseDto.toUserRegisterResponseEntity() : UserRegisterResponseEntity {
     return UserRegisterResponseEntity(
         id = id,
-        fullName = fullName,
-        email = email,
-        error = error?.message
+        username = username
     )
 }
-=======
-fun PlaceDetailDto.toPlaceEntity() : PlaceEntity {
-    return PlaceEntity(
-        description = name,
-        lat = geometry.location.lat,
-        lng = geometry.location.lng
-    )
-}
-
->>>>>>> Stashed changes

@@ -1,9 +1,6 @@
 package com.dalisyron.remote.api
 
-import com.dalisyron.remote.dto.user.UserLoginItemDto
-import com.dalisyron.remote.dto.user.UserLoginResponseDto
-import com.dalisyron.remote.dto.user.UserRegisterItemDto
-import com.dalisyron.remote.dto.user.UserRegisterResponseDto
+import com.dalisyron.remote.dto.user.*
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -38,9 +35,13 @@ fun main() {
         "mobin",
         "dariush",
         "password1",
-        "mobindh"
+        "99999"
     )
     service.register(userRegisterItemDto).subscribe({ response ->
+        println(response)
+    }, {it -> println(it)})
+
+    service.login(userLoginItemDto).subscribe({ response ->
         println(response)
     }, {it -> println(it)})
 }
