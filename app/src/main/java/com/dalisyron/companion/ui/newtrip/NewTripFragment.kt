@@ -32,6 +32,20 @@ import java.lang.Math.abs
 
 class NewTripFragment : Fragment(), NewTripContract.View {
 
+    override fun moveCamera(position : LatLng) {
+        mapView.getMapAsync { googleMap ->
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
+        }
+    }
+
+    override fun zoomPlace() {
+        mapView.getMapAsync { googleMap ->
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
+        }
+    }
+
+    var searchItemLocation : LatLng? = null
+
     override fun zoomOutMap(source : LatLng, destination : LatLng) {
         mapView.getMapAsync { googleMap ->
             val latDist = abs(source.latitude - destination.latitude)
@@ -184,6 +198,8 @@ class NewTripFragment : Fragment(), NewTripContract.View {
                     false
                 }
             }
+
+            presenter.onReturnFromSearch(searchItemLocation)
         }
 
         if (ContextCompat.checkSelfPermission(
@@ -260,5 +276,17 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
+    }
+
+    companion object {
+
+        const val LATLNG_KEY = "latlng"
+        fun newInstance(latLng: LatLng) : NewTripFragment {
+            return NewTripFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(LATLNG_KEY, latLng)
+                }
+            }
+        }
     }
 }
