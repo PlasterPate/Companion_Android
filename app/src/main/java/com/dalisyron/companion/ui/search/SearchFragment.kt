@@ -69,6 +69,12 @@ class SearchFragment : DaggerFragment(), SearchContract.View, OnSearchPlaceItemC
         var placeRepository = PlaceRepository(PlaceRemoteDataSourceImpl(PlaceService.create()))
 
         println("Hello world")
+
+        searchView.setIconifiedByDefault(true);
+        searchView.setFocusable(true);
+        searchView.setIconified(false);
+        searchView.requestFocusFromTouch();
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 presenter.onSearchQueryChanged(newText ?: "")

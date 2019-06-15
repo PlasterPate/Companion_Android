@@ -1,5 +1,7 @@
 package com.dalisyron.companion.ui.newtrip
 
+
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -23,28 +25,88 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import com.dalisyron.companion.ui.search.SearchFragment
 import com.google.android.gms.common.util.WorkSourceUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
 import java.lang.Math.abs
 
-
 class NewTripFragment : Fragment(), NewTripContract.View {
 
-    override fun moveCamera(position : LatLng) {
-        mapView.getMapAsync { googleMap ->
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
-        }
-    }
-
-    override fun zoomPlace() {
-        mapView.getMapAsync { googleMap ->
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
-        }
-    }
-
     var searchItemLocation : LatLng? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        searchItemLocation = arguments?.getParcelable(LATLNG_KEY)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_new_trip, container, false)
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mapView.onCreate(savedInstanceState)
+
+        searchEditText.setOnClickListener {
+            presenter.onSearchBarClicked()
+        }
+
+        imageView.setOnClickListener {
+            presenter.onSearchBarClicked()
+        }
+        pin.setOnClickListener {
+            mapView.getMapAsync { googleMap ->
+                val destinationLocation = googleMap.projection.visibleRegion.latLngBounds.center
+
+                val locationManager = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
+
+                val location = when {
+                    locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ->
+                        locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+
+                    locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ->
+                        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+                    else -> locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
+                }
+
+                val sourceLocation : LatLng = if(location != null)
+                    LatLng(location.latitude, location.longitude)
+                else
+                    destinationLocation
+                val markerIcon = vectorToBitmap(R.drawable.ic_map_pin)
+
+                presenter.onPinLocked(sourceLocation, destinationLocation)
+                googleMap.addMarker(MarkerOptions()
+                    .position(destinationLocation)
+                    .title("مقصد")
+                    .icon(markerIcon))
+
+                googleMap.setOnMarkerClickListener {
+                    presenter.onDestinationCancled(destinationLocation)
+                    false
+                }
+            }
+
+        }
+
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 123)
+        } else {
+            if (searchItemLocation == null) {
+                initMap()
+            }
+        }
+        presenter.onReturnFromSearch(searchItemLocation)
+    }
 
     override fun zoomOutMap(source : LatLng, destination : LatLng) {
         mapView.getMapAsync { googleMap ->
@@ -142,74 +204,34 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         }
     }
 
+    override fun moveCamera(position : LatLng) {
+        mapView.getMapAsync { googleMap ->
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
+        }
+    }
+
+    override fun zoomPlace() {
+        mapView.getMapAsync { googleMap ->
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
+        }
+    }
+
     override fun removeCurvedPolyline() {
         mapView.getMapAsync { googleMap ->
             googleMap.clear()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_new_trip, container, false)
-    }
 
+    override fun navigateToSearchFragment() {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.content_frame, SearchFragment())
+            ?.commit()
+    }
 
     private val presenter: NewTripPresenter by lazy {
         NewTripPresenter().apply {
             view = this@NewTripFragment
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        mapView.onCreate(savedInstanceState)
-
-        pin.setOnClickListener {
-            mapView.getMapAsync { googleMap ->
-                val destinationLocation = googleMap.projection.visibleRegion.latLngBounds.center
-
-                val locationManager = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
-
-                val location = when {
-                    locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ->
-                        locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-
-                    locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ->
-                        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-
-                    else -> locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
-                }
-
-                val sourceLocation : LatLng = if(location != null)
-                    LatLng(location.latitude, location.longitude)
-                else
-                    destinationLocation
-                val markerIcon = vectorToBitmap(R.drawable.ic_map_pin)
-
-                presenter.onPinLocked(sourceLocation, destinationLocation)
-                googleMap.addMarker(MarkerOptions()
-                    .position(destinationLocation)
-                    .title("مقصد")
-                    .icon(markerIcon))
-
-                googleMap.setOnMarkerClickListener {
-                    presenter.onDestinationCancled(destinationLocation)
-                    false
-                }
-            }
-
-            presenter.onReturnFromSearch(searchItemLocation)
-        }
-
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 123)
-        } else {
-            initMap()
         }
     }
 
