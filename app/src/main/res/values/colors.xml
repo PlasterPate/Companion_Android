@@ -152,6 +152,8 @@
     
     <color name="yellow_theme2">#DEF06F</color>
     <color name="black_theme2">#8C8C8C</color>
+    <color name="card_view">#668C8C8C</color>
+
     <color name="black_theme_dark2">#727272</color>
     <color name="black_theme_darker2">#595959</color>
     <color name="ripple_color">#CFEF00</color>

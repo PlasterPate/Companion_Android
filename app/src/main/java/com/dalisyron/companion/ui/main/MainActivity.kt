@@ -38,7 +38,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun navigateToLogin() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.setCustomAnimations(R.anim.test,R.anim.test)
-        fragmentTransaction.replace(R.id.content_frame, RegisterFragment())
+        fragmentTransaction.replace(R.id.content_frame, LoginFragment())
             .commit()
     }
 }
