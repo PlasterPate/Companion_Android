@@ -75,7 +75,7 @@
                     android:layout_gravity="center|center_vertical"
                     app:layout_constraintHorizontal_bias="0.5"
                     android:textColorHint="@color/White"
-                    >
+                    android:fontFamily="@font/yekan">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/name_edit_text"
@@ -83,7 +83,8 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:textColorHint="@color/White"
-                        android:backgroundTint="@color/White"/>
+                        android:backgroundTint="@color/White"
+                        android:fontFamily="@font/yekan"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -93,14 +94,16 @@
                     android:hint="@string/family"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
                     android:layout_gravity="center|center_vertical"
-                    android:textColorHint="@color/White">
+                    android:textColorHint="@color/White"
+                    android:fontFamily="@font/yekan">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/family_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:backgroundTint="@color/White"/>
+                        android:backgroundTint="@color/White"
+                        android:fontFamily="@font/yekan"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -110,14 +113,16 @@
                     android:hint="@string/phone_number"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
                     android:layout_gravity="center|center_vertical"
-                    android:textColorHint="@color/White">
+                    android:textColorHint="@color/White"
+                    android:fontFamily="@font/yekan">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phone_number_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:backgroundTint="@color/White"/>
+                        android:backgroundTint="@color/White"
+                        android:fontFamily="@font/yekan"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -127,14 +132,16 @@
                     android:hint="@string/password"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
                     android:layout_gravity="center|center_vertical"
-                    android:textColorHint="@color/White">
+                    android:textColorHint="@color/White"
+                    android:fontFamily="@font/yekan">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/signup_password_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:backgroundTint="@color/White"/>
+                        android:backgroundTint="@color/White"
+                        android:fontFamily="@font/yekan"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -145,7 +152,8 @@
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
                     android:layout_gravity="center|center_vertical"
                     app:layout_constraintHorizontal_bias="0.5"
-                    android:textColorHint="@color/White">
+                    android:textColorHint="@color/White"
+                    android:fontFamily="@font/yekan">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/repeat_password_edit_text"
@@ -153,7 +161,8 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:textColorHint="@color/White"
-                        android:backgroundTint="@color/White"/>
+                        android:backgroundTint="@color/White"
+                        android:fontFamily="@font/yekan"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -187,7 +196,9 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView"/>
+                    app:layout_constraintBottom_toTopOf="@+id/textView"
+                    android:fontFamily="@font/yekan"
+                    android:textSize="20dp"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
