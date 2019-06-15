@@ -225,7 +225,7 @@ class NewTripFragment : Fragment(), NewTripContract.View {
 
     override fun navigateToSearchFragment() {
         fragmentManager?.beginTransaction()
-            ?.replace(R.id.content_frame, SearchFragment())
+            ?.replace(R.id.content_frame, SearchFragment())?.addToBackStack("SearchFromNewTrip")
             ?.commit()
     }
 
