@@ -10,6 +10,7 @@ import com.dalisyron.remote.dto.user.UserRegisterItemDto
 import com.dalisyron.remote.dto.user.UserRegisterResponseDto
 
 
+<<<<<<< Updated upstream
 fun UserLoginInfoEntity.toUserLoginInfoDto(): UserLoginItemDto {
     return UserLoginItemDto(
         email = email,
@@ -43,3 +44,13 @@ fun UserRegisterResponseDto.toUserRegisterResponseEntity(): UserRegisterResponse
         error = error?.message
     )
 }
+=======
+fun PlaceDetailDto.toPlaceEntity() : PlaceEntity {
+    return PlaceEntity(
+        description = name,
+        lat = geometry.location.lat,
+        lng = geometry.location.lng
+    )
+}
+
+>>>>>>> Stashed changes
