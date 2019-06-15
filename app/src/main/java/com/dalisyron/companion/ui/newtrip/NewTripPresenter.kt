@@ -13,13 +13,13 @@ class NewTripPresenter : NewTripContract.Presenter {
         view.showCurvedPolyline(source, destination, .5)
         view.zoomOutMap(source, destination)
         view.pinVisibility(false)
-        view.setStartTripBtnState(false)
+        view.setStartTripBtnState(true)
     }
 
     override fun onDestinationCancled(destination: LatLng) {
         view.removeCurvedPolyline()
         view.zoomInDestination(destination)
         view.pinVisibility(true)
-        view.setStartTripBtnState(true)
+        view.setStartTripBtnState(false)
     }
 }

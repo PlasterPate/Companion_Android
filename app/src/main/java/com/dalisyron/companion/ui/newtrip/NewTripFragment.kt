@@ -82,6 +82,11 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     }
 
     override fun showCurvedPolyline(src: LatLng, dest: LatLng, curve: Double) {
+//        //zoom first to draw a smoother line
+//        mapView.getMapAsync{googleMap ->
+//            googleMap.moveCamera(CameraUpdateFactory.zoomTo(21f))
+//        }
+
         //Calculate distance and heading between two points
         val distance = SphericalUtil.computeDistanceBetween(src, dest)
         val heading = SphericalUtil.computeHeading(src, dest)
