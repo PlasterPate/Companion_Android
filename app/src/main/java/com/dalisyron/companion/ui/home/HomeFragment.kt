@@ -28,7 +28,9 @@ import android.view.View.OnLayoutChangeListener
 
 
 
-class HomeFragment : DaggerFragment() {
+class HomeFragment : DaggerFragment(), HomeContract.View {
+    override fun navigateToNewTrip() {
+    }
 
     lateinit var rootLayout: View
 
