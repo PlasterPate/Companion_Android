@@ -1,9 +1,19 @@
 package com.dalisyron.remote.dto.user
 
+
 import com.google.gson.annotations.SerializedName
 
 data class UserRegisterItemDto(
-    val fullName: String,
+    @SerializedName("avatar")
+    val avatar: String,
+    @SerializedName("email")
     val email: String,
-    val password: String
+    @SerializedName("first_name")
+    val firstName: String,
+    @SerializedName("last_name")
+    val lastName: String,
+    @SerializedName("password")
+    val password: String,
+    @SerializedName("username")
+    val username: String
 )

@@ -1,8 +1,7 @@
-package com.dalisyron.data.model
+package com.dalisyron.remote.dto.user
 
 data class UserLoginResponseEntity(
-    val id: Int,
-    val fullName: String?,
-    val email: String?,
-    val error: String?
+    val access: String,
+    val refresh: String,
+    val id: String
 )

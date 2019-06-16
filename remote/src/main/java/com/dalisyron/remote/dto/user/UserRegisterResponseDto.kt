@@ -1,8 +1,8 @@
 package com.dalisyron.remote.dto.user
 
+import com.google.gson.annotations.SerializedName
+
 data class UserRegisterResponseDto(
-    val id: Int,
-    val fullName: String?,
-    val email: String?,
-    val error: ErrorDescriptionDto?
+    @SerializedName("id")
+    val id : String
 )
