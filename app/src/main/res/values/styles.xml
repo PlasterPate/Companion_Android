@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/black_theme_dark2</item>
         <item name="colorPrimaryDark">@color/black_theme_darker2</item>
         <item name="colorAccent">@color/yellow_theme2</item>
-        <item name="morphButtonStyle">@style/Widget.MorphButton</item>
     </style>
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
@@ -23,7 +22,7 @@
     </style>
 
     <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
-    <item name="android:textColor">@color/yellow_theme2</item>
+        <item name="android:textColor">@color/twitterBlue</item>
     </style>
 
     <style name="AppTheme.FloatingAccentButtonOverlay" >

@@ -3,6 +3,7 @@ package com.dalisyron.companion.di.module
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.login.LoginFragment
 import com.dalisyron.companion.ui.register.RegisterFragment
+import com.dalisyron.companion.ui.search.SearchFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -17,4 +18,7 @@ abstract class FragmentsModule {
 
     @ContributesAndroidInjector
     abstract fun registerFragment() : RegisterFragment
+
+    @ContributesAndroidInjector
+    abstract fun searchFragment() : SearchFragment
 }
