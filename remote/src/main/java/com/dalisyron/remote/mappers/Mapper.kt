@@ -1,11 +1,8 @@
 package com.dalisyron.remote.mappers
 
-import com.dalisyron.data.model.*
+import com.dalisyron.data.model.PlaceEntity
 import com.dalisyron.remote.dto.place.detail.PlaceDetailDto
-import com.dalisyron.remote.dto.user.UserLoginItemDto
-import com.dalisyron.remote.dto.user.UserLoginResponseDto
-import com.dalisyron.remote.dto.user.UserRegisterItemDto
-import com.dalisyron.remote.dto.user.UserRegisterResponseDto
+import com.dalisyron.remote.dto.user.*
 
 fun UserLoginItemEntity.toUserLoginItemDto() : UserLoginItemDto {
     return UserLoginItemDto(

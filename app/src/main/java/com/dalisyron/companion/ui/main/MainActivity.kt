@@ -25,11 +25,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, NewTripFragment())
-            .commit()
-
-        //presenter.onCreate()
+        presenter.onCreate()
     }
 
     override fun navigateToHome() {
@@ -41,7 +37,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     override fun navigateToLogin() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, NewTripFragment())
+            .replace(R.id.content_frame, LoginFragment())
             .commit()
     }
 }

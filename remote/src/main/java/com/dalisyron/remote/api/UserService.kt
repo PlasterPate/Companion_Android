@@ -18,9 +18,6 @@ import retrofit2.http.POST
 
 interface UserService {
 
-    @POST
-    fun login(@Body userLoginItemDto : UserLoginItemDto) : Single<UserLoginResponseDto>
-
     @POST("/api/register/")
     fun register(@Body userRegisterItemDto: UserRegisterItemDto) : Single<UserRegisterResponseDto>
 
