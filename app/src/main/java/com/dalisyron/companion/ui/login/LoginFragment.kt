@@ -1,7 +1,5 @@
 package com.dalisyron.companion.ui.login
 
-import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.VideoView
@@ -12,25 +10,16 @@ import android.view.*
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.os.AsyncTask
-import android.view.animation.Animation
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.register.RegisterFragment
-import com.dalisyron.data.repository.UserRepository
-import com.dalisyron.remote.api.UserService
-import com.dalisyron.remote.datasource.UserRemoteDataSourceImpl
-import com.tfighiera.revealactivity.RevealActivity
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_register.*
 import javax.inject.Inject
 
 
 class LoginFragment : DaggerFragment(), LoginContract.View {
     override fun stopLoginButtonAnimation() {
-        login_button.animation = null
-        login_button.clearAnimation()
+        login_button.revertAnimation()
     }
 
     override fun startLoginButtonAnimation() {
@@ -41,7 +30,8 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
         login_button.doneLoadingAnimation(Color.parseColor("#008000"),BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
     }
 
-    override fun doneLoginButtonError() {
+    override fun setLoginButtonRadius() {
+        login_button.setInitialCornerRadius(64.toFloat())
     }
 
     @Inject
@@ -102,8 +92,10 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
 
         btn = view.findViewById(R.id.login_button)
 
+        setLoginButtonRadius()
 
         btn.setOnClickListener {
+            startLoginButtonAnimation()
             presenter.onLoginButtonClicked()
         }
         /*
