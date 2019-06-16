@@ -1,7 +1,14 @@
 package com.dalisyron.remote.api
 
 import com.dalisyron.remote.dto.user.*
+import com.google.gson.JsonObject
+import io.reactivex.Observer
 import io.reactivex.Single
+import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
+import io.reactivex.observers.DisposableSingleObserver
+import okhttp3.ResponseBody
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,13 +42,23 @@ fun main() {
         "mobin",
         "dariush",
         "password1",
-        "99999"
+        "9999921"
     )
-    service.register(userRegisterItemDto).subscribe({ response ->
-        println(response)
-    }, {it -> println(it)})
+    service.register(userRegisterItemDto).subscribeWith(object : DisposableSingleObserver<UserRegisterResponseDto>() {
+        override fun onSuccess(t: UserRegisterResponseDto) {
+            println(t)
+        }
+
+        override fun onError(e: Throwable) {
+            if (e is HttpException) {
+                val responseBody = e.response().errorBody()
+                println(responseBody.toString())
+            }
+        }
+    })
 
     service.login(userLoginItemDto).subscribe({ response ->
         println(response)
     }, {it -> println(it)})
 }
+

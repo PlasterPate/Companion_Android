@@ -30,7 +30,6 @@ import android.view.View.OnLayoutChangeListener
 
 class HomeFragment : DaggerFragment() {
 
-
     lateinit var rootLayout: View
 
     private var revealX: Int = 0

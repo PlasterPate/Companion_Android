@@ -23,7 +23,6 @@ fun UserRegisterItemEntity.toUserRegisterItemDto() : UserRegisterItemDto {
 fun UserLoginResponseDto.toUserLoginResponseEntity() : UserLoginResponseEntity {
     return UserLoginResponseEntity(
         access = access,
-        detail = detail,
         id = id,
         refresh = refresh
     )
@@ -31,7 +30,6 @@ fun UserLoginResponseDto.toUserLoginResponseEntity() : UserLoginResponseEntity {
 
 fun UserRegisterResponseDto.toUserRegisterResponseEntity() : UserRegisterResponseEntity {
     return UserRegisterResponseEntity(
-        id = id,
-        username = username
+        id = id
     )
 }

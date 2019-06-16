@@ -15,11 +15,45 @@ import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import com.dalisyron.companion.R
+import com.dalisyron.companion.ui.home.HomeFragment
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_register.*
+import javax.inject.Inject
 
-class RegisterFragment : DaggerFragment() {
+class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
-    lateinit var register_button : CircularProgressButton
+    @Inject
+    lateinit var presenter : RegisterPresenter
+
+    override fun showError(error: String) {
+        Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
+    }
+
+    override fun getFirstName(): String {
+        return name_edit_text.text.toString()
+    }
+
+    override fun getLastName(): String {
+        return family_edit_text.text.toString()
+    }
+
+    override fun getPhoneNumber(): String {
+        return phone_number_edit_text.text.toString()
+    }
+
+    override fun getPassword(): String {
+        return signup_password_edit_text.text.toString()
+    }
+
+    override fun getConfirmPassword(): String {
+        return repeat_password_edit_text.text.toString()
+    }
+
+    override fun navigateToHome() {
+        fragmentManager?.beginTransaction()?.replace(R.id.content_frame, HomeFragment())
+            ?.addToBackStack("HomeFromRegister")?.commit()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_register, container, false)
@@ -28,6 +62,8 @@ class RegisterFragment : DaggerFragment() {
     @Override
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        presenter.view = this
 
         val mVideoView = view.findViewById(R.id.signup_video_view) as VideoView
 
@@ -38,29 +74,8 @@ class RegisterFragment : DaggerFragment() {
 
         mVideoView.setOnPreparedListener(MediaPlayer.OnPreparedListener { mediaPlayer -> mediaPlayer.isLooping = true })
 
-
-        register_button = view.findViewById(R.id.register_button)
-
-
-
-        register_button.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                class doAsync(val handler: () -> Unit) : AsyncTask<String, String, String>() {
-                    override fun doInBackground(vararg params: String?): String? {
-                        Thread.sleep(3000)
-                        return "Done"
-                    }
-
-                    override fun onPostExecute(result: String?) {
-                        if(result.equals("Done")){
-                            Toast.makeText(this@RegisterFragment.context,"This is it", Toast.LENGTH_SHORT).show()
-                            register_button.doneLoadingAnimation(Color.parseColor("#008000"), BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
-                        }
-                    }
-                }
-                register_button.startAnimation()
-                doAsync{}.execute()
-            }
-        })
+        register_button.setOnClickListener {
+            presenter.onRegisterButtonClicked()
+        }
     }
 }

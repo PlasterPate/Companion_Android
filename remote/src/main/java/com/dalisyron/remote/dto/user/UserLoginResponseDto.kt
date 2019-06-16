@@ -8,7 +8,5 @@ data class UserLoginResponseDto(
     @SerializedName("refresh")
     val refresh: String,
     @SerializedName("id")
-    val id: String,
-    @SerializedName("detail")
-    val detail : String?
+    val id: String
 )

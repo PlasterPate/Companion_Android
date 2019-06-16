@@ -13,12 +13,65 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.AsyncTask
+import android.view.animation.Animation
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.dalisyron.companion.ui.home.HomeFragment
+import com.dalisyron.companion.ui.register.RegisterFragment
+import com.dalisyron.data.repository.UserRepository
+import com.dalisyron.remote.api.UserService
+import com.dalisyron.remote.datasource.UserRemoteDataSourceImpl
 import com.tfighiera.revealactivity.RevealActivity
+import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_register.*
+import javax.inject.Inject
 
 
-class LoginFragment : DaggerFragment() {
+class LoginFragment : DaggerFragment(), LoginContract.View {
+    override fun stopLoginButtonAnimation() {
+        login_button.animation = null
+        login_button.clearAnimation()
+    }
+
+    override fun startLoginButtonAnimation() {
+        login_button.startAnimation()
+    }
+
+    override fun doneLoginButtonSuccess() {
+        login_button.doneLoadingAnimation(Color.parseColor("#008000"),BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
+    }
+
+    override fun doneLoginButtonError() {
+    }
+
+    @Inject
+    lateinit var presenter : LoginPresenter
+
+    override fun navigateToHome() {
+        fragmentManager?.beginTransaction()?.replace(R.id.content_frame, HomeFragment())
+            ?.addToBackStack("HomeFromLogin")?.commit()
+    }
+
+    override fun navigateToRegister() {
+        fragmentManager?.beginTransaction()?.replace(R.id.content_frame, RegisterFragment())
+            ?.addToBackStack("RegisterFromLogin")?.commit()
+    }
+
+    override fun showProgressBar() {
+
+    }
+
+    override fun showError(error: String) {
+        Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
+    }
+
+    override fun getUserName(): String {
+        return email_edit_text.text.toString()
+    }
+
+    override fun getPassword(): String {
+        return password_edit_text.text.toString()
+    }
 
 
     lateinit var btn: CircularProgressButton
@@ -31,6 +84,11 @@ class LoginFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        presenter.view = this
+
+        registerTextView.setOnClickListener {
+            presenter.onRegisterClicked()
+        }
         val mVideoView = view.findViewById(R.id.login_video_view) as VideoView
 
         val uri = Uri.parse("android.resource://" + requireContext().getPackageName() + "/" + R.raw.out)
@@ -45,12 +103,16 @@ class LoginFragment : DaggerFragment() {
         btn = view.findViewById(R.id.login_button)
 
 
-
+        btn.setOnClickListener {
+            presenter.onLoginButtonClicked()
+        }
+        /*
         btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 class doAsync(val handler: () -> Unit) : AsyncTask<String, String, String>() {
                     override fun doInBackground(vararg params: String?): String? {
                         Thread.sleep(3000)
+                        presenter.onLoginButtonClicked()
                         return "Done"
                     }
 
@@ -67,6 +129,7 @@ class LoginFragment : DaggerFragment() {
                 doAsync{}.execute()
             }
         })
+        */
 
 //        bas = view.findViewById(R.id.morph)
 //
