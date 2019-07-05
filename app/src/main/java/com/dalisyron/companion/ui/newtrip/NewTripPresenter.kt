@@ -18,7 +18,7 @@ class NewTripPresenter : NewTripContract.Presenter {
     }
 
     override fun onPinLocked(source : LatLng, destination : LatLng) {
-        view.showCurvedPolyline(source, destination, .5)
+        view.showCurvedPolyline(source, destination, .2)
         view.zoomOutMap(source, destination)
         view.pinVisibility(false)
         view.setStartTripBtnState(true)

@@ -83,7 +83,6 @@ class NewTripFragment : Fragment(), NewTripContract.View {
                 presenter.onPinLocked(sourceLocation, destinationLocation)
                 googleMap.addMarker(MarkerOptions()
                     .position(destinationLocation)
-                    .title("مقصد")
                     .icon(markerIcon))
 
                 googleMap.setOnMarkerClickListener {
@@ -281,8 +280,8 @@ class NewTripFragment : Fragment(), NewTripContract.View {
             googleMap.isMyLocationEnabled = true
             googleMap.uiSettings.isMyLocationButtonEnabled = true
 
-            val munich = LatLng(48.1351, 11.5820)
-            val cameraPosition = CameraPosition.Builder().target(munich).zoom(15f).build()
+            val tehran = LatLng(35.6892, 51.3890)
+            val cameraPosition = CameraPosition.Builder().target(tehran).zoom(12f).build()
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
     }
