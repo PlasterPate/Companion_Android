@@ -216,6 +216,13 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         }
     }
 
+    @SuppressLint("MissingPermission")
+    override fun enableMyLocation() {
+        mapView.getMapAsync{googleMap ->
+            googleMap.isMyLocationEnabled = true
+        }
+    }
+
     override fun removeCurvedPolyline() {
         mapView.getMapAsync { googleMap ->
             googleMap.clear()

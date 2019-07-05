@@ -13,6 +13,7 @@ class NewTripPresenter : NewTripContract.Presenter {
         searchItemLocation?.let {
             view.moveCamera(it)
             view.zoomPlace()
+            view.enableMyLocation()
         }
     }
 
