@@ -9,4 +9,8 @@ class HomePresenter @Inject constructor() : HomeContract.Presenter {
     override fun onNewTripButtonClicked() {
         view.navigateToNewTrip()
     }
+
+    override fun onManageContactsClicked() {
+        view.navigateToContacts()
+    }
 }
