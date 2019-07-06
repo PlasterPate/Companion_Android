@@ -1,11 +1,12 @@
 package com.dalisyron.companion.ui.addContacts
 
 interface AddContactsContract {
-    interface View {
-
+    interface View : AddContactsContract{
+        fun showContacts()
     }
 
-    interface Presenter {
-
+    interface Presenter : AddContactsContract{
+        fun onContactItemClicked()
+        fun onFetchContacts()
     }
 }
