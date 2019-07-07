@@ -25,11 +25,13 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import com.dalisyron.companion.ui.companionStatus.HelpeeStatusFragment
 import com.dalisyron.companion.ui.search.SearchFragment
 import com.google.android.gms.common.util.WorkSourceUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.lang.Math.abs
 
 class NewTripFragment : Fragment(), NewTripContract.View {
@@ -92,6 +94,10 @@ class NewTripFragment : Fragment(), NewTripContract.View {
                 }
             }
 
+        }
+
+        start_trip_button.setOnClickListener{
+            presenter.onStartTripButtonClicked()
         }
 
         if (ContextCompat.checkSelfPermission(
@@ -227,6 +233,12 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         fragmentManager?.beginTransaction()
             ?.replace(R.id.content_frame, SearchFragment())
             ?.commit()
+    }
+
+    override fun navigateToHelpeeStatus() {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.content_frame, HelpeeStatusFragment())
+            ?.addToBackStack("HelpeeStatusFromNewTrip")?.commit()
     }
 
     private val presenter: NewTripPresenter by lazy {

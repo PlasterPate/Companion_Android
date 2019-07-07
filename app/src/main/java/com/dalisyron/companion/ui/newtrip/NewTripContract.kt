@@ -20,6 +20,7 @@ interface NewTripContract {
         fun zoomPlace()
         fun moveCamera(position : LatLng)
         fun navigateToSearchFragment()
+        fun navigateToHelpeeStatus()
     }
 
     interface Presenter {
@@ -27,5 +28,6 @@ interface NewTripContract {
         fun onDestinationCancled(destination: LatLng)
         fun onReturnFromSearch(searchItemLocation : LatLng?)
         fun onSearchBarClicked()
+        fun onStartTripButtonClicked()
     }
 }

@@ -6,6 +6,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 
 class NewTripPresenter : NewTripContract.Presenter {
+
     lateinit var view : NewTripContract.View
 
     override fun onReturnFromSearch(searchItemLocation: LatLng?) {
@@ -34,5 +35,7 @@ class NewTripPresenter : NewTripContract.Presenter {
         view.setStartTripBtnState(false)
     }
 
-
+    override fun onStartTripButtonClicked() {
+        view.navigateToHelpeeStatus()
+    }
 }
