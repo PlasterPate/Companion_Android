@@ -24,6 +24,7 @@ import android.opengl.ETC1.getHeight
 import android.opengl.ETC1.getWidth
 import android.annotation.TargetApi
 import android.view.View.OnLayoutChangeListener
+import com.dalisyron.companion.ui.addContacts.AddContactsFragment
 import com.dalisyron.companion.ui.contacts.ContactsFragment
 import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -75,7 +76,7 @@ class HomeFragment : DaggerFragment(), HomeContract.View {
     }
 
     override fun navigateToContacts() {
-        fragmentManager?.beginTransaction()?.replace(R.id.content_frame, ContactsFragment())?.
-            addToBackStack("ContactsFromHome")?.commit()
+        fragmentManager?.beginTransaction()?.replace(R.id.content_frame, AddContactsFragment())?.
+            addToBackStack("AddContactsFromHome")?.commit()
     }
 }
