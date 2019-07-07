@@ -2,6 +2,7 @@ package com.dalisyron.companion.ui.ping
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +13,38 @@ import dagger.android.DispatchingAndroidInjector
 import kotlinx.android.synthetic.main.fragment_ping.*
 import android.os.CountDownTimer
 import android.widget.ProgressBar
+import kotlinx.android.synthetic.main.fragment_new_trip.*
 
 
 class PingFragment : Fragment(), PingContract.View {
+    override fun setProgressBarVisibility(visibility: Int) {
+        progress_bar.visibility = visibility
+    }
+
+    override fun showProgressBar() {
+        ping_button.setOnClickListener{
+            val mCountDownTimer: CountDownTimer
+            val mProgressBar: ProgressBar = progress_bar
+            mProgressBar.progress = 0
+            mCountDownTimer = object : CountDownTimer(15000, 30) {
+
+                override fun onTick(millisUntilFinished: Long) {
+                    mProgressBar.incrementProgressBy(2)
+                }
+
+                override fun onFinish() {
+                    //Do what you want
+                    mProgressBar.progress = 500
+                    cancel()
+                }
+            }
+
+            mCountDownTimer.start()
+        }
+    }
 
     override fun setPingButtonState(state: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        ping_button.isEnabled = state
     }
 
     override fun showDialogBox(title: String, message: String, buttonText: String) {
@@ -44,26 +71,6 @@ class PingFragment : Fragment(), PingContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ping_button.setOnClickListener{
-            val mProgressBar: ProgressBar = progress_bar
-            val mCountDownTimer: CountDownTimer
 
-            mProgressBar.progress = 0
-            mCountDownTimer = object : CountDownTimer(5000, 10) {
-
-                override fun onTick(millisUntilFinished: Long) {
-                    //i++
-                    //mProgressBar.progress = i * 100 / (5000 / 50)
-                    mProgressBar.incrementProgressBy(2)
-
-                }
-
-                override fun onFinish() {
-                    //Do what you want
-                    mProgressBar.progress = 500
-                }
-            }
-            mCountDownTimer.start()
-        }
     }
 }
