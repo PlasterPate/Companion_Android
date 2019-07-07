@@ -23,9 +23,13 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import com.dalisyron.companion.ui.addContacts.AddContactsFragment
+import com.dalisyron.companion.ui.addContacts.AddContactsFragment.Companion.CONTACT_KEY
 import com.dalisyron.companion.ui.search.SearchFragment
+import com.dalisyron.data.model.ContactEntity
 import com.google.android.gms.common.util.WorkSourceUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
@@ -35,10 +39,14 @@ import java.lang.Math.abs
 class NewTripFragment : Fragment(), NewTripContract.View {
 
     var searchItemLocation : LatLng? = null
+    var companionContact : ContactEntity? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchItemLocation = arguments?.getParcelable(LATLNG_KEY)
+        arguments?.getSerializable(CONTACT_KEY)?.let {
+            companionContact = it as ContactEntity
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,6 +58,10 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         mapView.onCreate(savedInstanceState)
+
+        companionContact?.let {
+            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+        }
 
         searchEditText.setOnClickListener {
             presenter.onSearchBarClicked()
@@ -303,6 +315,15 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     companion object {
 
         const val LATLNG_KEY = "latlng"
+
+        fun newInstance(contactEntity: ContactEntity) : NewTripFragment {
+            return NewTripFragment().apply {
+                val bundle = Bundle()
+                bundle.putSerializable(AddContactsFragment.CONTACT_KEY, contactEntity)
+                arguments = bundle
+            }
+        }
+
         fun newInstance(latLng: LatLng) : NewTripFragment {
             return NewTripFragment().apply {
                 arguments = Bundle().apply {

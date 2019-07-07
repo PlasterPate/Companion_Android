@@ -5,6 +5,7 @@ import android.content.ContentResolver
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.Bundle
+import android.os.Parcelable
 import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +16,21 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dalisyron.companion.R
+import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import com.dalisyron.data.model.ContactEntity
 import kotlinx.android.synthetic.main.fragment_add_contacts.*
 
-class AddContactsFragment : Fragment(), AddContactsContract.View {
+class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemClickListener {
+    override fun navigateToNewTrip(contactEntity: ContactEntity) {
+        fragmentManager?.let {
+            it.beginTransaction().replace(R.id.content_frame, NewTripFragment.newInstance(contactEntity)).commit()
+        }
+    }
+
+    override fun onItemClicked(contactEntity: ContactEntity) {
+        presenter.onContactItemClicked(contactEntity)
+    }
+
     override fun showContacts() {
         val contactsList : ArrayList<ContactEntity> = ArrayList()
         val cursor = this.activity?.contentResolver?.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -33,7 +45,9 @@ class AddContactsFragment : Fragment(), AddContactsContract.View {
             cursor.close()
         }
 
-        val adapter = ContactsAdapter(contactsList)
+        val adapter = ContactsAdapter(contactsList).apply {
+            onContactItemClickListener = this@AddContactsFragment
+        }
 
         contactsRecyclerView.adapter = adapter
         contactsRecyclerView.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
@@ -70,5 +84,7 @@ class AddContactsFragment : Fragment(), AddContactsContract.View {
             presenter.onFetchContacts()
     }
 
-
+    companion object {
+        const val CONTACT_KEY = "contact_key"
+    }
 }

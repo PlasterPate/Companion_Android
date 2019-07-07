@@ -1,5 +1,7 @@
 package com.dalisyron.companion.ui.addContacts
 
+import com.dalisyron.data.model.ContactEntity
+
 class AddContactsPresenter : AddContactsContract.Presenter{
     lateinit var view : AddContactsContract.View
 
@@ -7,8 +9,8 @@ class AddContactsPresenter : AddContactsContract.Presenter{
         view.showContacts()
     }
 
-    override fun onContactItemClicked() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onContactItemClicked(contactEntity: ContactEntity) {
+        view.navigateToNewTrip(contactEntity)
     }
 
 }
