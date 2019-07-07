@@ -12,11 +12,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dalisyron.companion.R
 import com.dalisyron.data.model.ContactEntity
 import kotlinx.android.synthetic.main.fragment_add_contacts.*
+import kotlinx.android.synthetic.main.fragment_search.*
+
 
 class AddContactsFragment : Fragment(), AddContactsContract.View {
     override fun showContacts() {
