@@ -1,15 +1,19 @@
-package com.dalisyron.companion.ui.ping
+package com.dalisyron.companion.ui.companionStatus
 
-interface PingContract {
-    interface View : PingContract{
+import android.os.CountDownTimer
+
+interface CompanionStatusContract {
+    interface View : CompanionStatusContract{
         fun setPingButtonState(state : Boolean)
         fun showDialogBox(title : String, message : String, buttonText : String)
         fun setProgressBarVisibility(visibility: Int)
         fun showProgressBar()
+        fun cancleProgressBar()
     }
 
-    interface Presenter : PingContract{
+    interface Presenter : CompanionStatusContract{
         fun onPingButtonClicked()
         fun onProgressFinished()
+        fun onProgressSuccessful()
     }
 }

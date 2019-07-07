@@ -6,6 +6,12 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp"/>
 
     <FrameLayout
             android:layout_width="match_parent"
@@ -21,7 +27,7 @@
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/progress_bar_background"
+                android:background="@android:color/transparent"
                 android:translationZ="3dp"
                 >
 
@@ -33,6 +39,9 @@
                     android:layout_height="64dp"
                     android:indeterminate="false"
                     android:progressDrawable="@drawable/curved_progress_bar"
+                    android:progressBackgroundTint="@android:color/transparent"
+                    android:progressTint="#A6CFEF00"
+
                     android:visibility="gone"/>
         </FrameLayout>
 
