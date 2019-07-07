@@ -12,7 +12,6 @@ class NewTripPresenter : NewTripContract.Presenter {
         println("In presenter with $searchItemLocation")
         searchItemLocation?.let {
             view.moveCamera(it)
-            view.zoomPlace()
         }
     }
 

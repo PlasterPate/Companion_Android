@@ -18,6 +18,7 @@ import com.dalisyron.data.model.ContactEntity
 import kotlinx.android.synthetic.main.fragment_add_contacts.*
 
 class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemClickListener {
+
     override fun navigateToNewTrip(contactEntity: ContactEntity) {
         fragmentManager?.let {
             it.beginTransaction().replace(R.id.content_frame, NewTripFragment.newInstance(contactEntity)).commit()

@@ -59,8 +59,8 @@ class NewTripFragment : Fragment(), NewTripContract.View {
 
         mapView.onCreate(savedInstanceState)
 
-        companionContact?.let {
-            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+        searchItemLocation?.let {
+            Toast.makeText(requireContext(), searchItemLocation.toString(), Toast.LENGTH_LONG).show()
         }
 
         searchEditText.setOnClickListener {
@@ -113,11 +113,8 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         ) {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 123)
         } else {
-            if (searchItemLocation == null) {
-                initMap()
-            }
+            initMap()
         }
-        presenter.onReturnFromSearch(searchItemLocation)
     }
 
     override fun zoomOutMap(source : LatLng, destination : LatLng) {
@@ -217,8 +214,11 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     }
 
     override fun moveCamera(position : LatLng) {
+
         mapView.getMapAsync { googleMap ->
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
+            val cameraPosition = CameraPosition.Builder().target(position).zoom(15f).build()
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
         }
     }
 
@@ -287,8 +287,12 @@ class NewTripFragment : Fragment(), NewTripContract.View {
             googleMap.uiSettings.isMyLocationButtonEnabled = true
 
             val munich = LatLng(48.1351, 11.5820)
-            val cameraPosition = CameraPosition.Builder().target(munich).zoom(15f).build()
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+            if (searchItemLocation != null) {
+                presenter.onReturnFromSearch(searchItemLocation)
+            } else {
+                moveCamera(munich)
+            }
         }
     }
 
