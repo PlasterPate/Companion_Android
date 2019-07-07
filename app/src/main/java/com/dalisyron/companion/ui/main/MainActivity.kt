@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.dalisyron.companion.CompanionApp
 import com.dalisyron.companion.R
+import com.dalisyron.companion.ui.companionStatus.HelpeeStatusFragment
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.login.LoginFragment
 import com.dalisyron.companion.ui.newtrip.NewTripFragment
@@ -37,7 +38,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     override fun navigateToLogin() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, LoginFragment())
+            .replace(R.id.content_frame, HelpeeStatusFragment())
             .commit()
     }
 }
