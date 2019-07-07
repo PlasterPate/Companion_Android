@@ -15,7 +15,7 @@
             android:layout_marginLeft="8dp">
 
         <ImageView
-                android:id="@+id/item_place_image"
+                android:id="@+id/item_contact_image"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:scaleType="centerCrop"
@@ -30,7 +30,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/place_name"
+                android:id="@+id/contact_name"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/name"
                 android:layout_marginTop="8dp"
@@ -42,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/phone_number"
+                android:id="@+id/contact_phone_number"
                 app:layout_constraintTop_toBottomOf="@+id/place_name"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"

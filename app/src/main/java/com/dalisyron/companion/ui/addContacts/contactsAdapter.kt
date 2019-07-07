@@ -24,8 +24,8 @@ class ContactsAdapter(val contactsList : ArrayList<ContactEntity>) : RecyclerVie
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(contactEntity: ContactEntity) {
-            val textName = itemView.findViewById<AppCompatTextView>(R.id.contactName)
-            val textPhoneNumber = itemView.findViewById<AppCompatTextView>(R.id.contactPhoneNumber)
+            val textName = itemView.findViewById<AppCompatTextView>(R.id.contact_name)
+            val textPhoneNumber = itemView.findViewById<AppCompatTextView>(R.id.contact_phone_number)
 
             textName.text = contactEntity.name
             textPhoneNumber.text = contactEntity.phoneNumber
