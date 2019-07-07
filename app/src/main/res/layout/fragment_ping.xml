@@ -4,4 +4,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:max="500"
+            android:progress="0"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+    <Button
+            android:id="@+id/ping_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 </LinearLayout>
