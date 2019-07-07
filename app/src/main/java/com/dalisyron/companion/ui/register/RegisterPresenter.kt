@@ -2,7 +2,6 @@ package com.dalisyron.companion.ui.register
 
 import com.dalisyron.data.repository.UserRepository
 import com.dalisyron.remote.dto.user.UserRegisterItemEntity
-import com.dalisyron.remote.dto.user.UserRegisterResponseEntity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -32,11 +31,16 @@ class RegisterPresenter @Inject constructor(val userRepository: UserRepository) 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ userRegisterResponseEntity ->
+                    view.doneRegisterButtonSuccess()
                     view.navigateToHome()
                 }, { throwable ->
+                    view.stopRegisterButtonAnimation()
+                    view.setRegisterButtonRadius()
                     view.showError(throwable.message?:"")
                 })
         } else {
+            view.stopRegisterButtonAnimation()
+            view.setRegisterButtonRadius()
             view.showError("Invalid Register Info")
         }
     }

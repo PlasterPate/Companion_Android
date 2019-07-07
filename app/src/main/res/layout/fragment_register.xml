@@ -36,9 +36,9 @@
             android:id="@+id/card_view_signup"
             app:cardElevation="8dp"
             app:cardMaxElevation="12dp"
-            android:orientation="horizontal"
             android:outlineSpotShadowColor="@android:color/transparent"
-            android:outlineAmbientShadowColor="@android:color/transparent">
+            android:outlineAmbientShadowColor="@android:color/transparent"
+            android:fontFamily="@font/yekan">
 
         <LinearLayout
                 android:layout_width="match_parent"
