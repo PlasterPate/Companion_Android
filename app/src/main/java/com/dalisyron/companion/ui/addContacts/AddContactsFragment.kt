@@ -1,16 +1,13 @@
 package com.dalisyron.companion.ui.addContacts
 
 import android.Manifest
-import android.content.ContentResolver
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.os.Bundle
 import android.os.Parcelable
 import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,8 +46,8 @@ class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemC
             onContactItemClickListener = this@AddContactsFragment
         }
 
-        contactsRecyclerView.adapter = adapter
-        contactsRecyclerView.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+        add_contacts_recycler_view.adapter = adapter
+        add_contacts_recycler_view.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
     }
 
     val REQUEST_CONTACT_CODE = 1
