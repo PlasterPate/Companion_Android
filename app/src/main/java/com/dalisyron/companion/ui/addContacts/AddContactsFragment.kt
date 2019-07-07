@@ -1,24 +1,19 @@
 package com.dalisyron.companion.ui.addContacts
 
 import android.Manifest
-import android.content.ContentResolver
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dalisyron.companion.R
 import com.dalisyron.data.model.ContactEntity
 import kotlinx.android.synthetic.main.fragment_add_contacts.*
-import kotlinx.android.synthetic.main.fragment_search.*
 
 
 class AddContactsFragment : Fragment(), AddContactsContract.View {
@@ -38,8 +33,8 @@ class AddContactsFragment : Fragment(), AddContactsContract.View {
 
         val adapter = ContactsAdapter(contactsList)
 
-        contactsRecyclerView.adapter = adapter
-        contactsRecyclerView.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+        add_contacts_recycler_view.adapter = adapter
+        add_contacts_recycler_view.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
     }
 
     val REQUEST_CONTACT_CODE = 1

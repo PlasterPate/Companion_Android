@@ -8,7 +8,7 @@
         android:background="@color/black_theme2">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contactsRecyclerView"
+            android:id="@+id/add_contacts_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -16,6 +16,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/materialButton"
             app:layout_constraintHorizontal_bias="0.6"
