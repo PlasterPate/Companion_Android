@@ -76,7 +76,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
         }
         countDownTimer.start()
 
-        val pingRespondButton : Button = dialog.findViewById(R.id.ping_respond_button)
+        val pingRespondButton : FloatingActionButton = dialog.findViewById(R.id.ping_respond_button)
         pingRespondButton.setOnClickListener{
             presenter.onHelpeeRespond()
         }
