@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "294587452742",
+    "firebase_url": "https://the-dock-243716.firebaseio.com",
+    "project_id": "the-dock-243716",
+    "storage_bucket": "the-dock-243716.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294587452742:android:2fe07636a4a29983",
+        "android_client_info": {
+          "package_name": "com.dalisyron.companion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294587452742-ce5v1fsfu7p2od08anv4k4qj3vt03dh3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dalisyron.companion",
+            "certificate_hash": "cf239c6a38c92f718ac072509724c7747c0c2e96"
+          }
+        },
+        {
+          "client_id": "294587452742-9cg9hhtn4696dcdqtjksbi8qs3np934v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGvZv2yli7OfcZwSoc5-V9d-yBEGZ7BuI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "294587452742-9cg9hhtn4696dcdqtjksbi8qs3np934v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

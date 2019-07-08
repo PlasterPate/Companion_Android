@@ -37,6 +37,7 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.*
+import com.google.android.gms.maps.MapView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.circularreveal.cardview.CircularRevealCardView
 import kotlinx.android.synthetic.main.fragment_helpee_status.*
@@ -51,6 +52,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
 
     lateinit var countDownTimer: CountDownTimer
     lateinit var dialog : Dialog
+    lateinit var mapView: MapView
 
     override fun showPingProgress() {
         dialog = Dialog(this.context)
@@ -100,7 +102,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        mapView = view.findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
 
 
@@ -212,5 +214,25 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
             LatLng(location.latitude, location.longitude)
         else
             LatLng(35.6892, 51.3890)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
     }
 }
