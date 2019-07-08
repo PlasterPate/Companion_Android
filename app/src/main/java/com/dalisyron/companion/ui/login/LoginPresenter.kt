@@ -1,14 +1,11 @@
 package com.dalisyron.companion.ui.login
 
 import android.util.Log
-import android.widget.Toast
 import com.dalisyron.data.repository.UserRepository
 import com.dalisyron.remote.dto.user.UserLoginItemEntity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import retrofit2.HttpException
 import javax.inject.Inject
-import kotlin.concurrent.thread
 
 class LoginPresenter @Inject constructor(val userRepository: UserRepository) : LoginContract.Presenter {
     override fun onRegisterClicked() {
@@ -27,14 +24,16 @@ class LoginPresenter @Inject constructor(val userRepository: UserRepository) : L
         val userLoginItemEntity = UserLoginItemEntity(userName, password)
 
         if (isLoginInfoValid(userLoginItemEntity)) {
-            userRepository.login(userLoginItemEntity)
-                .subscribeOn(Schedulers.io())
+            userRepository.login(userLoginItemEntity).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { userLoginResponseEntity ->
+                        view.doneLoginButtonSuccess()
                         view.navigateToHome()
                     },
                     { throwable ->
+                        view.stopLoginButtonAnimation()
+                        view.setLoginButtonRadius()
                         view.showError(throwable.message?:"")
                     }
                 )
