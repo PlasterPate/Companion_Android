@@ -2,17 +2,15 @@ package com.dalisyron.companion.ui.companionStatus
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_ping.*
+import kotlinx.android.synthetic.main.fragment_companion_status.*
 import android.os.CountDownTimer
 import android.util.Log
-import android.view.MotionEvent
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import com.dalisyron.companion.R
@@ -21,8 +19,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.android.synthetic.main.fragment_new_trip.*
-import kotlinx.android.synthetic.main.fragment_ping.mapView
+import kotlinx.android.synthetic.main.fragment_companion_status.mapView
 
 
 class CompanionStatusFragment : Fragment(), CompanionStatusContract.View {
@@ -85,7 +82,7 @@ class CompanionStatusFragment : Fragment(), CompanionStatusContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_ping, container,false)
+        return inflater.inflate(R.layout.fragment_companion_status, container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

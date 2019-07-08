@@ -2,6 +2,7 @@ package com.dalisyron.companion.ui.main
 
 import android.os.Bundle
 import com.dalisyron.companion.R
+import com.dalisyron.companion.ui.companionStatus.CompanionStatusFragment
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.login.LoginFragment
 import com.dalisyron.data.repository.UserRepository
@@ -34,7 +35,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     override fun navigateToLogin() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, LoginFragment())
+            .replace(R.id.content_frame, CompanionStatusFragment())
             .commit()
     }
 }
