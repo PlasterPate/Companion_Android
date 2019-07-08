@@ -1,13 +1,9 @@
 package com.dalisyron.companion.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.dalisyron.companion.CompanionApp
 import com.dalisyron.companion.R
-import com.dalisyron.companion.ui.companionStatus.HelpeeStatusFragment
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.login.LoginFragment
-import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import com.dalisyron.data.repository.UserRepository
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject

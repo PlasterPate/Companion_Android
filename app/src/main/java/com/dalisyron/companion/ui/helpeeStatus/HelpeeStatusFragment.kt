@@ -1,16 +1,25 @@
-package com.dalisyron.companion.ui.companionStatus
+package com.dalisyron.companion.ui.helpeeStatus
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.dalisyron.companion.R
@@ -18,9 +27,54 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.android.synthetic.main.dialog_ping.*
+import kotlinx.android.synthetic.main.fragment_helpee_status.*
 import kotlinx.android.synthetic.main.fragment_new_trip.*
+import kotlinx.android.synthetic.main.fragment_new_trip.mapView
+import kotlinx.android.synthetic.main.fragment_search.*
 
 class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
+    override fun hidePingProgress() {
+        countDownTimer.cancel()
+        dialog.hide()
+    }
+
+    lateinit var countDownTimer: CountDownTimer
+    lateinit var dialog : Dialog
+
+    override fun showPingProgress() {
+        dialog = Dialog(this.context)
+        dialog.setContentView(R.layout.dialog_ping)
+        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+        val progress : ProgressBar = dialog.findViewById(R.id.circular_progressbar)
+        val givenTime : Long = 15000
+        progress.progress = 0
+
+        countDownTimer = object : CountDownTimer(givenTime, givenTime / progress.max){
+
+            override fun onTick(millisUntilFinished: Long) {
+                progress.incrementProgressBy(1)
+            }
+
+            override fun onFinish() {
+                progress.progress = progress.max
+                cancel()
+                dialog.hide()
+                presenter.onHelpeeNotRespond()
+            }
+        }
+        countDownTimer.start()
+
+        val pingRespondButton : Button = dialog.findViewById(R.id.ping_respond_button)
+        pingRespondButton.setOnClickListener{
+            presenter.onHelpeeRespond()
+        }
+    }
+
+    override fun toastMessage(message: String) {
+        Toast.makeText(this.context, message, Toast.LENGTH_LONG).show()
+    }
 
     private val presenter: HelpeeStatusPresenter by lazy {
         HelpeeStatusPresenter().apply {
@@ -46,6 +100,10 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 123)
         } else {
             initMap()
+        }
+
+        emergency_button.setOnClickListener{
+            presenter.onEmergencyButtonClicked()
         }
     }
 
