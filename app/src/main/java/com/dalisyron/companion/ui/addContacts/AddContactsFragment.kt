@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -66,20 +67,26 @@ class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (ActivityCompat.checkSelfPermission(this.requireContext(), Manifest.permission.READ_CONTACTS)
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_CONTACTS
+            )
                 != PackageManager.PERMISSION_GRANTED){
 
-            ActivityCompat.requestPermissions(this.requireActivity(),
-                arrayOf<String>(Manifest.permission.READ_CONTACTS),
-                REQUEST_CONTACT_CODE)
+            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_CONTACT_CODE)
+
         }else{
             presenter.onFetchContacts()
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == REQUEST_CONTACT_CODE)
-            presenter.onFetchContacts()
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CONTACT_CODE) {
+            if (grantResults.size > 0) {
+                presenter.onFetchContacts()
+            }
+        }
     }
 
     companion object {
