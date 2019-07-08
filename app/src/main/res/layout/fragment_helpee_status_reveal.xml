@@ -72,16 +72,16 @@
     <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:layout_width="match_parent"
             android:layout_height="96dp"
-            app:cardCornerRadius="64dp"
+            app:cardCornerRadius="96dp"
             android:visibility="invisible"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:backgroundTint="@color/White"
+            android:backgroundTint="@color/black_theme2"
             android:id="@+id/companion_panel"
             app:layout_constraintBottom_toTopOf="@+id/emergency_button"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"></com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+            android:layout_marginEnd="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
