@@ -1,15 +1,14 @@
 package com.dalisyron.companion.ui.companionStatus
 
 import android.Manifest
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -18,9 +17,18 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.android.synthetic.main.fragment_new_trip.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.transition.*
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.circularreveal.cardview.CircularRevealCardView
+import kotlinx.android.synthetic.main.fragment_helpee_status.*
+import kotlinx.android.synthetic.main.fragment_new_trip.mapView
+
 
 class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
+
+
 
     private val presenter: HelpeeStatusPresenter by lazy {
         HelpeeStatusPresenter().apply {
@@ -47,6 +55,36 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
         } else {
             initMap()
         }
+
+        val fab = view.findViewById(R.id.companion_button) as FloatingActionButton
+
+        val fabLocations = IntArray(2)
+        val emergency = view.findViewById(R.id.emergency_button) as MaterialButton
+
+        val asd = view.findViewById(R.id.companion_panel) as CircularRevealCardView
+        val obj = ObjectAnimator.ofFloat(fab, "translationX", ((asd.left + asd.right) / 2).toFloat())
+        val obj1 = ObjectAnimator.ofFloat(fab, "translationY", fabLocations[0].toFloat())
+
+                val constraintSet1 = ConstraintSet()
+                constraintSet1.clone(sceneRoot)
+                val constraintSet2 = ConstraintSet()
+                constraintSet2.clone(context, R.layout.fragment_helpee_status_reveal)
+                var changed = false
+        val anim = ViewAnimationUtils.createCircularReveal(asd,200,200,50.toFloat(),0.toFloat())
+
+        fab.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                TransitionManager.beginDelayedTransition(sceneRoot)
+                val constraint = if (changed) constraintSet1 else constraintSet2
+                constraint.applyTo(sceneRoot)
+                changed = !changed
+                if(changed) {
+                    asd.visibility = View.VISIBLE
+                }
+                else
+                    asd.visibility = View.INVISIBLE
+            }
+        })
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -95,7 +133,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
     }
 
     @SuppressLint("MissingPermission")
-    fun myLocation() : LatLng{
+    fun myLocation(): LatLng {
         val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         val location = when {
@@ -108,7 +146,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
             else -> locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
         }
 
-        return if(location != null)
+        return if (location != null)
             LatLng(location.latitude, location.longitude)
         else
             LatLng(35.6892, 51.3890)
