@@ -1,9 +1,13 @@
 package com.dalisyron.companion.di.module
 
 import com.dalisyron.remote.api.PlaceService
+import com.dalisyron.remote.api.TokenService
+import com.dalisyron.remote.api.TripService
+import com.dalisyron.remote.api.TripService.Companion.BASE_URL
 import com.dalisyron.remote.api.UserService
 import dagger.Module
 import dagger.Provides
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -40,4 +44,23 @@ class NetworkModule {
             .create(PlaceService::class.java)
     }
 
+    @Provides
+    fun providesTripService() : TripService {
+        return Retrofit.Builder()
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(TripService.BASE_URL)
+            .build()
+            .create(TripService::class.java)
+    }
+
+    @Provides
+    fun providesTokenService() : TokenService {
+        return Retrofit.Builder()
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(TokenService.BASE_URL)
+            .build()
+            .create(TokenService::class.java)
+    }
 }

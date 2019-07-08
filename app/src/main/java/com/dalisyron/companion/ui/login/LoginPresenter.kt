@@ -32,8 +32,6 @@ class LoginPresenter @Inject constructor(val userRepository: UserRepository) : L
                         view.navigateToHome()
                     },
                     { throwable ->
-                        view.stopLoginButtonAnimation()
-                        view.setLoginButtonRadius()
                         view.showError(throwable.message?:"")
                     }
                 )
