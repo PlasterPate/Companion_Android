@@ -1,14 +1,14 @@
 package com.dalisyron.data.datasource
 
-import com.dalisyron.data.model.UserLoginInfoEntity
-import com.dalisyron.data.model.UserLoginResponseEntity
-import com.dalisyron.data.model.UserRegisterInfoEntity
-import com.dalisyron.data.model.UserRegisterResponseEntity
+import com.dalisyron.remote.dto.user.UserLoginItemEntity
+import com.dalisyron.remote.dto.user.UserLoginResponseEntity
+import com.dalisyron.remote.dto.user.UserRegisterItemEntity
+import com.dalisyron.remote.dto.user.UserRegisterResponseEntity
 import io.reactivex.Single
 
 interface UserRemoteDataSource {
 
-    fun login(userLoginInfoEntity: UserLoginInfoEntity) : Single<UserLoginResponseEntity>
+    fun login(userLoginItemEntity: UserLoginItemEntity) : Single<UserLoginResponseEntity>
 
-    fun register(userRegisterInfoEntity: UserRegisterInfoEntity) : Single<UserRegisterResponseEntity>
+    fun register(userLoginRegisterItemEntity: UserRegisterItemEntity) : Single<UserRegisterResponseEntity>
 }

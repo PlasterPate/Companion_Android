@@ -1,6 +1,6 @@
 package com.dalisyron.remote.dto.user
 
-data class UserLoginInfoDto(
-    val email: String,
+data class UserLoginItemEntity(
+    val username: String,
     val password: String
 )

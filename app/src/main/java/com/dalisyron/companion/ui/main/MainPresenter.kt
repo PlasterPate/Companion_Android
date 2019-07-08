@@ -12,8 +12,8 @@ class MainPresenter(val userRepository: UserRepository) : MainContract.Presenter
     override fun onCreate() {
         userRepository.getUser().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { userEmail : String ->
-                if (userEmail.isEmpty()) {
+            .subscribe { userId : String? ->
+                if (userId.isNullOrEmpty()) {
                     view.navigateToLogin()
                 } else {
                     view.navigateToHome()

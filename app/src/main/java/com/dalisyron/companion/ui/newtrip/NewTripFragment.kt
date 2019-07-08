@@ -23,6 +23,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.widget.AbsListView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.dalisyron.companion.ui.search.SearchFragment
@@ -33,6 +34,8 @@ import com.google.maps.android.SphericalUtil
 import java.lang.Math.abs
 
 class NewTripFragment : Fragment(), NewTripContract.View {
+
+    lateinit var foo : AbsListView.OnScrollListener
 
     var searchItemLocation : LatLng? = null
 

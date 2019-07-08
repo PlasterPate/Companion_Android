@@ -25,22 +25,19 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, NewTripFragment())
-            .commit()
-
-        //presenter.onCreate()
+        presenter.onCreate()
     }
 
     override fun navigateToHome() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, HomeFragment())
-            .commit()
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.test,R.anim.test)
+        fragmentTransaction.replace(R.id.content_frame, HomeFragment())
+        .commit()
     }
 
     override fun navigateToLogin() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, NewTripFragment())
+            .replace(R.id.content_frame, LoginFragment())
             .commit()
     }
 }
