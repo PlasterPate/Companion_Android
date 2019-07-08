@@ -17,6 +17,7 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import com.dalisyron.companion.R
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_ping.mapView
 
 class CompanionStatusFragment : Fragment(), CompanionStatusContract.View {
     lateinit var mCountDownTimer: CountDownTimer
+    lateinit var mapView: MapView
 
     override fun cancleProgressBar() {
         mCountDownTimer.cancel()
@@ -88,6 +90,7 @@ class CompanionStatusFragment : Fragment(), CompanionStatusContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mapView = view.findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         initMap()
 
@@ -127,5 +130,25 @@ class CompanionStatusFragment : Fragment(), CompanionStatusContract.View {
             val cameraPosition = CameraPosition.Builder().target(munich).zoom(15f).build()
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
     }
 }
