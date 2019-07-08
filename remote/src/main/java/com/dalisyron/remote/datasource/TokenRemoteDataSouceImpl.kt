@@ -8,7 +8,7 @@ import io.reactivex.Single
 class TokenRemoteDataSouceImpl(val tokenService: TokenService) : TokenRemoteDataSource {
     override fun refreshAccessToken(refresh : String): Single<String?> {
         return tokenService.refreshAccessToken(RefreshAccessItemDto(refresh)).map {
-            it.access
+            it?.access
         }
     }
 }
