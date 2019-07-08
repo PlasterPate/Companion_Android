@@ -34,6 +34,7 @@ import android.R.attr.password
 
 
 class LoginFragment : DaggerFragment(), LoginContract.View {
+
     override fun stopLoginButtonAnimation() {
         login_button.animation = null
         login_button.clearAnimation()
@@ -45,9 +46,6 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
 
     override fun doneLoginButtonSuccess() {
         login_button.doneLoadingAnimation(Color.parseColor("#008000"),BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
-    }
-
-    override fun doneLoginButtonError() {
     }
 
     @Inject

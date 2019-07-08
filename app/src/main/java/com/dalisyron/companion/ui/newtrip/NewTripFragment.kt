@@ -34,12 +34,29 @@ import com.google.android.gms.common.util.WorkSourceUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
+import dagger.android.support.DaggerFragment
 import java.lang.Math.abs
+import javax.inject.Inject
 
-class NewTripFragment : Fragment(), NewTripContract.View {
+class NewTripFragment : DaggerFragment(), NewTripContract.View {
+
+    override fun showTripCreatedMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun getSource(): LatLng {
+        return sourceLocation
+    }
+
+    override fun getDestination(): LatLng {
+        return destinationLocation
+    }
 
     var searchItemLocation : LatLng? = null
     var companionContact : ContactEntity? = null
+
+    lateinit var sourceLocation : LatLng
+    lateinit var destinationLocation : LatLng
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,11 +74,9 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mapView.onCreate(savedInstanceState)
+        presenter.view = this
 
-        searchItemLocation?.let {
-            Toast.makeText(requireContext(), searchItemLocation.toString(), Toast.LENGTH_LONG).show()
-        }
+        mapView.onCreate(savedInstanceState)
 
         searchEditText.setOnClickListener {
             presenter.onSearchBarClicked()
@@ -70,6 +85,11 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         imageView.setOnClickListener {
             presenter.onSearchBarClicked()
         }
+
+        start_trip_button.setOnClickListener {
+            presenter.onNewTripClicked()
+        }
+
         pin.setOnClickListener {
             mapView.getMapAsync { googleMap ->
                 val destinationLocation = googleMap.projection.visibleRegion.latLngBounds.center
@@ -91,6 +111,9 @@ class NewTripFragment : Fragment(), NewTripContract.View {
                 else
                     destinationLocation
                 val markerIcon = vectorToBitmap(R.drawable.ic_map_pin)
+
+                this.sourceLocation = sourceLocation
+                this.destinationLocation = destinationLocation
 
                 presenter.onPinLocked(sourceLocation, destinationLocation)
                 googleMap.addMarker(MarkerOptions()
@@ -217,7 +240,7 @@ class NewTripFragment : Fragment(), NewTripContract.View {
 
         mapView.getMapAsync { googleMap ->
             val cameraPosition = CameraPosition.Builder().target(position).zoom(15f).build()
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
         }
     }
@@ -241,11 +264,8 @@ class NewTripFragment : Fragment(), NewTripContract.View {
             ?.commit()
     }
 
-    private val presenter: NewTripPresenter by lazy {
-        NewTripPresenter().apply {
-            view = this@NewTripFragment
-        }
-    }
+    @Inject
+    lateinit var presenter : NewTripPresenter
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -286,12 +306,12 @@ class NewTripFragment : Fragment(), NewTripContract.View {
             googleMap.isMyLocationEnabled = true
             googleMap.uiSettings.isMyLocationButtonEnabled = true
 
-            val munich = LatLng(48.1351, 11.5820)
+            val tehran = LatLng(35.6892, 51.3890)
 
             if (searchItemLocation != null) {
                 presenter.onReturnFromSearch(searchItemLocation)
             } else {
-                moveCamera(munich)
+                moveCamera(tehran)
             }
         }
     }

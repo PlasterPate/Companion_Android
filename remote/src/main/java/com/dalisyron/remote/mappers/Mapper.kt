@@ -1,7 +1,10 @@
 package com.dalisyron.remote.mappers
 
-import com.dalisyron.data.model.PlaceEntity
+import com.dalisyron.data.model.*
 import com.dalisyron.remote.dto.place.detail.PlaceDetailDto
+import com.dalisyron.remote.dto.trip.LatLngDto
+import com.dalisyron.remote.dto.trip.TripItemDto
+import com.dalisyron.remote.dto.trip.TripResponseDto
 import com.dalisyron.remote.dto.user.*
 
 fun UserLoginItemEntity.toUserLoginItemDto() : UserLoginItemDto {
@@ -44,3 +47,23 @@ fun PlaceDetailDto.toPlaceEntity() : PlaceEntity {
     )
 }
 
+fun TripItemEntity.toTripItemDto() : TripItemDto {
+    return TripItemDto(
+        destination = destination.toLatLngDto(),
+        source = source.toLatLngDto(),
+        helpjoo = UserIdDto(helpjooId)
+    )
+}
+
+fun TripResponseDto.toTripResponseEntity() : TripResponseEntity {
+    return TripResponseEntity(
+        status = status
+    )
+}
+
+fun LatLngEntity.toLatLngDto() : LatLngDto {
+    return LatLngDto(
+        lat = lat,
+        lon = lon
+    )
+}
