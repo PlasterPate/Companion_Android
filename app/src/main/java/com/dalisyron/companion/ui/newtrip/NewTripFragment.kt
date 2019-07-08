@@ -24,6 +24,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.dalisyron.companion.ui.search.SearchFragment
@@ -31,9 +32,28 @@ import com.google.android.gms.common.util.WorkSourceUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
+import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.lang.Math.abs
+import javax.inject.Inject
 
-class NewTripFragment : Fragment(), NewTripContract.View {
+class NewTripFragment : DaggerFragment(), NewTripContract.View {
+
+    lateinit var sourceLocation : LatLng
+    lateinit var destinationLocation : LatLng
+
+    @SuppressLint("MissingPermission")
+    override fun getSource(): LatLng {
+        return sourceLocation
+    }
+
+    override fun getDestination(): LatLng {
+        return destinationLocation
+    }
+
+    override fun showTripCreatedMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
 
     lateinit var foo : AbsListView.OnScrollListener
 
@@ -51,6 +71,8 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        presenter.view = this
 
         mapView.onCreate(savedInstanceState)
 
@@ -83,10 +105,12 @@ class NewTripFragment : Fragment(), NewTripContract.View {
                     destinationLocation
                 val markerIcon = vectorToBitmap(R.drawable.ic_map_pin)
 
+                this.sourceLocation = sourceLocation
+                this.destinationLocation = destinationLocation
+
                 presenter.onPinLocked(sourceLocation, destinationLocation)
                 googleMap.addMarker(MarkerOptions()
                     .position(destinationLocation)
-                    .title("مقصد")
                     .icon(markerIcon))
 
                 googleMap.setOnMarkerClickListener {
@@ -97,6 +121,9 @@ class NewTripFragment : Fragment(), NewTripContract.View {
 
         }
 
+        start_trip_button.setOnClickListener {
+            presenter.onNewTripClicked()
+        }
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -219,6 +246,13 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         }
     }
 
+    @SuppressLint("MissingPermission")
+    override fun enableMyLocation() {
+        mapView.getMapAsync{googleMap ->
+            googleMap.isMyLocationEnabled = true
+        }
+    }
+
     override fun removeCurvedPolyline() {
         mapView.getMapAsync { googleMap ->
             googleMap.clear()
@@ -228,15 +262,12 @@ class NewTripFragment : Fragment(), NewTripContract.View {
 
     override fun navigateToSearchFragment() {
         fragmentManager?.beginTransaction()
-            ?.replace(R.id.content_frame, SearchFragment())
+            ?.replace(R.id.content_frame, SearchFragment())?.addToBackStack("SearchFromNewTrip")
             ?.commit()
     }
 
-    private val presenter: NewTripPresenter by lazy {
-        NewTripPresenter().apply {
-            view = this@NewTripFragment
-        }
-    }
+    @Inject
+    lateinit var presenter: NewTripPresenter
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -277,8 +308,8 @@ class NewTripFragment : Fragment(), NewTripContract.View {
             googleMap.isMyLocationEnabled = true
             googleMap.uiSettings.isMyLocationButtonEnabled = true
 
-            val munich = LatLng(48.1351, 11.5820)
-            val cameraPosition = CameraPosition.Builder().target(munich).zoom(15f).build()
+            val tehran = LatLng(35.6892, 51.3890)
+            val cameraPosition = CameraPosition.Builder().target(tehran).zoom(12f).build()
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
     }
