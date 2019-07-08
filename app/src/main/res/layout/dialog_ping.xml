@@ -19,13 +19,17 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="202dp"
+                android:layout_height="202dp"
                 android:id="@+id/ping_respond_button"
                 android:layout_gravity="center"
+                android:backgroundTint="@color/ripple_color"
+                app:borderWidth="0dp"
                 android:src="@drawable/ic_done_white_48dp"
-                app:fabCustomSize="180dp"
+                app:fabCustomSize="202dp"
                 app:maxImageSize="150dp"
+                android:elevation="0dp"
+                app:elevation="0dp"
                 android:outlineSpotShadowColor="@android:color/transparent"
                 android:outlineAmbientShadowColor="@android:color/transparent"/>
 
