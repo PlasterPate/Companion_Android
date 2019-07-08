@@ -11,10 +11,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class NewTripPresenter @Inject constructor(private val tripRepository: TripRepository,
-                                           private val userRepository: UserRepository) : NewTripContract.Presenter {
-
-    lateinit var view : NewTripContract.View
+class NewTripPresenter @Inject constructor(private val userRepository: UserRepository,
+                                           private val tripRepository: TripRepository) : NewTripContract.Presenter {
 
     override fun onNewTripClicked() {
         userRepository.getUser().flatMap {id ->
@@ -32,17 +30,17 @@ class NewTripPresenter @Inject constructor(private val tripRepository: TripRepos
             }, {it -> view.showTripCreatedMessage("Error ${it.message}")})
     }
 
+    lateinit var view : NewTripContract.View
+
     override fun onReturnFromSearch(searchItemLocation: LatLng?) {
         println("In presenter with $searchItemLocation")
         searchItemLocation?.let {
             view.moveCamera(it)
-            view.zoomPlace()
-            view.enableMyLocation()
         }
     }
 
     override fun onPinLocked(source : LatLng, destination : LatLng) {
-        view.showCurvedPolyline(source, destination, .2)
+        view.showCurvedPolyline(source, destination, .5)
         view.zoomOutMap(source, destination)
         view.pinVisibility(false)
         view.setStartTripBtnState(true)

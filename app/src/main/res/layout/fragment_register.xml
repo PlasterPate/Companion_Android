@@ -36,9 +36,9 @@
             android:id="@+id/card_view_signup"
             app:cardElevation="8dp"
             app:cardMaxElevation="12dp"
+            android:orientation="horizontal"
             android:outlineSpotShadowColor="@android:color/transparent"
-            android:outlineAmbientShadowColor="@android:color/transparent"
-            android:fontFamily="@font/yekan">
+            android:outlineAmbientShadowColor="@android:color/transparent">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -136,7 +136,7 @@
                         android:id="@+id/signup_password_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
+                        android:inputType="textVisiblePassword"
                         android:backgroundTint="@color/White"
                         android:fontFamily="@font/yekan"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -156,25 +156,11 @@
                         android:id="@+id/repeat_password_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
+                        android:inputType="textVisiblePassword"
                         android:textColorHint="@color/White"
                         android:backgroundTint="@color/White"
                         android:fontFamily="@font/yekan"/>
             </com.google.android.material.textfield.TextInputLayout>
-
-
-            <!--<com.google.android.material.button.MaterialButton-->
-            <!--android:id="@+id/login"-->
-            <!--style="@style/Button"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="64dp"-->
-            <!--android:text="@string/sign_up"-->
-            <!--app:cornerRadius="32dp"-->
-            <!--android:textColor="@color/Black"-->
-            <!--android:textSize="16sp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:layout_gravity="center|center_vertical"-->
-            <!--app:layout_constraintHorizontal_bias="0.5"/>-->
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                     android:layout_width="match_parent"
@@ -184,7 +170,9 @@
                     app:spinning_bar_padding="6dp"
                     app:spinning_bar_width="4dp"
                     android:background="@drawable/roundedbutton"
-                    android:text="@string/sign_up"
+                    android:text="@string/register"
+                    app:layout_constraintTop_toBottomOf="@+id/card_view_login"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:layout_marginStart="8dp"
@@ -193,9 +181,8 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView"
-                    android:fontFamily="@font/yekan"
-                    android:textSize="20dp"/>
+                    android:textSize="20dp"
+                    android:fontFamily="@font/yekan"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

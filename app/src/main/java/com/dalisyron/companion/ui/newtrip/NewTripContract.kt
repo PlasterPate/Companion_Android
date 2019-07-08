@@ -19,7 +19,6 @@ interface NewTripContract {
         fun removeCurvedPolyline()
         fun zoomPlace()
         fun moveCamera(position : LatLng)
-        fun enableMyLocation()
         fun navigateToSearchFragment()
         fun showTripCreatedMessage(message : String)
         fun getSource() : LatLng
