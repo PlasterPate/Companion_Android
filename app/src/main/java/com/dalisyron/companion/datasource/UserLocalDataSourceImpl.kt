@@ -7,7 +7,19 @@ import javax.inject.Inject
 
 class UserLocalDataSourceImpl(private val sharedPreferences: SharedPreferences) : UserLocalDataSource {
 
-    override fun saveToken(access: String, refresh: String) : Single<Unit> {
+    override fun getAccessToken(): Single<String?> {
+        return Single.fromCallable {
+            sharedPreferences.getString(ACCESS_TOKEN_KEY, "")
+        }
+    }
+
+    override fun getRefreshToken(): Single<String?> {
+        return Single.fromCallable {
+            sharedPreferences.getString(REFRESH_TOKEN_KEY, "")
+        }
+    }
+
+    override fun saveTokens(access: String, refresh: String) : Single<Unit> {
         return Single.fromCallable {
             sharedPreferences.edit().putString(ACCESS_TOKEN_KEY, access).commit()
             sharedPreferences.edit().putString(REFRESH_TOKEN_KEY, refresh).commit()

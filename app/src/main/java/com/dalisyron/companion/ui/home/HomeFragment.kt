@@ -25,6 +25,9 @@ import android.opengl.ETC1.getWidth
 import android.annotation.TargetApi
 import android.view.View.OnLayoutChangeListener
 import com.dalisyron.companion.ui.newtrip.NewTripFragment
+import com.dalisyron.data.repository.PlaceRepository
+import com.dalisyron.data.repository.UserRepository
+import com.dalisyron.remote.datasource.PlaceRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
@@ -33,6 +36,10 @@ class HomeFragment : DaggerFragment(), HomeContract.View {
 
     @Inject
     lateinit var presenter : HomePresenter
+
+    @Inject
+    lateinit var placeRepository: PlaceRepository
+
 
     override fun navigateToNewTrip() {
         fragmentManager?.beginTransaction()?.replace(R.id.content_frame, NewTripFragment())?.
