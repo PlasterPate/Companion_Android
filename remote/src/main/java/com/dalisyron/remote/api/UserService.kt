@@ -1,5 +1,7 @@
 package com.dalisyron.remote.api
 
+import com.dalisyron.remote.dto.token.RefreshAccessItemDto
+import com.dalisyron.remote.dto.token.RefreshAccessResponseDto
 import com.dalisyron.remote.dto.user.*
 import com.google.gson.JsonObject
 import io.reactivex.Observer
@@ -62,4 +64,3 @@ fun main() {
         println(response)
     }, {it -> println(it)})
 }
-

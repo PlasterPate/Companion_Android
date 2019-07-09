@@ -14,5 +14,10 @@ interface RegisterContract {
         fun getPhoneNumber() : String
         fun getPassword() : String
         fun getConfirmPassword() : String
+        fun stopRegisterButtonAnimation()
+        fun startRegisterButtonAnimation()
+        fun doneRegisterButtonSuccess()
+        fun setRegisterButtonRadius()
+
     }
 }

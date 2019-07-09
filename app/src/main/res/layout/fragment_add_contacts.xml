@@ -8,7 +8,7 @@
         android:background="@color/black_theme2">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contactsRecyclerView"
+            android:id="@+id/add_contacts_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -16,28 +16,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/materialButton"
             app:layout_constraintHorizontal_bias="0.6"
-            android:layout_marginBottom="8dp">
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:text="@string/add_contact"
-            app:cornerRadius="8dp"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:backgroundTint="@color/ripple_color"
             android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/materialButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            />
-
-
+            app:layout_constraintBottom_toBottomOf="parent">
+    </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

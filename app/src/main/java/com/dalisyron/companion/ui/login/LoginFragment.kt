@@ -12,6 +12,7 @@ import android.view.*
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.AsyncTask
 import android.view.animation.Animation
 import android.widget.Toast
@@ -21,13 +22,19 @@ import com.dalisyron.companion.ui.register.RegisterFragment
 import com.dalisyron.data.repository.UserRepository
 import com.dalisyron.remote.api.UserService
 import com.dalisyron.remote.datasource.UserRemoteDataSourceImpl
+import com.google.android.material.textfield.TextInputEditText
 import com.tfighiera.revealactivity.RevealActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_register.*
+import org.w3c.dom.Text
 import javax.inject.Inject
+import android.text.method.PasswordTransformationMethod
+import android.R.attr.password
+
 
 
 class LoginFragment : DaggerFragment(), LoginContract.View {
+
     override fun stopLoginButtonAnimation() {
         login_button.animation = null
         login_button.clearAnimation()
@@ -39,9 +46,6 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
 
     override fun doneLoginButtonSuccess() {
         login_button.doneLoadingAnimation(Color.parseColor("#008000"),BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
-    }
-
-    override fun doneLoginButtonError() {
     }
 
     @Inject
@@ -75,6 +79,7 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
 
 
     lateinit var btn: CircularProgressButton
+    lateinit var password : TextInputEditText
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
@@ -98,7 +103,9 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
 
         mVideoView.setOnPreparedListener(MediaPlayer.OnPreparedListener { mediaPlayer -> mediaPlayer.isLooping = true })
 
-
+        password = view.findViewById(R.id.password_edit_text)
+        password.typeface = Typeface.DEFAULT
+        password.transformationMethod = PasswordTransformationMethod()
 
         btn = view.findViewById(R.id.login_button)
 
