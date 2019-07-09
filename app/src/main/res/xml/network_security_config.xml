@@ -2,7 +2,7 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
 
-        <domain includeSubdomains="true">https://static.kikojas.com</domain>
+        <domain includeSubdomains="true">194.225.229.210</domain>
 
     </domain-config>
 </network-security-config>
