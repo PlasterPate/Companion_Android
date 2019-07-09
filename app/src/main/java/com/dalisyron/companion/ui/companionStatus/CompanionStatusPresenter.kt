@@ -2,8 +2,12 @@ package com.dalisyron.companion.ui.companionStatus
 
 import android.os.CountDownTimer
 import android.view.View
+import com.google.android.gms.maps.model.LatLng
 
 class CompanionStatusPresenter : CompanionStatusContract.Presenter {
+    override fun onViewCreated() {
+        view.showHelpeeSource(LatLng(35.7425, 51.5023))
+    }
 
     lateinit var view: CompanionStatusContract.View
 

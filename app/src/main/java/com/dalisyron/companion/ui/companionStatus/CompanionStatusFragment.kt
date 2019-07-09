@@ -2,7 +2,11 @@ package com.dalisyron.companion.ui.companionStatus
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,16 +17,27 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.dalisyron.companion.R
+import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.MapsInitializer
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.fragment_companion_status.mapView
 
 
 class CompanionStatusFragment : Fragment(), CompanionStatusContract.View {
+    override fun showHelpeeSource(source : LatLng) {
+        mapView.getMapAsync{googleMap ->
+            googleMap.addMarker(MarkerOptions()
+                .position(source)
+                .icon(vectorToBitmap(R.drawable.ic_map_pin_lemon)))
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(source, 16.0f))
+        }
+    }
+
     lateinit var mCountDownTimer: CountDownTimer
     lateinit var mapView: MapView
 
@@ -91,6 +106,8 @@ class CompanionStatusFragment : Fragment(), CompanionStatusContract.View {
         mapView.onCreate(savedInstanceState)
         initMap()
 
+        presenter.onViewCreated()
+
         ping_button.setOnClickListener{
             presenter.onPingButtonClicked()
         }
@@ -127,6 +144,18 @@ class CompanionStatusFragment : Fragment(), CompanionStatusContract.View {
             val cameraPosition = CameraPosition.Builder().target(munich).zoom(15f).build()
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
+    }
+
+    fun vectorToBitmap(drawableId: Int) : BitmapDescriptor {
+        val drawable : Drawable? = ResourcesCompat.getDrawable(resources, drawableId, null)
+        val bitmap : Bitmap = Bitmap.createBitmap(drawable!!.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        DrawableCompat.setTint(drawable, resources.getColor(R.color.ripple_color))
+        drawable.draw(canvas)
+
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
     override fun onResume() {

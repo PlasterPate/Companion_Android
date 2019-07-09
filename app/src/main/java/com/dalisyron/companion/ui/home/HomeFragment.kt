@@ -24,6 +24,7 @@ import android.opengl.ETC1.getHeight
 import android.opengl.ETC1.getWidth
 import android.annotation.TargetApi
 import android.view.View.OnLayoutChangeListener
+import com.dalisyron.companion.ui.companionStatus.CompanionStatusFragment
 import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject

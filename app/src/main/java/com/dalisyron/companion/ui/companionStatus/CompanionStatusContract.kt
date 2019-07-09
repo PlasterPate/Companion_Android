@@ -1,6 +1,7 @@
 package com.dalisyron.companion.ui.companionStatus
 
 import android.os.CountDownTimer
+import com.google.android.gms.maps.model.LatLng
 
 interface CompanionStatusContract {
     interface View : CompanionStatusContract{
@@ -9,11 +10,13 @@ interface CompanionStatusContract {
         fun setProgressBarVisibility(visibility: Int)
         fun showProgressBar()
         fun cancleProgressBar()
+        fun showHelpeeSource(source : LatLng)
     }
 
     interface Presenter : CompanionStatusContract{
         fun onPingButtonClicked()
         fun onProgressFinished()
         fun onProgressSuccessful()
+        fun onViewCreated()
     }
 }
