@@ -5,9 +5,11 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:background="@color/black_theme2"
-                                                   android:id="@+id/home_fragment"
+                                                   android:id="@+id/home_constraint"
                                                    tools:context=".ui.main.MainActivity"
-        android:theme="@style/AppTheme.Transparent">
+                                                   android:theme="@style/AppTheme.Transparent"
+                                                   app:layout_constrainedWidth="true"
+                                                   app:layout_constrainedHeight="true">
 
 
     <!--<VideoView-->
@@ -20,6 +22,44 @@
     <!--app:layout_constraintBottom_toBottomOf="parent"-->
     <!--app:layout_constraintHorizontal_bias="0.0"-->
     <!--app:layout_constraintVertical_bias="0.0"/>-->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/home_linear"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintBottom_toBottomOf="@id/guideline4"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            android:orientation="vertical"
+            ></LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0"
+            android:id="@+id/guideline3"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/guideline4"
+            app:layout_constraintGuide_percent="1"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0"
+            android:id="@+id/guideline"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="1"
+            android:id="@+id/guideline2"/>
 
     <com.google.android.material.button.MaterialButton
             android:id="@+id/watching_trips"

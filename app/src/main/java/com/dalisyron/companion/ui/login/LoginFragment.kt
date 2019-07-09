@@ -90,6 +90,11 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sda = ViewAnimationUtils.createCircularReveal(view, 0.toInt(),
+            0.toInt(),0.toFloat(),2000.toFloat())
+        sda.duration = 1000
+        sda.start()
+
         presenter.view = this
 
         registerTextView.setOnClickListener {

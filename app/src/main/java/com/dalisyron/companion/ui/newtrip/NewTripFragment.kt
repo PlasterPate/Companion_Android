@@ -23,6 +23,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.view.ViewAnimationUtils
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -74,6 +75,11 @@ class NewTripFragment : DaggerFragment(), NewTripContract.View {
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sda = ViewAnimationUtils.createCircularReveal(view, this.arguments!!.getFloat("x").toInt(),
+            this.arguments!!.getFloat("y").toInt(),0.toFloat(),2000.toFloat())
+        sda.duration = 1200
+        sda.start()
 
         presenter.view = this
 
@@ -363,6 +369,14 @@ class NewTripFragment : DaggerFragment(), NewTripContract.View {
                 arguments = Bundle().apply {
                     putParcelable(LATLNG_KEY, latLng)
                 }
+            }
+        }
+        fun newInstance(x:Float,y:Float) : NewTripFragment{
+            return NewTripFragment().apply {
+                val bundle = Bundle()
+                bundle.putFloat("x",x)
+                bundle.putFloat("y",y)
+                arguments = bundle
             }
         }
     }

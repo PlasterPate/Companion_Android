@@ -1,6 +1,7 @@
 package com.dalisyron.companion.ui.helpeeStatus
 
 import android.Manifest
+import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -18,6 +19,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.*
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Animation
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -34,6 +37,7 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.*
+import com.dalisyron.companion.ui.home.HomeFragment
 import com.google.android.gms.maps.MapView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.circularreveal.cardview.CircularRevealCardView
@@ -127,12 +131,12 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
         val obj = ObjectAnimator.ofFloat(fab, "translationX", ((asd.left + asd.right) / 2).toFloat())
         val obj1 = ObjectAnimator.ofFloat(fab, "translationY", fabLocations[0].toFloat())
 
+
         val constraintSet1 = ConstraintSet()
         constraintSet1.clone(sceneRoot)
         val constraintSet2 = ConstraintSet()
         constraintSet2.clone(context, R.layout.fragment_helpee_status_reveal)
         var changed = false
-        val anim = ViewAnimationUtils.createCircularReveal(asd, 200, 200, 50.toFloat(), 0.toFloat())
 
         fab.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -147,6 +151,14 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
                 }
             }
         })
+    }
+
+    private fun getCircularAnimator(targetView: View, sourceX: Int, sourceY: Int, speed: Long): Animator {
+        val finalRadius = Math.hypot(targetView.width.toDouble(), targetView.height.toDouble()).toFloat()
+        return ViewAnimationUtils.createCircularReveal(targetView, sourceX, sourceY, 0f, finalRadius).apply {
+            interpolator = AccelerateDecelerateInterpolator()
+            duration = speed
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

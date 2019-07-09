@@ -6,8 +6,8 @@ class HomePresenter @Inject constructor() : HomeContract.Presenter {
 
     lateinit var view : HomeContract.View
 
-    override fun onNewTripButtonClicked() {
-        view.navigateToNewTrip()
+    override fun onNewTripButtonClicked(x:Float,y:Float) {
+        view.navigateToNewTrip(x,y)
     }
 
     override fun onManageContactsClicked() {
