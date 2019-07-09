@@ -139,23 +139,6 @@
                     android:textColor="@color/Green"
                     android:fontFamily="@font/yekan"/>
 
-            <!--<com.google.android.material.button.MaterialButton-->
-            <!--android:id="@+id/login"-->
-            <!--style="@style/Button"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="64dp"-->
-            <!--android:text="@string/enter"-->
-            <!--app:cornerRadius="32dp"-->
-            <!--android:textColor="@color/Black"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_margin="8dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:layout_marginRight="8dp"-->
-            <!--android:layout_marginBottom="8dp"/>-->
-
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -198,35 +181,6 @@
             android:clickable="true"
             android:id="@+id/registerTextView"
             android:fontFamily="@font/yekan"/>
-
-
-    <!--<com.dd.morphingbutton.MorphingButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/morph"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/card_view_login"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--app:layout_constraintBottom_toTopOf="@+id/textView"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--android:layout_marginStart="8dp"/>-->
-
-    <!--<com.wnafee.vector.MorphButton-->
-    <!--android:id="@+id/playPauseBtn"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:vc_startDrawable="@drawable/ic_pause_to_play"-->
-    <!--app:vc_endDrawable="@drawable/ic_play_to_pause"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--app:layout_constraintBottom_toBottomOf="@+id/login_video_view"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/textView"/>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
