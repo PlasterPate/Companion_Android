@@ -29,11 +29,20 @@ import kotlinx.android.synthetic.main.fragment_helpee_status.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.*
+import com.dalisyron.data.model.CompanionEntity
 import com.google.android.gms.maps.MapView
 import com.google.android.material.circularreveal.cardview.CircularRevealCardView
+import com.squareup.picasso.Picasso
 
 
 class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
+
+    override fun showCompanionInfo(companionEntity: CompanionEntity) {
+        companion_name.text = companionEntity.name
+        companion_phone_number.text = companionEntity.phoneNumber
+        Picasso.get().load(companionEntity.imageSource).into(companion_button)
+    }
+
     override fun hidePingProgress() {
         countDownTimer.cancel()
         dialog.hide()
@@ -137,6 +146,13 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
                 }
             }
         })
+
+        val companionEntity = CompanionEntity(
+            name = "Mobin",
+            phoneNumber = "09334537343",
+            imageSource = "https://static.kikojas.com//assets//places//d7//07//dad4435841_tiny.jpg"
+        )
+        presenter.onViewCreated(companionEntity)
     }
 
     private fun getCircularAnimator(targetView: View, sourceX: Int, sourceY: Int, speed: Long): Animator {

@@ -37,6 +37,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(":data")
     implementation project(":remote")
+    implementation 'com.squareup.picasso:picasso:(insert latest version)'
 
     implementation "androidx.appcompat:appcompat:$libraries.androidX"
     implementation "androidx.core:core-ktx:$libraries.androidX"
@@ -94,4 +95,6 @@ dependencies {
     //firebase
     implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

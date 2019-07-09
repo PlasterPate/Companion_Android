@@ -15,6 +15,8 @@ class NewTripPresenter @Inject constructor(private val userRepository: UserRepos
                                            private val tripRepository: TripRepository) : NewTripContract.Presenter {
 
     override fun onNewTripClicked() {
+        view.navigateToHelpeeStatus()
+        return
         userRepository.getUser().flatMap {id ->
             val source : LatLngEntity = with(view.getSource()){ LatLngEntity(this.latitude, this.longitude) }
             val destination : LatLngEntity = with(view.getDestination()){ LatLngEntity(this.latitude, this.longitude)}
@@ -23,11 +25,13 @@ class NewTripPresenter @Inject constructor(private val userRepository: UserRepos
                 source = source,
                 destination = destination
             )
-            tripRepository.createNewTrip(tripItemEntity)
+            tripRepository.createNewTrip(tripItemEntity).doOnSuccess {
+                view.navigateToHelpeeStatus()
+            }
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe({tripResponseEntity ->
                 view.showTripCreatedMessage(tripResponseEntity.status)
-            }, {it -> view.showTripCreatedMessage("Error ${it.message}")})
+            }, {it -> view.showTripCreatedMessage("Unable to create trip ${it.message}")})
     }
 
     lateinit var view : NewTripContract.View
