@@ -7,9 +7,12 @@
                                                    android:background="@color/twitterBlue"
                                                    android:orientation="vertical"
                                                    android:layout_gravity="center|center_vertical"
-                                                   android:id="@+id/login_fragment"
+                                                   android:id="@+id/login_constraint"
                                                    tools:context=".ui.main.MainActivity"
-                                                   android:theme="@style/AppTheme">
+                                                   android:theme="@style/AppTheme"
+                                                   android:focusable="true"
+                                                   android:focusableInTouchMode="true"
+                                                   android:clickable="true">
 
 
     <VideoView

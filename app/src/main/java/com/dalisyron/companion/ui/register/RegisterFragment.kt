@@ -1,5 +1,6 @@
 package com.dalisyron.companion.ui.register
 
+import android.app.Activity
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.MediaPlayer
@@ -8,10 +9,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import android.widget.VideoView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.dalisyron.companion.R
 import com.dalisyron.companion.ui.home.HomeFragment
+import com.dalisyron.companion.ui.login.LoginFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_register.*
 import javax.inject.Inject
@@ -87,9 +91,17 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
         setRegisterButtonRadius()
 
+        val register = view.findViewById(R.id.register_constraint) as ConstraintLayout
+
+        register.setOnFocusChangeListener { x, hasFocus ->  view.hideKeyboard()}
+
         register_button.setOnClickListener {
             register_button.startAnimation()
             presenter.onRegisterButtonClicked()
         }
+    }
+    public fun View.hideKeyboard(){
+        val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
     }
 }

@@ -51,7 +51,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
     }
 
     lateinit var countDownTimer: CountDownTimer
-    lateinit var dialog : Dialog
+    lateinit var dialog: Dialog
     lateinit var mapView: MapView
 
     override fun showPingProgress() {
@@ -59,11 +59,11 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
         dialog.setContentView(R.layout.dialog_ping)
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
-        val progress : ProgressBar = dialog.findViewById(R.id.circular_progressbar)
-        val givenTime : Long = 15000
+        val progress: ProgressBar = dialog.findViewById(R.id.circular_progressbar)
+        val givenTime: Long = 15000
         progress.progress = 0
 
-        countDownTimer = object : CountDownTimer(givenTime, givenTime / progress.max){
+        countDownTimer = object : CountDownTimer(givenTime, givenTime / progress.max) {
 
             override fun onTick(millisUntilFinished: Long) {
                 progress.incrementProgressBy(1)
@@ -78,8 +78,8 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
         }
         countDownTimer.start()
 
-        val pingRespondButton : FloatingActionButton = dialog.findViewById(R.id.ping_respond_button)
-        pingRespondButton.setOnClickListener{
+        val pingRespondButton: FloatingActionButton = dialog.findViewById(R.id.ping_respond_button)
+        pingRespondButton.setOnClickListener {
             presenter.onHelpeeRespond()
         }
     }
@@ -87,7 +87,6 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
     override fun toastMessage(message: String) {
         Toast.makeText(this.context, message, Toast.LENGTH_LONG).show()
     }
-
 
 
     private val presenter: HelpeeStatusPresenter by lazy {
@@ -116,7 +115,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
             initMap()
         }
 
-        emergency_button.setOnClickListener{
+        emergency_button.setOnClickListener {
             presenter.onEmergencyButtonClicked()
         }
 
@@ -129,12 +128,12 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
         val obj = ObjectAnimator.ofFloat(fab, "translationX", ((asd.left + asd.right) / 2).toFloat())
         val obj1 = ObjectAnimator.ofFloat(fab, "translationY", fabLocations[0].toFloat())
 
-                val constraintSet1 = ConstraintSet()
-                constraintSet1.clone(sceneRoot)
-                val constraintSet2 = ConstraintSet()
-                constraintSet2.clone(context, R.layout.fragment_helpee_status_reveal)
-                var changed = false
-        val anim = ViewAnimationUtils.createCircularReveal(asd,200,200,50.toFloat(),0.toFloat())
+        val constraintSet1 = ConstraintSet()
+        constraintSet1.clone(sceneRoot)
+        val constraintSet2 = ConstraintSet()
+        constraintSet2.clone(context, R.layout.fragment_helpee_status_reveal)
+        var changed = false
+        val anim = ViewAnimationUtils.createCircularReveal(asd, 200, 200, 50.toFloat(), 0.toFloat())
 
         fab.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -142,10 +141,9 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
                 val constraint = if (changed) constraintSet1 else constraintSet2
                 constraint.applyTo(sceneRoot)
                 changed = !changed
-                if(changed) {
+                if (changed) {
                     asd.visibility = View.VISIBLE
-                }
-                else
+                } else
                     asd.visibility = View.INVISIBLE
             }
         })
