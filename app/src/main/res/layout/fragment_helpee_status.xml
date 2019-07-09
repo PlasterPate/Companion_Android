@@ -33,19 +33,30 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.6"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:id="@+id/companion_button"
+            android:scaleType="centerInside"
+            android:translationZ="5dp"
+            android:background="@drawable/roundedbutton"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/no_picture"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/mapView"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/emergency_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"/>
+            app:layout_constraintBottom_toBottomOf="@+id/companion_panel"
+            />
+
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/companion_name"
-            android:textColor="@color/black"
+            android:textColor="@color/White"
+            android:text="تامی شلبی"
+            android:textSize="16dp"
+            android:fontFamily="@font/yekan"
+            android:translationZ="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/companion_button"
             app:layout_constraintEnd_toStartOf="@+id/companion_button"
             android:layout_marginEnd="8dp"
@@ -59,7 +70,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/companion_phone_number"
-            android:textColor="@color/black"
+            android:textColor="@color/White"
+            android:text="09131330705"
+            android:textSize="16dp"
+            android:fontFamily="@font/yekan"
+            android:translationZ="10dp"
             app:layout_constraintEnd_toEndOf="@+id/companion_panel"
             app:layout_constraintBottom_toBottomOf="@+id/companion_panel"
             app:layout_constraintStart_toEndOf="@+id/companion_button"
