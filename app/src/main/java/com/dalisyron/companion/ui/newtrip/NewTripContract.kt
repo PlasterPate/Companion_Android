@@ -31,7 +31,6 @@ interface NewTripContract {
         fun onDestinationCancled(destination: LatLng)
         fun onReturnFromSearch(searchItemLocation : LatLng?)
         fun onSearchBarClicked()
-        fun onStartTripButtonClicked()
         fun onNewTripClicked()
     }
 }

@@ -129,11 +129,6 @@ class NewTripFragment : DaggerFragment(), NewTripContract.View {
             }
 
         }
-
-        start_trip_button.setOnClickListener{
-            presenter.onStartTripButtonClicked()
-        }
-
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION

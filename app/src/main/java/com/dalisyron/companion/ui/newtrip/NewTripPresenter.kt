@@ -57,7 +57,4 @@ class NewTripPresenter @Inject constructor(private val userRepository: UserRepos
         view.setStartTripBtnState(false)
     }
 
-    override fun onStartTripButtonClicked() {
-        view.navigateToHelpeeStatus()
-    }
 }
