@@ -14,31 +14,21 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.AsyncTask
-import android.view.animation.Animation
+import android.text.method.PasswordTransformationMethod
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.register.RegisterFragment
-import com.dalisyron.data.repository.UserRepository
-import com.dalisyron.remote.api.UserService
-import com.dalisyron.remote.datasource.UserRemoteDataSourceImpl
 import com.google.android.material.textfield.TextInputEditText
-import com.tfighiera.revealactivity.RevealActivity
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_register.*
-import org.w3c.dom.Text
 import javax.inject.Inject
 import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.widget.ConstraintLayout
-import android.text.method.PasswordTransformationMethod
 import android.R.attr.password
 
-class LoginFragment : DaggerFragment(), LoginContract.View {
 
+class LoginFragment : DaggerFragment(), LoginContract.View {
     override fun stopLoginButtonAnimation() {
-        login_button.animation = null
-        login_button.clearAnimation()
+        login_button.revertAnimation()
     }
 
     override fun startLoginButtonAnimation() {
@@ -47,6 +37,10 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
 
     override fun doneLoginButtonSuccess() {
         login_button.doneLoadingAnimation(Color.parseColor("#008000"),BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
+    }
+
+    override fun setLoginButtonRadius() {
+        login_button.setInitialCornerRadius(64.toFloat())
     }
 
     @Inject
@@ -108,10 +102,13 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
         password.typeface = Typeface.DEFAULT
         password.transformationMethod = PasswordTransformationMethod()
 
+
         btn = view.findViewById(R.id.login_button)
 
+        setLoginButtonRadius()
 
         btn.setOnClickListener {
+            startLoginButtonAnimation()
             presenter.onLoginButtonClicked()
         }
 

@@ -84,6 +84,7 @@
                         android:id="@+id/name_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/White"
                         android:textColorHint="@color/White"
                         android:backgroundTint="@color/White"
                         android:fontFamily="@font/yekan"/>
@@ -103,6 +104,8 @@
                         android:id="@+id/family_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/White"
                         android:backgroundTint="@color/White"
                         android:fontFamily="@font/yekan"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -121,6 +124,8 @@
                         android:id="@+id/phone_number_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/White"
                         android:backgroundTint="@color/White"
                         android:fontFamily="@font/yekan"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -140,6 +145,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textVisiblePassword"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/White"
                         android:backgroundTint="@color/White"
                         android:fontFamily="@font/yekan"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -160,6 +167,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textVisiblePassword"
+                        android:textColor="@color/White"
                         android:textColorHint="@color/White"
                         android:backgroundTint="@color/White"
                         android:fontFamily="@font/yekan"/>
