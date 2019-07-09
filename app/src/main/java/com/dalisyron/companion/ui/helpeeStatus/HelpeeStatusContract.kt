@@ -1,5 +1,6 @@
 package com.dalisyron.companion.ui.helpeeStatus
 
+import com.dalisyron.data.model.CompanionEntity
 import java.net.URL
 
 interface HelpeeStatusContract {
@@ -7,7 +8,7 @@ interface HelpeeStatusContract {
         fun toastMessage(message : String)
         fun showPingProgress()
         fun hidePingProgress()
-        fun showCompanionInfo(name : String, phoneNumber : String, profileImage : URL)
+        fun showCompanionInfo(companionEntity : CompanionEntity)
     }
 
     interface presenter : HelpeeStatusContract{
@@ -15,5 +16,6 @@ interface HelpeeStatusContract {
         fun onBeingPinged()
         fun onHelpeeRespond()
         fun onHelpeeNotRespond()
+        fun onViewCreated(companionEntity: CompanionEntity)
     }
 }

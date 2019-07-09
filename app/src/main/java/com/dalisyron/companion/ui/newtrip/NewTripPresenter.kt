@@ -15,6 +15,8 @@ class NewTripPresenter @Inject constructor(private val userRepository: UserRepos
                                            private val tripRepository: TripRepository) : NewTripContract.Presenter {
 
     override fun onNewTripClicked() {
+        view.navigateToHelpeeStatus()
+        return
         userRepository.getUser().flatMap {id ->
             val source : LatLngEntity = with(view.getSource()){ LatLngEntity(this.latitude, this.longitude) }
             val destination : LatLngEntity = with(view.getDestination()){ LatLngEntity(this.latitude, this.longitude)}

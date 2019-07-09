@@ -1,6 +1,12 @@
 package com.dalisyron.companion.ui.helpeeStatus
 
+import com.dalisyron.data.model.CompanionEntity
+
 class HelpeeStatusPresenter : HelpeeStatusContract.presenter {
+    override fun onViewCreated(companionEntity: CompanionEntity) {
+        view.showCompanionInfo(companionEntity)
+    }
+
     override fun onHelpeeRespond() {
         view.hidePingProgress()
     }
@@ -17,6 +23,7 @@ class HelpeeStatusPresenter : HelpeeStatusContract.presenter {
         view.toastMessage("وضعیت شما اطلاع داده شد")
         view.showPingProgress()
     }
+
 
     lateinit var view : HelpeeStatusContract.view
 }

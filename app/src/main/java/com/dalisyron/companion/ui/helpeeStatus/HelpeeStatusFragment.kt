@@ -34,15 +34,25 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.*
+import com.dalisyron.data.model.CompanionEntity
 import com.google.android.gms.maps.MapView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.circularreveal.cardview.CircularRevealCardView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_helpee_status.*
 import kotlinx.android.synthetic.main.fragment_new_trip.mapView
+import kotlinx.android.synthetic.main.item_contact_item.view.*
 import java.net.URL
 
 
 class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
+
+    override fun showCompanionInfo(companionEntity: CompanionEntity) {
+        companion_name.text = companionEntity.name
+        companion_phone_number.text = companionEntity.phoneNumber
+        Picasso.get().load(companionEntity.imageSource).into(companion_button)
+    }
+
     override fun hidePingProgress() {
         countDownTimer.cancel()
         dialog.hide()
@@ -51,10 +61,6 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
     lateinit var countDownTimer: CountDownTimer
     lateinit var dialog: Dialog
     lateinit var mapView: MapView
-
-    override fun showCompanionInfo(name: String, phoneNumber: String, profileImage: URL) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun showPingProgress() {
         dialog = Dialog(this.context)
@@ -152,6 +158,13 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
                 }
             }
         })
+
+        val companionEntity = CompanionEntity(
+            name = "Mobin",
+            phoneNumber = "09334537343",
+            imageSource = "https://static.kikojas.com//assets//places//d7//07//dad4435841_tiny.jpg"
+        )
+        presenter.onViewCreated(companionEntity)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
