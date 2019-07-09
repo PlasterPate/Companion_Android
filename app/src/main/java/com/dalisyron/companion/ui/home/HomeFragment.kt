@@ -67,17 +67,6 @@ class HomeFragment : DaggerFragment(), HomeContract.View {
         manage_companions.setOnClickListener {
             presenter.onManageContactsClicked()
         }
-//        val mVideoView = view.findViewById(R.id.home_video_view) as VideoView
-//
-//        val uri = Uri.parse("android.resource://" + requireContext().getPackageName() + "/" + R.raw.out)
-//
-//        mVideoView.setVideoURI(uri)
-//        mVideoView.start()
-//
-//        mVideoView.setOnPreparedListener(MediaPlayer.OnPreparedListener { mediaPlayer -> mediaPlayer.isLooping = true })
-        val addButton = view.findViewById(R.id.new_trip) as FloatingActionButton
-
-//        addButton.setOnFocusChangeListener(View.OnFocusChangeListener {view , addButton -> addButton.setImageDrawable(R.drawable.ic_list)})
     }
 
     override fun navigateToNewTrip() {
