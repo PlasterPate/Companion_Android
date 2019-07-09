@@ -58,6 +58,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
         dialog = Dialog(this.context)
         dialog.setContentView(R.layout.dialog_ping)
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(false)
         dialog.show()
         val progress: ProgressBar = dialog.findViewById(R.id.circular_progressbar)
         val givenTime: Long = 15000
@@ -82,6 +83,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
         pingRespondButton.setOnClickListener {
             presenter.onHelpeeRespond()
         }
+        dialog.setCanceledOnTouchOutside(false)
     }
 
     override fun toastMessage(message: String) {

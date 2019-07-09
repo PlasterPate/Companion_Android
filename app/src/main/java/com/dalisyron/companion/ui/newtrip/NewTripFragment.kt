@@ -244,9 +244,8 @@ class NewTripFragment : DaggerFragment(), NewTripContract.View {
     override fun moveCamera(position : LatLng) {
 
         mapView.getMapAsync { googleMap ->
-            val cameraPosition = CameraPosition.Builder().target(position).zoom(15f).build()
+            val cameraPosition = CameraPosition.Builder().target(position).zoom(11f).build()
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-
         }
     }
 

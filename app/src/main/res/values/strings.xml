@@ -14,11 +14,8 @@
     <string name="register">ثبت نام کنید</string>
     <string name="forgot_password">فراموشی رمز؟</string>
     <string name="watching_trips">سفرهای تحت مراقبت</string>
-<<<<<<< HEAD
     <string name="emergency">وضعیت اضطراری</string>
     <string name="call">تماس</string>
     <string name="emergency_toast">وضعیت شما اطلاع داده شد</string>
-=======
     <string name="add_contact">اضافه کردن</string>
->>>>>>> 41b0299879681a078b8948222fd262bf1b1e95b4
 </resources>
