@@ -3,6 +3,7 @@
     <domain-config cleartextTrafficPermitted="true">
 
         <domain includeSubdomains="true">https://static.kikojas.com</domain>
+        <domain includeSubdomains="true">http://CompanionSDA.ir</domain>
 
     </domain-config>
 </network-security-config>
