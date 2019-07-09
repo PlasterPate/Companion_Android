@@ -39,6 +39,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.circularreveal.cardview.CircularRevealCardView
 import kotlinx.android.synthetic.main.fragment_helpee_status.*
 import kotlinx.android.synthetic.main.fragment_new_trip.mapView
+import java.net.URL
 
 
 class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
@@ -50,6 +51,10 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
     lateinit var countDownTimer: CountDownTimer
     lateinit var dialog: Dialog
     lateinit var mapView: MapView
+
+    override fun showCompanionInfo(name: String, phoneNumber: String, profileImage: URL) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun showPingProgress() {
         dialog = Dialog(this.context)

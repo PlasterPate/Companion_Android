@@ -35,7 +35,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     override fun navigateToLogin() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, HomeFragment())
+            .replace(R.id.content_frame, LoginFragment())
             .commit()
     }
 }

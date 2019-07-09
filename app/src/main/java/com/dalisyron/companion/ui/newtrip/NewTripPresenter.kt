@@ -23,11 +23,13 @@ class NewTripPresenter @Inject constructor(private val userRepository: UserRepos
                 source = source,
                 destination = destination
             )
-            tripRepository.createNewTrip(tripItemEntity)
+            tripRepository.createNewTrip(tripItemEntity).doOnSuccess {
+                view.navigateToHelpeeStatus()
+            }
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe({tripResponseEntity ->
                 view.showTripCreatedMessage(tripResponseEntity.status)
-            }, {it -> view.showTripCreatedMessage("Error ${it.message}")})
+            }, {it -> view.showTripCreatedMessage("Unable to create trip ${it.message}")})
     }
 
     lateinit var view : NewTripContract.View
