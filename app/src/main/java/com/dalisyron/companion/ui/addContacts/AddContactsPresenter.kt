@@ -14,14 +14,13 @@ class AddContactsPresenter : AddContactsContract.Presenter{
     }
 
     override fun normalizePhoneNumber(phoneNumber: String) : String {
-        val number = phoneNumber.reversed()
-        var normalizedNumber : String = ""
-        for (c : Char in number){
-            if (normalizedNumber.length > 10)
+        var normalizedNumber = ""
+        for (c : Char in phoneNumber.reversed()){
+            if (normalizedNumber.length > 9)
                 break
             if (c.isDigit())
                 normalizedNumber += c
         }
-        return normalizedNumber
+        return normalizedNumber.reversed()
     }
 }
