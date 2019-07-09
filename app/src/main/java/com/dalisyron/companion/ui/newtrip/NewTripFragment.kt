@@ -23,24 +23,48 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.widget.AbsListView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.dalisyron.companion.ui.helpeeStatus.HelpeeStatusFragment
 import com.dalisyron.companion.ui.search.SearchFragment
+import com.dalisyron.companion.ui.addContacts.AddContactsFragment
+import com.dalisyron.companion.ui.addContacts.AddContactsFragment.Companion.CONTACT_KEY
+import com.dalisyron.data.model.ContactEntity
+import com.google.android.gms.common.util.WorkSourceUtil
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
+import dagger.android.support.DaggerFragment
 import java.lang.Math.abs
+import javax.inject.Inject
 
-class NewTripFragment : Fragment(), NewTripContract.View {
+class NewTripFragment : DaggerFragment(), NewTripContract.View {
 
-    lateinit var foo : AbsListView.OnScrollListener
+    override fun showTripCreatedMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun getSource(): LatLng {
+        return sourceLocation
+    }
+
+    override fun getDestination(): LatLng {
+        return destinationLocation
+    }
 
     var searchItemLocation : LatLng? = null
+    var companionContact : ContactEntity? = null
+
+    lateinit var sourceLocation : LatLng
+    lateinit var destinationLocation : LatLng
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchItemLocation = arguments?.getParcelable(LATLNG_KEY)
+        arguments?.getSerializable(CONTACT_KEY)?.let {
+            companionContact = it as ContactEntity
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,6 +75,8 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        presenter.view = this
+
         mapView.onCreate(savedInstanceState)
 
         searchEditText.setOnClickListener {
@@ -60,6 +86,11 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         imageView.setOnClickListener {
             presenter.onSearchBarClicked()
         }
+
+        start_trip_button.setOnClickListener {
+            presenter.onNewTripClicked()
+        }
+
         pin.setOnClickListener {
             mapView.getMapAsync { googleMap ->
                 val destinationLocation = googleMap.projection.visibleRegion.latLngBounds.center
@@ -81,6 +112,9 @@ class NewTripFragment : Fragment(), NewTripContract.View {
                 else
                     destinationLocation
                 val markerIcon = vectorToBitmap(R.drawable.ic_map_pin)
+
+                this.sourceLocation = sourceLocation
+                this.destinationLocation = destinationLocation
 
                 presenter.onPinLocked(sourceLocation, destinationLocation)
                 googleMap.addMarker(MarkerOptions()
@@ -107,11 +141,8 @@ class NewTripFragment : Fragment(), NewTripContract.View {
         ) {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 123)
         } else {
-            if (searchItemLocation == null) {
-                initMap()
-            }
+            initMap()
         }
-        presenter.onReturnFromSearch(searchItemLocation)
     }
 
     override fun zoomOutMap(source : LatLng, destination : LatLng) {
@@ -211,8 +242,11 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     }
 
     override fun moveCamera(position : LatLng) {
+
         mapView.getMapAsync { googleMap ->
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
+            val cameraPosition = CameraPosition.Builder().target(position).zoom(15f).build()
+            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
         }
     }
 
@@ -241,11 +275,13 @@ class NewTripFragment : Fragment(), NewTripContract.View {
             ?.addToBackStack("HelpeeStatusFromNewTrip")?.commit()
     }
 
-    private val presenter: NewTripPresenter by lazy {
-        NewTripPresenter().apply {
-            view = this@NewTripFragment
-        }
-    }
+//    private val presenter: NewTripPresenter by lazy {
+//        NewTripPresenter().apply {
+//            view = this@NewTripFragment
+//        }
+//    }
+    @Inject
+    lateinit var presenter : NewTripPresenter
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -286,9 +322,13 @@ class NewTripFragment : Fragment(), NewTripContract.View {
             googleMap.isMyLocationEnabled = true
             googleMap.uiSettings.isMyLocationButtonEnabled = true
 
-            val munich = LatLng(48.1351, 11.5820)
-            val cameraPosition = CameraPosition.Builder().target(munich).zoom(15f).build()
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+            val tehran = LatLng(35.6892, 51.3890)
+
+            if (searchItemLocation != null) {
+                presenter.onReturnFromSearch(searchItemLocation)
+            } else {
+                moveCamera(tehran)
+            }
         }
     }
 
@@ -315,6 +355,15 @@ class NewTripFragment : Fragment(), NewTripContract.View {
     companion object {
 
         const val LATLNG_KEY = "latlng"
+
+        fun newInstance(contactEntity: ContactEntity) : NewTripFragment {
+            return NewTripFragment().apply {
+                val bundle = Bundle()
+                bundle.putSerializable(AddContactsFragment.CONTACT_KEY, contactEntity)
+                arguments = bundle
+            }
+        }
+
         fun newInstance(latLng: LatLng) : NewTripFragment {
             return NewTripFragment().apply {
                 arguments = Bundle().apply {

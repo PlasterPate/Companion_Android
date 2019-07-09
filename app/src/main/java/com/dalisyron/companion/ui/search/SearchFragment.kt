@@ -27,7 +27,7 @@ class SearchFragment : DaggerFragment(), SearchContract.View, OnSearchPlaceItemC
             ?.replace(
                 R.id.content_frame,
                 NewTripFragment.newInstance(location)
-            )?.commit()
+            )?.addToBackStack("NewTripFromSearch")?.commit()
     }
 
     override fun clearPlaces() {
@@ -91,7 +91,7 @@ class SearchFragment : DaggerFragment(), SearchContract.View, OnSearchPlaceItemC
 
     override fun navigateToNewTrip() {
         fragmentManager?.beginTransaction()
-            ?.replace(R.id.content_frame, HomeFragment())
+            ?.replace(R.id.content_frame, HomeFragment())?.addToBackStack("newTripFromSearch")
             ?.commit()
     }
 

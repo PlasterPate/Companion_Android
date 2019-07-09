@@ -3,9 +3,11 @@ package com.dalisyron.companion.ui.register
 import android.app.Activity
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Typeface
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,14 +18,18 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.dalisyron.companion.R
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.login.LoginFragment
+import com.google.android.material.textfield.TextInputEditText
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_register.*
+import org.w3c.dom.Text
 import javax.inject.Inject
 
 class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
     @Inject
     lateinit var presenter : RegisterPresenter
+    lateinit var password : TextInputEditText
+    lateinit var repeat_password : TextInputEditText
 
     override fun showError(error: String) {
         Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
@@ -89,6 +95,13 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
         mVideoView.setOnPreparedListener(MediaPlayer.OnPreparedListener { mediaPlayer -> mediaPlayer.isLooping = true })
 
+        password = view.findViewById(R.id.password_edit_text)
+        password.typeface = Typeface.DEFAULT
+        password.transformationMethod = PasswordTransformationMethod()
+
+        repeat_password = view.findViewById(R.id.password_edit_text)
+        repeat_password.typeface = Typeface.DEFAULT
+        repeat_password.transformationMethod = PasswordTransformationMethod()
         setRegisterButtonRadius()
 
         val register = view.findViewById(R.id.register_constraint) as ConstraintLayout
