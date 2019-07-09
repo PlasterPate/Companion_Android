@@ -17,5 +17,6 @@ interface LoginContract {
         fun stopLoginButtonAnimation()
         fun startLoginButtonAnimation()
         fun doneLoginButtonSuccess()
+        fun setLoginButtonRadius()
     }
 }
