@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.dalisyron.companion.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapsInitializer
@@ -32,8 +31,6 @@ import com.dalisyron.companion.ui.search.SearchFragment
 import com.dalisyron.companion.ui.addContacts.AddContactsFragment
 import com.dalisyron.companion.ui.addContacts.AddContactsFragment.Companion.CONTACT_KEY
 import com.dalisyron.data.model.ContactEntity
-import com.google.android.gms.common.util.WorkSourceUtil
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
 import dagger.android.support.DaggerFragment
@@ -76,10 +73,10 @@ class NewTripFragment : DaggerFragment(), NewTripContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sda = ViewAnimationUtils.createCircularReveal(view, this.arguments!!.getFloat("x").toInt(),
+        val anim = ViewAnimationUtils.createCircularReveal(view, this.arguments!!.getFloat("x").toInt(),
             this.arguments!!.getFloat("y").toInt(),0.toFloat(),2000.toFloat())
-        sda.duration = 1200
-        sda.start()
+        anim.duration = 1200
+        anim.start()
 
         presenter.view = this
 

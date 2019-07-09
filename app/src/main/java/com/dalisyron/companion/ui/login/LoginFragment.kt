@@ -1,8 +1,6 @@
 package com.dalisyron.companion.ui.login
 
 import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.VideoView
@@ -14,25 +12,15 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.AsyncTask
-import android.view.animation.Animation
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.register.RegisterFragment
-import com.dalisyron.data.repository.UserRepository
-import com.dalisyron.remote.api.UserService
-import com.dalisyron.remote.datasource.UserRemoteDataSourceImpl
 import com.google.android.material.textfield.TextInputEditText
-import com.tfighiera.revealactivity.RevealActivity
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_register.*
-import org.w3c.dom.Text
 import javax.inject.Inject
 import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.text.method.PasswordTransformationMethod
-import android.R.attr.password
 
 class LoginFragment : DaggerFragment(), LoginContract.View {
 
@@ -90,10 +78,10 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sda = ViewAnimationUtils.createCircularReveal(view, 0.toInt(),
+        val anim = ViewAnimationUtils.createCircularReveal(view, 0.toInt(),
             0.toInt(),0.toFloat(),2000.toFloat())
-        sda.duration = 1000
-        sda.start()
+        anim.duration = 1000
+        anim.start()
 
         presenter.view = this
 

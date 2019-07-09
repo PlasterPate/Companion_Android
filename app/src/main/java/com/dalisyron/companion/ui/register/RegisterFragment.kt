@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -27,9 +28,9 @@ import javax.inject.Inject
 class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
     @Inject
-    lateinit var presenter : RegisterPresenter
-    lateinit var password : TextInputEditText
-    lateinit var repeat_password : TextInputEditText
+    lateinit var presenter: RegisterPresenter
+    lateinit var password: TextInputEditText
+    lateinit var repeat_password: TextInputEditText
 
     override fun showError(error: String) {
         Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
@@ -64,7 +65,10 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
     }
 
     override fun doneRegisterButtonSuccess() {
-        register_button.doneLoadingAnimation(Color.parseColor("#008000"),BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
+        register_button.doneLoadingAnimation(
+            Color.parseColor("#008000"),
+            BitmapFactory.decodeResource(resources, R.drawable.ic_done_white_48dp)
+        )
     }
 
     override fun setRegisterButtonRadius() {
@@ -84,6 +88,13 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val anim = ViewAnimationUtils.createCircularReveal(
+            view, 0.toInt(),
+            0.toInt(), 0.toFloat(), 2000.toFloat()
+        )
+        anim.duration = 1000
+        anim.start()
+
         presenter.view = this
 
         val mVideoView = view.findViewById(R.id.signup_video_view) as VideoView
@@ -95,25 +106,26 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
         mVideoView.setOnPreparedListener(MediaPlayer.OnPreparedListener { mediaPlayer -> mediaPlayer.isLooping = true })
 
-        password = view.findViewById(R.id.password_edit_text)
+        password = view.findViewById(R.id.signup_password_edit_text)
         password.typeface = Typeface.DEFAULT
         password.transformationMethod = PasswordTransformationMethod()
 
-        repeat_password = view.findViewById(R.id.password_edit_text)
+        repeat_password = view.findViewById(R.id.repeat_password_edit_text)
         repeat_password.typeface = Typeface.DEFAULT
         repeat_password.transformationMethod = PasswordTransformationMethod()
         setRegisterButtonRadius()
 
         val register = view.findViewById(R.id.register_constraint) as ConstraintLayout
 
-        register.setOnFocusChangeListener { x, hasFocus ->  view.hideKeyboard()}
+        register.setOnFocusChangeListener { x, hasFocus -> view.hideKeyboard() }
 
         register_button.setOnClickListener {
             register_button.startAnimation()
             presenter.onRegisterButtonClicked()
         }
     }
-    public fun View.hideKeyboard(){
+
+    public fun View.hideKeyboard() {
         val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
     }

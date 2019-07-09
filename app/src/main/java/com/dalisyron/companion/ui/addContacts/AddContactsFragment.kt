@@ -3,10 +3,10 @@ package com.dalisyron.companion.ui.addContacts
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Parcelable
 import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -65,6 +65,11 @@ class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemC
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val anim = ViewAnimationUtils.createCircularReveal(view, 0.toInt(),
+            0.toInt(),0.toFloat(),2000.toFloat())
+        anim.duration = 1000
+        anim.start()
 
         if (ActivityCompat.checkSelfPermission(this.requireContext(), Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED){

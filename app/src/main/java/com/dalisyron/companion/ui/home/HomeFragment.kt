@@ -1,42 +1,17 @@
 package com.dalisyron.companion.ui.home
 
-import android.content.Intent
-import android.media.MediaPlayer
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.*
-import android.widget.VideoView
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.dalisyron.companion.R
-import com.dalisyron.companion.ui.login.LoginFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.android.support.DaggerFragment
-import android.view.animation.AccelerateInterpolator
 import android.view.ViewAnimationUtils
-import android.animation.Animator
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import android.app.Activity
-import android.animation.AnimatorListenerAdapter
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import android.annotation.TargetApi
 import android.content.ContentValues.TAG
 import android.util.Log
-import android.util.Printer
-import android.view.View.OnLayoutChangeListener
-import androidx.annotation.IntegerRes
 import com.dalisyron.companion.ui.addContacts.AddContactsFragment
-import com.dalisyron.companion.ui.contacts.ContactsFragment
 import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginBottom
-import androidx.core.view.marginRight
-import com.tfighiera.revealactivity.RevealCircleAnimatorHelper
 
 
 class HomeFragment : DaggerFragment(), HomeContract.View {
@@ -78,10 +53,10 @@ class HomeFragment : DaggerFragment(), HomeContract.View {
         val lineStartX = x
         val lineStartY = y
 
-        val sda = ViewAnimationUtils.createCircularReveal(view, lineStartX.toInt(),
+        val anim = ViewAnimationUtils.createCircularReveal(view, lineStartX.toInt(),
             lineStartY.toInt(),0.toFloat(),2000.toFloat())
-        sda.duration = 1000
-        sda.start()
+        anim.duration = 1000
+        anim.start()
 
         presenter.view = this
 

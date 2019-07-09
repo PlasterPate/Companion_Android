@@ -2,12 +2,9 @@ package com.dalisyron.companion.ui.helpeeStatus
 
 import android.Manifest
 import android.animation.Animator
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -20,7 +17,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.Animation
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -29,20 +25,12 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.android.synthetic.main.dialog_ping.*
 import kotlinx.android.synthetic.main.fragment_helpee_status.*
-import kotlinx.android.synthetic.main.fragment_new_trip.*
-import kotlinx.android.synthetic.main.fragment_new_trip.mapView
-import kotlinx.android.synthetic.main.fragment_search.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.*
-import com.dalisyron.companion.ui.home.HomeFragment
 import com.google.android.gms.maps.MapView
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.circularreveal.cardview.CircularRevealCardView
-import kotlinx.android.synthetic.main.fragment_helpee_status.*
-import kotlinx.android.synthetic.main.fragment_new_trip.mapView
 
 
 class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
@@ -107,6 +95,10 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
         mapView = view.findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
 
+        val anim = ViewAnimationUtils.createCircularReveal(view, 0.toInt(),
+            0.toInt(),0.toFloat(),2000.toFloat())
+        anim.duration = 1000
+        anim.start()
 
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -124,13 +116,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
 
         val fab = view.findViewById(R.id.companion_button) as ImageButton
 
-        val fabLocations = IntArray(2)
-        val emergency = view.findViewById(R.id.emergency_button) as MaterialButton
-
         val asd = view.findViewById(R.id.companion_panel) as CircularRevealCardView
-        val obj = ObjectAnimator.ofFloat(fab, "translationX", ((asd.left + asd.right) / 2).toFloat())
-        val obj1 = ObjectAnimator.ofFloat(fab, "translationY", fabLocations[0].toFloat())
-
 
         val constraintSet1 = ConstraintSet()
         constraintSet1.clone(sceneRoot)
