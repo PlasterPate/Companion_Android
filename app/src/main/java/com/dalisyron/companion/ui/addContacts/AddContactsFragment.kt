@@ -54,6 +54,15 @@ class AddContactsFragment : Fragment(), AddContactsContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        println("heeeeeeeeeeeeeeeeey")
+        println(presenter.normalizePhoneNumber("+989364140483"))
+        println(presenter.normalizePhoneNumber("09364140483"))
+        println(presenter.normalizePhoneNumber("9364140483"))
+        println(presenter.normalizePhoneNumber("989364140483"))
+        println(presenter.normalizePhoneNumber("00989364140483"))
+        println(presenter.normalizePhoneNumber("98-936-414-0483"))
+        println("duuuuuuuuuuuude")
+
         if (ActivityCompat.checkSelfPermission(this.requireContext(), Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED){
 
