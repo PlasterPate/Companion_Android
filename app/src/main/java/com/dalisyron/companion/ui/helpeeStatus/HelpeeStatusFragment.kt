@@ -17,11 +17,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
 import android.view.*
-import android.widget.RelativeLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.dalisyron.companion.R
@@ -119,7 +116,7 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
             presenter.onEmergencyButtonClicked()
         }
 
-        val fab = view.findViewById(R.id.companion_button) as FloatingActionButton
+        val fab = view.findViewById(R.id.companion_button) as ImageButton
 
         val fabLocations = IntArray(2)
         val emergency = view.findViewById(R.id.emergency_button) as MaterialButton
@@ -143,8 +140,9 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
                 changed = !changed
                 if (changed) {
                     asd.visibility = View.VISIBLE
-                } else
+                } else {
                     asd.visibility = View.INVISIBLE
+                }
             }
         })
     }
