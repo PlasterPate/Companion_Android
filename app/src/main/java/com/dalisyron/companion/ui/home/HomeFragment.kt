@@ -24,8 +24,12 @@ import android.opengl.ETC1.getHeight
 import android.opengl.ETC1.getWidth
 import android.annotation.TargetApi
 import android.view.View.OnLayoutChangeListener
+<<<<<<< HEAD
+import com.dalisyron.companion.ui.companionStatus.CompanionStatusFragment
+=======
 import com.dalisyron.companion.ui.addContacts.AddContactsFragment
 import com.dalisyron.companion.ui.contacts.ContactsFragment
+>>>>>>> 2086b4ff76402bb8a1b7abb2d1c1208f46991e29
 import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
