@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.dalisyron.companion.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapsInitializer
@@ -23,15 +22,15 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.view.ViewAnimationUtils
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import com.dalisyron.companion.ui.helpeeStatus.HelpeeStatusFragment
+import com.dalisyron.companion.ui.search.SearchFragment
 import com.dalisyron.companion.ui.addContacts.AddContactsFragment
 import com.dalisyron.companion.ui.addContacts.AddContactsFragment.Companion.CONTACT_KEY
-import com.dalisyron.companion.ui.search.SearchFragment
 import com.dalisyron.data.model.ContactEntity
-import com.google.android.gms.common.util.WorkSourceUtil
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
 import dagger.android.support.DaggerFragment
@@ -73,6 +72,11 @@ class NewTripFragment : DaggerFragment(), NewTripContract.View {
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val anim = ViewAnimationUtils.createCircularReveal(view, this.arguments!!.getFloat("x").toInt(),
+            this.arguments!!.getFloat("y").toInt(),0.toFloat(),2000.toFloat())
+        anim.duration = 1200
+        anim.start()
 
         presenter.view = this
 
@@ -128,7 +132,6 @@ class NewTripFragment : DaggerFragment(), NewTripContract.View {
             }
 
         }
-
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -239,9 +242,8 @@ class NewTripFragment : DaggerFragment(), NewTripContract.View {
     override fun moveCamera(position : LatLng) {
 
         mapView.getMapAsync { googleMap ->
-            val cameraPosition = CameraPosition.Builder().target(position).zoom(15f).build()
+            val cameraPosition = CameraPosition.Builder().target(position).zoom(16f).build()
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-
         }
     }
 
@@ -264,6 +266,17 @@ class NewTripFragment : DaggerFragment(), NewTripContract.View {
             ?.commit()
     }
 
+    override fun navigateToHelpeeStatus() {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.content_frame, HelpeeStatusFragment())
+            ?.addToBackStack("HelpeeStatusFromNewTrip")?.commit()
+    }
+
+//    private val presenter: NewTripPresenter by lazy {
+//        NewTripPresenter().apply {
+//            view = this@NewTripFragment
+//        }
+//    }
     @Inject
     lateinit var presenter : NewTripPresenter
 
@@ -353,6 +366,14 @@ class NewTripFragment : DaggerFragment(), NewTripContract.View {
                 arguments = Bundle().apply {
                     putParcelable(LATLNG_KEY, latLng)
                 }
+            }
+        }
+        fun newInstance(x:Float,y:Float) : NewTripFragment{
+            return NewTripFragment().apply {
+                val bundle = Bundle()
+                bundle.putFloat("x",x)
+                bundle.putFloat("y",y)
+                arguments = bundle
             }
         }
     }

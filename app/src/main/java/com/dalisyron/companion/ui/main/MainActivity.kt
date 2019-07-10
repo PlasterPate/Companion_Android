@@ -2,6 +2,7 @@ package com.dalisyron.companion.ui.main
 
 import android.os.Bundle
 import com.dalisyron.companion.R
+import com.dalisyron.companion.ui.helpeeStatus.HelpeeStatusFragment
 import com.dalisyron.companion.ui.companionStatus.CompanionStatusFragment
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.login.LoginFragment

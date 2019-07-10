@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/sceneRoot">
+
+    <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/emergency_button"
+            style="@style/Button"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:text="@string/emergency"
+            app:cornerRadius="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/yekan"
+            android:backgroundTint="@color/DarkRed"
+            android:layout_gravity="center|center_vertical"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"/>
+
+    <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/companion_button"
+            android:scaleType="centerInside"
+            android:translationZ="5dp"
+            android:background="@drawable/roundedbutton"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/no_picture"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/mapView"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/companion_panel"
+            />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/companion_name"
+            android:textColor="@color/White"
+            android:text="تامی شلبی"
+            android:textSize="16dp"
+            android:fontFamily="@font/yekan"
+            android:translationZ="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/companion_button"
+            app:layout_constraintEnd_toStartOf="@+id/companion_button"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/companion_panel"
+            app:layout_constraintStart_toStartOf="@+id/companion_panel"
+            android:layout_marginStart="8dp"
+            android:visibility="invisible"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/companion_phone_number"
+            android:textColor="@color/White"
+            android:text="09131330705"
+            android:textSize="16dp"
+            android:fontFamily="@font/yekan"
+            android:translationZ="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/companion_panel"
+            app:layout_constraintBottom_toBottomOf="@+id/companion_panel"
+            app:layout_constraintStart_toEndOf="@+id/companion_button"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@+id/companion_panel"
+            android:visibility="invisible"/>
+
+
+    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            app:cardCornerRadius="48dp"
+            android:visibility="invisible"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:backgroundTint="@color/black_theme2"
+            android:id="@+id/companion_panel"
+            app:layout_constraintBottom_toTopOf="@+id/emergency_button"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

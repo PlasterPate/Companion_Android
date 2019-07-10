@@ -7,7 +7,10 @@
                                                    android:background="@color/twitterBlue"
                                                    android:orientation="vertical"
                                                    android:layout_gravity="center|center_vertical"
-                                                   android:id="@+id/register_fragment">
+                                                   android:id="@+id/register_constraint"
+                                                   android:focusable="true"
+                                                   android:focusableInTouchMode="true"
+                                                   android:clickable="true">
 
     <VideoView
             android:layout_width="match_parent"
@@ -141,8 +144,8 @@
                         android:id="@+id/signup_password_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textVisiblePassword"
                         android:textColor="@color/White"
+                        android:inputType="textVisiblePassword"
                         android:textColorHint="@color/White"
                         android:backgroundTint="@color/White"
                         android:fontFamily="@font/yekan"/>
@@ -163,8 +166,8 @@
                         android:id="@+id/repeat_password_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textVisiblePassword"
                         android:textColor="@color/White"
+                        android:inputType="textVisiblePassword"
                         android:textColorHint="@color/White"
                         android:backgroundTint="@color/White"
                         android:fontFamily="@font/yekan"/>
