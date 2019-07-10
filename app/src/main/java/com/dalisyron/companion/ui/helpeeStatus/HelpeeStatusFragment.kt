@@ -148,9 +148,9 @@ class HelpeeStatusFragment : Fragment(), HelpeeStatusContract.view {
         })
 
         val companionEntity = CompanionEntity(
-            name = "Mobin",
+            name = "Mohammad",
             phoneNumber = "09334537343",
-            imageSource = "https://static.kikojas.com//assets//places//d7//07//dad4435841_tiny.jpg"
+            imageSource = "http://s8.picofile.com/file/8366209684/Mamad_pro.png"
         )
         presenter.onViewCreated(companionEntity)
     }

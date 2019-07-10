@@ -9,27 +9,23 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dalisyron.companion.R
 import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import com.dalisyron.data.model.ContactEntity
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_add_contacts.*
+import javax.inject.Inject
 
-class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemClickListener {
+class AddContactsFragment : DaggerFragment(), AddContactsContract.View, OnContactItemClickListener {
 
-    override fun navigateToNewTrip(contactEntity: ContactEntity) {
-        fragmentManager?.let {
-            it.beginTransaction().replace(R.id.content_frame, NewTripFragment.newInstance(contactEntity)).commit()
-        }
-    }
+    @Inject
+    lateinit var presenter : AddContactsPresenter
 
-    override fun onItemClicked(contactEntity: ContactEntity) {
-        presenter.onContactItemClicked(contactEntity)
-    }
-
-    override fun showContacts() {
+    override fun getContacts(): List<ContactEntity> {
         val contactsList : ArrayList<ContactEntity> = ArrayList()
         val cursor = this.activity?.contentResolver?.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
             null, null, null, null)
@@ -42,22 +38,29 @@ class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemC
             }
             cursor.close()
         }
+        return contactsList
+    }
 
-        val adapter = ContactsAdapter(contactsList).apply {
-            onContactItemClickListener = this@AddContactsFragment
+    override fun navigateToNewTrip(contactEntity: ContactEntity) {
+        fragmentManager?.let {
+            it.beginTransaction().replace(R.id.content_frame, NewTripFragment.newInstance(contactEntity)).commit()
         }
+    }
 
-        add_contacts_recycler_view.adapter = adapter
-        add_contacts_recycler_view.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+    override fun onItemClicked(contactEntity: ContactEntity) {
+        presenter.onContactItemClicked(contactEntity)
+    }
+
+    override fun addContact(contactEntity: ContactEntity) {
+        (add_contacts_recycler_view.adapter as ContactsAdapter).addItem(contactEntity)
+    }
+
+    override fun showContacts(contactsList : List<ContactEntity>) {
+
     }
 
     val REQUEST_CONTACT_CODE = 1
 
-    private val presenter: AddContactsPresenter by lazy {
-        AddContactsPresenter().apply {
-            view = this@AddContactsFragment
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_add_contacts, container, false)
@@ -65,6 +68,11 @@ class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemC
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.view = this
+        add_contacts_recycler_view.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+        add_contacts_recycler_view.adapter = ContactsAdapter(arrayListOf()).apply {
+            onContactItemClickListener = this@AddContactsFragment
+        }
 
         val anim = ViewAnimationUtils.createCircularReveal(view, 0.toInt(),
             0.toInt(),0.toFloat(),2000.toFloat())
@@ -73,18 +81,19 @@ class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemC
 
         if (ActivityCompat.checkSelfPermission(this.requireContext(), Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED){
-
-            ActivityCompat.requestPermissions(this.requireActivity(),
-                arrayOf<String>(Manifest.permission.READ_CONTACTS),
-                REQUEST_CONTACT_CODE)
+            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_CONTACT_CODE)
         }else{
             presenter.onFetchContacts()
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == REQUEST_CONTACT_CODE)
-            presenter.onFetchContacts()
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CONTACT_CODE) {
+            if (grantResults.size > 0) {
+                presenter.onFetchContacts()
+            }
+        }
     }
 
     companion object {

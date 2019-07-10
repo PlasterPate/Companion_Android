@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-
         <domain includeSubdomains="true">194.225.229.210</domain>
+        <domain includeSubdomains="true">sauleh.github.io</domain>
+        <domain includeSubdomains="true">s8.picofile.com</domain>
+
 
     </domain-config>
 </network-security-config>
