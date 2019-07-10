@@ -61,6 +61,16 @@ fun TripResponseDto.toTripResponseEntity() : TripResponseEntity {
     )
 }
 
+fun UserResponseDto.toUserEntity() : UserEntity {
+    return UserEntity(
+        firstName = firstName,
+        lastName = lastName,
+        avatar = avatar,
+        username = username,
+        id = id
+    )
+}
+
 fun LatLngEntity.toLatLngDto() : LatLngDto {
     return LatLngDto(
         lat = lat,

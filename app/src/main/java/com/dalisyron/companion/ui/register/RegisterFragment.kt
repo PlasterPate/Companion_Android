@@ -91,11 +91,11 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
         mVideoView.setOnPreparedListener(MediaPlayer.OnPreparedListener { mediaPlayer -> mediaPlayer.isLooping = true })
 
-        password = view.findViewById(R.id.password_edit_text)
+        password = view.findViewById(R.id.signup_password_edit_text)
         password.typeface = Typeface.DEFAULT
         password.transformationMethod = PasswordTransformationMethod()
 
-        repeat_password = view.findViewById(R.id.password_edit_text)
+        repeat_password = view.findViewById(R.id.repeat_password_edit_text)
         repeat_password.typeface = Typeface.DEFAULT
         repeat_password.transformationMethod = PasswordTransformationMethod()
         setRegisterButtonRadius()

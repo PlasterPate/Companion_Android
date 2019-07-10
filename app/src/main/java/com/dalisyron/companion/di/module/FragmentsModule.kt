@@ -1,5 +1,6 @@
 package com.dalisyron.companion.di.module
 
+import com.dalisyron.companion.ui.addContacts.AddContactsFragment
 import com.dalisyron.companion.ui.home.HomeFragment
 import com.dalisyron.companion.ui.login.LoginFragment
 import com.dalisyron.companion.ui.newtrip.NewTripFragment
@@ -25,4 +26,9 @@ abstract class FragmentsModule {
 
     @ContributesAndroidInjector
     abstract fun newTripFragment() : NewTripFragment
+
+    @ContributesAndroidInjector
+    abstract fun addContactsFragment() : AddContactsFragment
+
+
 }

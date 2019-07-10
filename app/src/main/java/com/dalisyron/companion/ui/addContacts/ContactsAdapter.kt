@@ -16,6 +16,11 @@ class ContactsAdapter(val contactsList : ArrayList<ContactEntity>) : RecyclerVie
         return contactsList.size
     }
 
+    fun addItem(contactEntity: ContactEntity) {
+        contactsList.add(contactEntity)
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: ContactsAdapter.ViewHolder, position: Int) {
         holder.bindItem(contactsList[position], onContactItemClickListener)
     }

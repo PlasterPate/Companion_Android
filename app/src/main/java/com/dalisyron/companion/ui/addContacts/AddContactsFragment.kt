@@ -16,21 +16,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dalisyron.companion.R
 import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import com.dalisyron.data.model.ContactEntity
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_add_contacts.*
+import javax.inject.Inject
 
-class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemClickListener {
+class AddContactsFragment : DaggerFragment(), AddContactsContract.View, OnContactItemClickListener {
 
-    override fun navigateToNewTrip(contactEntity: ContactEntity) {
-        fragmentManager?.let {
-            it.beginTransaction().replace(R.id.content_frame, NewTripFragment.newInstance(contactEntity)).commit()
-        }
-    }
+    @Inject
+    lateinit var presenter : AddContactsPresenter
 
-    override fun onItemClicked(contactEntity: ContactEntity) {
-        presenter.onContactItemClicked(contactEntity)
-    }
-
-    override fun showContacts() {
+    override fun getContacts(): List<ContactEntity> {
         val contactsList : ArrayList<ContactEntity> = ArrayList()
         val cursor = this.activity?.contentResolver?.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
             null, null, null, null)
@@ -43,22 +38,29 @@ class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemC
             }
             cursor.close()
         }
+        return contactsList
+    }
 
-        val adapter = ContactsAdapter(contactsList).apply {
-            onContactItemClickListener = this@AddContactsFragment
+    override fun navigateToNewTrip(contactEntity: ContactEntity) {
+        fragmentManager?.let {
+            it.beginTransaction().replace(R.id.content_frame, NewTripFragment.newInstance(contactEntity)).commit()
         }
+    }
 
-        add_contacts_recycler_view.adapter = adapter
-        add_contacts_recycler_view.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+    override fun onItemClicked(contactEntity: ContactEntity) {
+        presenter.onContactItemClicked(contactEntity)
+    }
+
+    override fun addContact(contactEntity: ContactEntity) {
+        (add_contacts_recycler_view.adapter as ContactsAdapter).addItem(contactEntity)
+    }
+
+    override fun showContacts(contactsList : List<ContactEntity>) {
+
     }
 
     val REQUEST_CONTACT_CODE = 1
 
-    private val presenter: AddContactsPresenter by lazy {
-        AddContactsPresenter().apply {
-            view = this@AddContactsFragment
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_add_contacts, container, false)
@@ -66,6 +68,12 @@ class AddContactsFragment : Fragment(), AddContactsContract.View, OnContactItemC
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.view = this
+        add_contacts_recycler_view.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+        add_contacts_recycler_view.adapter = ContactsAdapter(arrayListOf()).apply {
+            onContactItemClickListener = this@AddContactsFragment
+        }
+
 
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
