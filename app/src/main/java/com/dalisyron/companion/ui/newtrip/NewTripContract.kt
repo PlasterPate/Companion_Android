@@ -20,6 +20,7 @@ interface NewTripContract {
         fun zoomPlace()
         fun moveCamera(position : LatLng)
         fun navigateToSearchFragment()
+        fun navigateToHelpeeStatus()
         fun showTripCreatedMessage(message : String)
         fun getSource() : LatLng
         fun getDestination() : LatLng

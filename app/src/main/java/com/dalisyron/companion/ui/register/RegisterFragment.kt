@@ -1,5 +1,6 @@
 package com.dalisyron.companion.ui.register
 
+import android.app.Activity
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Typeface
@@ -9,11 +10,15 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import android.widget.VideoView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.dalisyron.companion.R
 import com.dalisyron.companion.ui.home.HomeFragment
+import com.dalisyron.companion.ui.login.LoginFragment
 import com.google.android.material.textfield.TextInputEditText
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -22,7 +27,9 @@ import javax.inject.Inject
 class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
     @Inject
-    lateinit var presenter : RegisterPresenter
+    lateinit var presenter: RegisterPresenter
+    lateinit var password: TextInputEditText
+    lateinit var repeat_password: TextInputEditText
 
     override fun showError(error: String) {
         Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
@@ -57,7 +64,10 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
     }
 
     override fun doneRegisterButtonSuccess() {
-        register_button.doneLoadingAnimation(Color.parseColor("#008000"),BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
+        register_button.doneLoadingAnimation(
+            Color.parseColor("#008000"),
+            BitmapFactory.decodeResource(resources, R.drawable.ic_done_white_48dp)
+        )
     }
 
     override fun setRegisterButtonRadius() {
@@ -69,8 +79,6 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
             ?.addToBackStack("HomeFromRegister")?.commit()
     }
 
-    lateinit var password : TextInputEditText
-    lateinit var repeat_password : TextInputEditText
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_register, container, false)
@@ -79,6 +87,13 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
     @Override
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val anim = ViewAnimationUtils.createCircularReveal(
+            view, 0.toInt(),
+            0.toInt(), 0.toFloat(), 2000.toFloat()
+        )
+        anim.duration = 1000
+        anim.start()
 
         presenter.view = this
 
@@ -102,9 +117,18 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
         setRegisterButtonRadius()
 
+        val register = view.findViewById(R.id.register_constraint) as ConstraintLayout
+
+        register.setOnFocusChangeListener { x, hasFocus -> view.hideKeyboard() }
+
         register_button.setOnClickListener {
             register_button.startAnimation()
             presenter.onRegisterButtonClicked()
         }
+    }
+
+    public fun View.hideKeyboard() {
+        val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
     }
 }

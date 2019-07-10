@@ -1,5 +1,6 @@
 package com.dalisyron.companion.ui.login
 
+import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
 import android.widget.VideoView
@@ -18,6 +19,9 @@ import com.dalisyron.companion.ui.register.RegisterFragment
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
+import android.view.inputmethod.InputMethodManager
+import androidx.constraintlayout.widget.ConstraintLayout
+import android.R.attr.password
 
 
 class LoginFragment : DaggerFragment(), LoginContract.View {
@@ -78,6 +82,11 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val anim = ViewAnimationUtils.createCircularReveal(view, 0.toInt(),
+            0.toInt(),0.toFloat(),2000.toFloat())
+        anim.duration = 1000
+        anim.start()
+
         presenter.view = this
 
         registerTextView.setOnClickListener {
@@ -105,6 +114,11 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
             startLoginButtonAnimation()
             presenter.onLoginButtonClicked()
         }
+
+        val login = view.findViewById(R.id.login_constraint) as ConstraintLayout
+
+        login.setOnFocusChangeListener { x, hasFocus ->  view.hideKeyboard()}
+
         /*
         btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -155,7 +169,9 @@ class LoginFragment : DaggerFragment(), LoginContract.View {
 //                morphbtn.setState(MorphButton.MorphState.START, true)
 //            }
 //        })
-
-
+    }
+    public fun View.hideKeyboard(){
+        val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
     }
 }

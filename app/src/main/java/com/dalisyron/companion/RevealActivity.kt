@@ -36,7 +36,7 @@ class RevealActivity : AppCompatActivity() {
 
         RevealCircleAnimatorHelper
                 .create(this)
-            .start(home_fragment,R.color.black_theme2,R.color.yellow_theme2)
+            .start(home_constraint,R.color.black_theme2,R.color.yellow_theme2)
         setShowFragmentButton()
     }
 

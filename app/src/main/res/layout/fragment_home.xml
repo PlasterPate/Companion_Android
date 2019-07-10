@@ -5,21 +5,12 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:background="@color/black_theme2"
-                                                   android:id="@+id/home_fragment"
+                                                   android:id="@+id/home_constraint"
                                                    tools:context=".ui.main.MainActivity"
-        android:theme="@style/AppTheme.Transparent">
+                                                   android:theme="@style/AppTheme.Transparent"
+                                                   app:layout_constrainedWidth="true"
+                                                   app:layout_constrainedHeight="true">
 
-
-    <!--<VideoView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:id="@+id/home_video_view"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintHorizontal_bias="0.0"-->
-    <!--app:layout_constraintVertical_bias="0.0"/>-->
 
     <com.google.android.material.button.MaterialButton
             android:id="@+id/watching_trips"
@@ -28,6 +19,7 @@
             android:layout_height="72dp"
             android:text="@string/watching_trips"
             app:cornerRadius="16dp"
+            android:fontFamily="@font/yekan"
             android:textColor="@color/Black"
             android:layout_gravity="center"
             android:layout_margin="8dp"
@@ -65,6 +57,7 @@
                 android:backgroundTint="@color/black_theme2"
                 app:srcCompat="@drawable/ic_update"
                 android:clickable="true"
+                android:tint="@color/fab_tint"
                 android:elevation="12dp"
                 app:maxImageSize="45dp"
                 app:fabCustomSize="90dp"
@@ -92,6 +85,7 @@
                 android:outlineAmbientShadowColor="@android:color/black"
                 android:backgroundTint="@color/black_theme2"
                 app:backgroundTint="@color/ripple_color"
+                android:tint="@color/fab_tint"
                 app:srcCompat="@drawable/ic_people"
                 android:clickable="true"
                 android:elevation="12dp"
@@ -118,6 +112,7 @@
                 android:outlineSpotShadowColor="@android:color/black"
                 android:backgroundTint="@color/black_theme2"
                 app:backgroundTint="@color/ripple_color"
+                android:tint="@color/fab_tint"
                 app:srcCompat="@drawable/ic_list"
                 android:clickable="true"
                 android:elevation="12dp"
@@ -138,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fabCustomSize="180dp"
-            app:srcCompat="@color/fab_icon"
+            app:srcCompat="@drawable/ic_add"
             app:borderWidth="1dp"
             android:outlineAmbientShadowColor="@android:color/black"
             android:outlineSpotShadowColor="@android:color/black"
