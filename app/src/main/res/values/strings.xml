@@ -17,5 +17,6 @@
     <string name="emergency">وضعیت اضطراری</string>
     <string name="call">تماس</string>
     <string name="emergency_toast">وضعیت شما اطلاع داده شد</string>
+    <string name="ping">پینگ</string>
     <string name="add_contact">اضافه کردن</string>
 </resources>
