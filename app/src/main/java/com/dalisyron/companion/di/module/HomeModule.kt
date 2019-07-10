@@ -23,11 +23,4 @@ class HomeModule {
         return UserLocalDataSourceImpl(sharedPreferences)
     }
 
-    @Provides
-    fun providesUserRepository(
-        userRemoteDataSource: UserRemoteDataSource,
-        userLocalDataSource: UserLocalDataSource
-    ): UserRepository {
-        return UserRepository(userRemoteDataSource, userLocalDataSource)
-    }
 }

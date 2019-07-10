@@ -24,32 +24,30 @@ import android.opengl.ETC1.getHeight
 import android.opengl.ETC1.getWidth
 import android.annotation.TargetApi
 import android.view.View.OnLayoutChangeListener
+<<<<<<< HEAD
 import com.dalisyron.companion.ui.companionStatus.CompanionStatusFragment
+=======
+import com.dalisyron.companion.ui.addContacts.AddContactsFragment
+import com.dalisyron.companion.ui.contacts.ContactsFragment
+>>>>>>> 2086b4ff76402bb8a1b7abb2d1c1208f46991e29
 import com.dalisyron.companion.ui.newtrip.NewTripFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 
 class HomeFragment : DaggerFragment(), HomeContract.View {
-
     @Inject
     lateinit var presenter : HomePresenter
-
-    override fun navigateToNewTrip() {
-        fragmentManager?.beginTransaction()?.replace(R.id.content_frame, NewTripFragment())?.
-            addToBackStack("NewTripFromHome")?.commit()
-    }
 
     lateinit var rootLayout: View
 
     private var revealX: Int = 0
+
     private var revealY: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
-
-
     @Override
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,6 +56,10 @@ class HomeFragment : DaggerFragment(), HomeContract.View {
 
         new_trip.setOnClickListener {
             presenter.onNewTripButtonClicked()
+        }
+
+        manage_companions.setOnClickListener {
+            presenter.onManageContactsClicked()
         }
 //        val mVideoView = view.findViewById(R.id.home_video_view) as VideoView
 //
@@ -70,5 +72,15 @@ class HomeFragment : DaggerFragment(), HomeContract.View {
         val addButton = view.findViewById(R.id.new_trip) as FloatingActionButton
 
 //        addButton.setOnFocusChangeListener(View.OnFocusChangeListener {view , addButton -> addButton.setImageDrawable(R.drawable.ic_list)})
+    }
+
+    override fun navigateToNewTrip() {
+        fragmentManager?.beginTransaction()?.replace(R.id.content_frame, NewTripFragment())?.
+            addToBackStack("NewTripFromHome")?.commit()
+    }
+
+    override fun navigateToContacts() {
+        fragmentManager?.beginTransaction()?.replace(R.id.content_frame, AddContactsFragment())?.
+            addToBackStack("AddContactsFromHome")?.commit()
     }
 }
