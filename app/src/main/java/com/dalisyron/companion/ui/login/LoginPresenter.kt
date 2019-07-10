@@ -24,7 +24,8 @@ class LoginPresenter @Inject constructor(val userRepository: UserRepository) : L
         val userLoginItemEntity = UserLoginItemEntity(userName, password)
 
         if (isLoginInfoValid(userLoginItemEntity)) {
-            userRepository.login(userLoginItemEntity).subscribeOn(Schedulers.io())
+            userRepository.login(userLoginItemEntity)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { userLoginResponseEntity ->
@@ -32,6 +33,8 @@ class LoginPresenter @Inject constructor(val userRepository: UserRepository) : L
                         view.navigateToHome()
                     },
                     { throwable ->
+                        view.stopLoginButtonAnimation()
+                        view.setLoginButtonRadius()
                         view.showError(throwable.message?:"")
                     }
                 )

@@ -17,15 +17,12 @@ import com.dalisyron.companion.ui.home.HomeFragment
 import com.google.android.material.textfield.TextInputEditText
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_register.*
-import org.w3c.dom.Text
 import javax.inject.Inject
 
 class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
     @Inject
     lateinit var presenter : RegisterPresenter
-    lateinit var password : TextInputEditText
-    lateinit var repeat_password : TextInputEditText
 
     override fun showError(error: String) {
         Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
@@ -72,6 +69,9 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
             ?.addToBackStack("HomeFromRegister")?.commit()
     }
 
+    lateinit var password : TextInputEditText
+    lateinit var repeat_password : TextInputEditText
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
@@ -98,6 +98,8 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
         repeat_password = view.findViewById(R.id.repeat_password_edit_text)
         repeat_password.typeface = Typeface.DEFAULT
         repeat_password.transformationMethod = PasswordTransformationMethod()
+
+
         setRegisterButtonRadius()
 
         register_button.setOnClickListener {
