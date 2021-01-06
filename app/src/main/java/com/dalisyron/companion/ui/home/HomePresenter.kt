@@ -13,4 +13,8 @@ class HomePresenter @Inject constructor() : HomeContract.Presenter {
     override fun onManageContactsClicked() {
         view.navigateToContacts()
     }
+
+    override fun onCompanionStatusClicked() {
+        view.navigateToCompanionStatus()
+    }
 }

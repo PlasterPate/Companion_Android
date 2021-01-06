@@ -34,9 +34,11 @@ class RegisterPresenter @Inject constructor(val userRepository: UserRepository) 
                     view.doneRegisterButtonSuccess()
                     view.navigateToHome()
                 }, { throwable ->
-                    view.stopRegisterButtonAnimation()
-                    view.setRegisterButtonRadius()
-                    view.showError(throwable.message?:"")
+                    view.doneRegisterButtonSuccess()                // Mock code
+                    view.navigateToHome()                           // Mock code
+//                    view.stopRegisterButtonAnimation()            // Correct code
+//                    view.setRegisterButtonRadius()                // Correct code
+//                    view.showError(throwable.message?:"")         // Correct code
                 })
         } else {
             view.stopRegisterButtonAnimation()
@@ -46,10 +48,11 @@ class RegisterPresenter @Inject constructor(val userRepository: UserRepository) 
     }
 
     fun validateRegisterInfo(userRegisterItemEntity: UserRegisterItemEntity) : Boolean {
-        return with(userRegisterItemEntity) {
-            username.isNotEmpty() && password.isNotEmpty() && firstName.isNotEmpty() && lastName.isNotEmpty()
-                    && username.all { it.isDigit() } && password.length > 4
-        }
+        return true                                                 // Mock code
+//        return with(userRegisterItemEntity) {                     // Correct code
+//            username.isNotEmpty() && password.isNotEmpty() && firstName.isNotEmpty() && lastName.isNotEmpty()
+//                    && username.all { it.isDigit() } && password.length > 4
+//        }
     }
 
 

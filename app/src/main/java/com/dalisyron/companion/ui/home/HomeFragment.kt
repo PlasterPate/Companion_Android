@@ -78,6 +78,10 @@ class HomeFragment : DaggerFragment(), HomeContract.View {
         manage_companions.setOnClickListener {
             presenter.onManageContactsClicked()
         }
+
+        watching_trips.setOnClickListener {
+            presenter.onCompanionStatusClicked()
+        }
     }
 
     override fun navigateToNewTrip() {
@@ -93,5 +97,10 @@ class HomeFragment : DaggerFragment(), HomeContract.View {
     override fun navigateToContacts() {
         fragmentManager?.beginTransaction()?.replace(R.id.content_frame, AddContactsFragment())?.
             addToBackStack("AddContactsFromHome")?.commit()
+    }
+
+    override fun navigateToCompanionStatus() {
+        fragmentManager?.beginTransaction()?.replace(R.id.content_frame, CompanionStatusFragment())?.
+            addToBackStack("CompanionStatusFromHome")?.commit()
     }
 }

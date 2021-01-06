@@ -23,6 +23,8 @@ class LoginPresenter @Inject constructor(val userRepository: UserRepository) : L
 
         val userLoginItemEntity = UserLoginItemEntity(userName, password)
 
+
+
         if (isLoginInfoValid(userLoginItemEntity)) {
             userRepository.login(userLoginItemEntity)
                 .subscribeOn(Schedulers.io())
@@ -33,16 +35,21 @@ class LoginPresenter @Inject constructor(val userRepository: UserRepository) : L
                         view.navigateToHome()
                     },
                     { throwable ->
-                        view.stopLoginButtonAnimation()
-                        view.setLoginButtonRadius()
-                        view.showError(throwable.message?:"")
+                        view.doneLoginButtonSuccess()               // Mock code
+                        view.navigateToHome()                       // Mock code
+
+//                        view.stopLoginButtonAnimation()           // Correct code
+//                        view.setLoginButtonRadius()               // Correct code
+//                        view.showError(throwable.message?:"")     // Correct code
                     }
                 )
         }
+
     }
 
     fun isLoginInfoValid(userLoginItemEntity: UserLoginItemEntity): Boolean {
-        return (userLoginItemEntity.password.isNotEmpty())
-                && (userLoginItemEntity.username.isNotEmpty())
+        return true                                                     // Mock code
+//        return (userLoginItemEntity.password.isNotEmpty())            // Correct code
+//                && (userLoginItemEntity.username.isNotEmpty())
     }
 }
